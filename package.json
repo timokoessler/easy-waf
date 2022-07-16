@@ -1,0 +1,36 @@
+{
+  "name": "easy-waf",
+  "version": "0.0.1",
+  "description": "An easy-to-use Web Application Firewall (WAF) for the NodeJS Express framework that can be used with an IPS like CrowdSec",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/timokoessler/easy-waf.git"
+  },
+  "keywords": [
+    "WAF",
+    "NodeJS",
+    "Express",
+    "CrowdSec",
+    "Security"
+  ],
+  "author": "Timo Kössler",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/timokoessler/easy-waf/issues"
+  },
+  "homepage": "https://github.com/timokoessler/easy-waf#readme",
+  "private": true,
+  "devDependencies": {
+    "eslint": "^8.19.0"
+  },
+  "dependencies": {
+    "express": "^4.18.1"
+  },
+  "engines": {
+    "node": ">=16"
+  }
+}
