@@ -4,7 +4,9 @@
   "description": "An easy-to-use Web Application Firewall (WAF) for the NodeJS Express framework that can be used with an IPS like CrowdSec",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint .",
+    "precommit": "tsc && npm run lint"
   },
   "repository": {
     "type": "git",
@@ -29,6 +31,7 @@
   },
   "types": "index.d.ts",
   "devDependencies": {
+    "@types/node": "^18.0.5",
     "eslint": "^8.19.0",
     "typescript": "^4.7.4"
   },

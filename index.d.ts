@@ -5,27 +5,54 @@ declare module "logger" {
      * @param {String} msg
      */
     export function log(type: EasyWAFLogType, msg: string): void;
+    /**
+     *
+     * @param {EasyWAFModuleInfo} moduleInfo
+     * @param {import('express').Request} req
+     * @param {String} referenceID
+     */
+    export function requestBlocked(moduleInfo: EasyWAFModuleInfo, req: any, referenceID: string): void;
 }
 declare module "block" {
     export = blocked;
     /**
      *
+     * @param {import('express').Request} req
      * @param {import('express').Response} res
-     * @param {EasyWafBlockInfo} info
+     * @param {EasyWAFModuleInfo} moduleInfo
      */
-    function blocked(res: any, info: EasyWafBlockInfo): void;
+    function blocked(req: any, res: any, moduleInfo: EasyWAFModuleInfo): void;
 }
 type EasyWafConfig = {
     allowedHTTPMethods?: Array<string>;
 };
 type EasyWAFLogType = "Info" | "Warn" | "Error";
-type EasyWAFModuleName = "HTTPMethod";
-type EasyWafBlockInfo = {
-    module: EasyWAFModuleName;
-    ip: string;
-    userAgent: string;
-    path: string;
+type EasyWAFModuleInfo = {
+    name: string;
 };
+type EasyWAFModule = {
+    check: () => boolean;
+    info: () => EasyWAFModuleInfo;
+};
+declare module "modules/directoryTraversal" {
+    /**
+     *
+     * @param {import('express').Request} req
+     * @returns {Boolean} Is false when a possible security incident has been found
+     */
+    export function check(req: any): boolean;
+    export function info(): {
+        name: string;
+    };
+}
+declare module "modules/index" {
+    export const directoryTraversal: {
+        check: (req: any) => boolean;
+        info: () => {
+            name: string;
+        };
+    };
+}
 declare module "easy-waf" {
     /**
      *
