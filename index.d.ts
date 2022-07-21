@@ -34,6 +34,10 @@ type EasyWafConfig = {
      * If true, suspicious requests are only logged and not blocked. Also, the log format is changed so that an IPS does not ban the IP
      */
     dryMode?: boolean;
+    /**
+     * If true, blocked attacks are no longer logged and thus cannot be processed by an IPS and false positives cannot be traced.
+     */
+    disableRequestBlockedLogging?: boolean;
 };
 type EasyWAFLogType = "Info" | "Warn" | "Error";
 type EasyWAFModuleInfo = {
@@ -43,13 +47,17 @@ type EasyWAFModule = {
     check: () => boolean;
     info: () => EasyWAFModuleInfo;
 };
+type EasyWAFModuleCheckData = {
+    url: string;
+    body: string;
+};
 declare module "modules/directoryTraversal" {
     /**
      *
-     * @param {import('express').Request} req
+     * @param {EasyWAFModuleCheckData} data
      * @returns {Boolean} Is false when a possible security incident has been found
      */
-    export function check(req: any): boolean;
+    export function check(data: EasyWAFModuleCheckData): boolean;
     export function info(): {
         name: string;
     };
@@ -57,23 +65,23 @@ declare module "modules/directoryTraversal" {
 declare module "modules/xss" {
     /**
      *
-     * @param {import('express').Request} req
+     * @param {EasyWAFModuleCheckData} data
      * @returns {Boolean} Is false when a possible security incident has been found
      */
-    export function check(req: any): boolean;
+    export function check(data: EasyWAFModuleCheckData): boolean;
     export function info(): {
         name: string;
     };
 }
 declare module "modules/index" {
     export const directoryTraversal: {
-        check: (req: any) => boolean;
+        check: (data: EasyWAFModuleCheckData) => boolean;
         info: () => {
             name: string;
         };
     };
     export const xss: {
-        check: (req: any) => boolean;
+        check: (data: EasyWAFModuleCheckData) => boolean;
         info: () => {
             name: string;
         };
