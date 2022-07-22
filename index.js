@@ -1,1 +1,1 @@
-module.exports = require('./lib/easy-waf').EasyWaf;
+module.exports = require('./lib/easy-waf');

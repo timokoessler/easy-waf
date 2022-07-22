@@ -38,20 +38,44 @@ type EasyWafConfig = {
      * If true, blocked attacks are no longer logged and thus cannot be processed by an IPS and false positives cannot be traced.
      */
     disableRequestBlockedLogging?: boolean;
+    /**
+     * This option allows you to enable / disable modules or exclude paths with a regex
+     */
+    modules?: EasyWafConfigModules;
+};
+type EasyWafConfigModules = {
+    directoryTraversal?: EasyWafConfigModule;
+    xss?: EasyWafConfigModule;
+};
+type EasyWafConfigModule = {
+    /**
+     * Enable or disable the modul
+     */
+    enabled: boolean;
+    /**
+     * Exclude paths from the check with a regex
+     */
+    excludePaths?: RegExp;
 };
 type EasyWAFLogType = "Info" | "Warn" | "Error";
 type EasyWAFModuleInfo = {
     name: string;
 };
 type EasyWAFModule = {
-    check: () => boolean;
+    check: (arg0: EasyWAFModuleCheckData) => boolean;
     info: () => EasyWAFModuleInfo;
 };
 type EasyWAFModuleCheckData = {
     url: string;
+    path: string;
     body: string;
 };
 declare module "modules/directoryTraversal" {
+    /**
+     *
+     * @param {EasyWafConfig} conf
+     */
+    export function init(conf: EasyWafConfig): void;
     /**
      *
      * @param {EasyWAFModuleCheckData} data
@@ -65,6 +89,11 @@ declare module "modules/directoryTraversal" {
 declare module "modules/xss" {
     /**
      *
+     * @param {EasyWafConfig} conf
+     */
+    export function init(conf: EasyWafConfig): void;
+    /**
+     *
      * @param {EasyWAFModuleCheckData} data
      * @returns {Boolean} Is false when a possible security incident has been found
      */
@@ -75,12 +104,14 @@ declare module "modules/xss" {
 }
 declare module "modules/index" {
     export const directoryTraversal: {
+        init: (conf: EasyWafConfig) => void;
         check: (data: EasyWAFModuleCheckData) => boolean;
         info: () => {
             name: string;
         };
     };
     export const xss: {
+        init: (conf: EasyWafConfig) => void;
         check: (data: EasyWAFModuleCheckData) => boolean;
         info: () => {
             name: string;

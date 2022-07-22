@@ -5,6 +5,3 @@ package-lock.json
 *.log
 *.gz
 *.tgz
-
-#txt
-todo.txt
