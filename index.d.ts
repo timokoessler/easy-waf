@@ -126,4 +126,3 @@ declare module "easy-waf" {
      */
     export function EasyWaf(conf?: EasyWafConfig): Function;
 }
-//# sourceMappingURL=index.d.ts.map

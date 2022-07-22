@@ -6,7 +6,8 @@
   "scripts": {
     "test": "mocha --exit",
     "lint": "eslint .",
-    "precommit": "tsc && npm run lint"
+    "precommit": "tsc && eslint .",
+    "prepare": "git config core.hooksPath .git_hooks"
   },
   "repository": {
     "type": "git",

@@ -6,7 +6,7 @@
     "checkJs": true,
     "declaration": true,
     "emitDeclarationOnly": true,
-    "declarationMap": true,
+    "declarationMap": false,
     "outFile": "index.d.ts",
     "target": "ES2020",
     "moduleResolution": "Node",
