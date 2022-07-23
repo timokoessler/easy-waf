@@ -46,6 +46,7 @@ type EasyWafConfig = {
 type EasyWafConfigModules = {
     directoryTraversal?: EasyWafConfigModule;
     xss?: EasyWafConfigModule;
+    badBots?: EasyWafConfigModule;
 };
 type EasyWafConfigModule = {
     /**
@@ -69,6 +70,10 @@ type EasyWAFModuleCheckData = {
     url: string;
     path: string;
     body: string;
+    /**
+     * User Agent
+     */
+    ua: string;
 };
 declare module "modules/directoryTraversal" {
     /**
@@ -102,6 +107,22 @@ declare module "modules/xss" {
         name: string;
     };
 }
+declare module "modules/badBots" {
+    /**
+     *
+     * @param {EasyWafConfig} conf
+     */
+    export function init(conf: EasyWafConfig): void;
+    /**
+     *
+     * @param {EasyWAFModuleCheckData} data
+     * @returns {Boolean} Is false when a possible security incident has been found
+     */
+    export function check(data: EasyWAFModuleCheckData): boolean;
+    export function info(): {
+        name: string;
+    };
+}
 declare module "modules/index" {
     export const directoryTraversal: {
         init: (conf: EasyWafConfig) => void;
@@ -111,6 +132,13 @@ declare module "modules/index" {
         };
     };
     export const xss: {
+        init: (conf: EasyWafConfig) => void;
+        check: (data: EasyWAFModuleCheckData) => boolean;
+        info: () => {
+            name: string;
+        };
+    };
+    export const badBots: {
         init: (conf: EasyWafConfig) => void;
         check: (data: EasyWAFModuleCheckData) => boolean;
         info: () => {

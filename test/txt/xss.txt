@@ -1,3 +1,4 @@
+!GET
 #
 # The following payloads are either from the GitHub repository "PayloadsAllTheThings" (license see below) or were created by myself.
 #
