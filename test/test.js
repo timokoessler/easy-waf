@@ -1,7 +1,8 @@
+/* eslint-disable jest/valid-title */
 const fs = require('fs');
 const express = require('express');
+const request = require('supertest');
 const { EasyWaf } = require('../index');
-const axios = require('axios').default;
 
 var app = express();
 
@@ -18,7 +19,6 @@ app.get('/test', function(req, res){
     res.status(200).send();
 });
 
-app.listen(3001);
 
 const txtFiles = fs.readdirSync('test/txt').filter((name ) => /.*\.(txt)$/i.test(name));
 
@@ -35,41 +35,27 @@ txtFiles.forEach(txtFile => {
         throw new Error('Invalid test type ' + testType + ' (' + moduleName + ')');
     }
     
-    var userAgent = 'Axios';
-    var url = 'http://localhost:3001/test';
+    var userAgent = 'Test';
+    var urlPath = '/test';
 
     describe(moduleName, function() {
-        // eslint-disable-next-line mocha/no-setup-in-describe
         lines.forEach(line =>  {
             if(!line) return;
             if(line.startsWith('#') || line.startsWith('!')) return;
 
             if(testType === 'GET'){
-                url = 'http://localhost:3001/test?q=' + line;
+                urlPath = '/test?q=' + line;
             } else if(testType === 'UserAgent'){
                 userAgent = line;
             }
                         
-            it(line, function(done) {
-                axios({
-                    method: 'GET',
-                    url: url,
-                    timeout: 500,
-                    headers: { 'User-Agent': userAgent }
-                }).then(function (/** @type {import('axios').AxiosResponse} **/ response) {
-                    if(response.status === 200){
-                        done(new Error('The following payload was not identified correctly: ' + decodeURIComponent(line)));
-                        return;
-                    }
-                    done();
-                }).catch(function(error) {
-                    if(error.message.includes('403')){
-                        done();
-                        return;
-                    }
-                    done(error);
+            test(line, () => {
+                return request(app)
+                    .get(urlPath)
+                    .set('User-Agent', userAgent)
+                    .then(response => {
+                        expect(response.statusCode).toBe(403);
                 });
-
             });
         });
     });

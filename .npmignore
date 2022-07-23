@@ -1,3 +1,6 @@
 .gitignore
 test/
 .git_hooks/
+coverage/
+.eslintrc.js
+tsconfig.json

@@ -4,10 +4,13 @@ module.exports = {
 		'commonjs': true,
 		'es2021': true
 	},
-	'extends': ['eslint:recommended', 'plugin:mocha/recommended'],
+	'extends': 'eslint:recommended',
 	'parserOptions': {
 		'ecmaVersion': 'latest'
 	},
+	'overrides': [
+		{ 'files': [ 'test/**' ], 'plugins': [ 'jest' ], 'extends': [ 'plugin:jest/recommended' ],}
+	],
 	'rules': {
 		'indent': [
 			'off',
