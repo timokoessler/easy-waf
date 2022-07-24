@@ -3,7 +3,7 @@ const testServer = require('./test-server');
 const request = require('supertest');
 
 testServer.init({
-    allowedHTTPMethods: ['GET'],
+    allowedHTTPMethods: ['GET', 'POST'],
     disableRequestBlockedLogging: true
 });
 
@@ -22,6 +22,14 @@ testServer.foreachFile(__dirname + '/block', (testType, lines, fileName) => {
                     urlPath = '/get?q=' + line;
                 } else if(testType === 'UserAgent'){
                     userAgent = line;
+                } else if(testType === 'Body'){
+                    return request(testServer.app)
+                        .post('/post')
+                        .send({key: line})
+                        .then(response => {
+                            // eslint-disable-next-line jest/no-conditional-expect
+                            expect(response.statusCode).toBe(403);
+                    });
                 }
                 return request(testServer.app)
                     .get(urlPath)

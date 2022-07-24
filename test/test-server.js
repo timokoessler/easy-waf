@@ -8,7 +8,7 @@ const app = express();
  * @param {EasyWafConfig} config 
  */
 function init(config){
-    //app.use(express.json());
+    app.use(express.json());
     //app.use(express.urlencoded({ extended: true }));
 
     app.use(EasyWaf(config));
@@ -39,7 +39,7 @@ function foreachFile(path, cb) {
             throw new Error('Add the test type in first line of the file ' + fileName);
         }
         var testType = lines[0].replace('!', '');
-        if(!['URL', 'UserAgent'].includes(testType)){
+        if(!['URL', 'UserAgent', 'Body'].includes(testType)){
             throw new Error('Invalid test type ' + testType + ' (' + fileName + ')');
         }
         cb(testType, lines, fileName);
