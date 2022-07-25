@@ -38,11 +38,10 @@ function foreachFile(path, cb) {
         if(!lines[0].startsWith('!')){
             throw new Error('Add the test type in first line of the file ' + fileName);
         }
-        var testType = lines[0].replace('!', '');
-        if(!['URL', 'UserAgent', 'Body'].includes(testType)){
-            throw new Error('Invalid test type ' + testType + ' (' + fileName + ')');
+        if(!['URL', 'UserAgent', 'Body'].includes(lines[0].replace('!', ''))){
+            throw new Error('Invalid test type ' + lines[0].replace('!', '') + ' (' + fileName + ')');
         }
-        cb(testType, lines, fileName);
+        cb(lines, fileName);
     });
 }
 

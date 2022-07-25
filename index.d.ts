@@ -47,6 +47,7 @@ type EasyWafConfigModules = {
     directoryTraversal?: EasyWafConfigModule;
     xss?: EasyWafConfigModule;
     badBots?: EasyWafConfigModule;
+    prototypePollution?: EasyWafConfigModule;
 };
 type EasyWafConfigModule = {
     /**
@@ -75,6 +76,14 @@ type EasyWAFModuleCheckData = {
      */
     ua: string;
 };
+declare module "modules/specialchars.regex" {
+    export const dotRegex: string;
+    export const slashRegex: string;
+    export const brackedOpen: string;
+    export const colon: string;
+    export const lT: string;
+    export const underscore: string;
+}
 declare module "modules/directoryTraversal" {
     /**
      *
@@ -123,6 +132,22 @@ declare module "modules/badBots" {
         name: string;
     };
 }
+declare module "modules/prototypePollution" {
+    /**
+     *
+     * @param {EasyWafConfig} conf
+     */
+    export function init(conf: EasyWafConfig): void;
+    /**
+     *
+     * @param {EasyWAFModuleCheckData} data
+     * @returns {Boolean} Is false when a possible security incident has been found
+     */
+    export function check(data: EasyWAFModuleCheckData): boolean;
+    export function info(): {
+        name: string;
+    };
+}
 declare module "modules/index" {
     export const directoryTraversal: {
         init: (conf: EasyWafConfig) => void;
@@ -139,6 +164,13 @@ declare module "modules/index" {
         };
     };
     export const badBots: {
+        init: (conf: EasyWafConfig) => void;
+        check: (data: EasyWAFModuleCheckData) => boolean;
+        info: () => {
+            name: string;
+        };
+    };
+    export const prototypePollution: {
         init: (conf: EasyWafConfig) => void;
         check: (data: EasyWAFModuleCheckData) => boolean;
         info: () => {

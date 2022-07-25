@@ -8,21 +8,43 @@ testServer.init({
 });
 
 
-testServer.foreachFile(__dirname + '/block', (testType, lines, fileName) => {
-    var userAgent = 'Test';
-    var urlPath = '/get';
+testServer.foreachFile(__dirname + '/block', (lines, fileName) => {
+    var testType = '';
 
     describe(fileName, function() {
         lines.forEach(line =>  {
             if(!line) return;
-            if(line.startsWith('#') || line.startsWith('!')) return;
-                        
-            test(line, () => {
-                if(testType === 'URL'){
-                    urlPath = '/get?q=' + line;
-                } else if(testType === 'UserAgent'){
-                    userAgent = line;
-                } else if(testType === 'Body'){
+            if(line.startsWith('#')) return;
+            if(line.startsWith('!')){
+                testType = line.replace('!', '');
+                if(!['URL', 'UserAgent', 'Body'].includes(testType)){
+                    throw new Error('Invalid test type ' + testType + ' (' + fileName + ')');
+                }
+                return;
+            }
+
+            if(testType === 'URL'){
+                test(line, () => {
+                    return request(testServer.app)
+                        .get('/get?q=' + line)
+                        .then(response => {
+                            // eslint-disable-next-line jest/no-conditional-expect
+                            expect(response.statusCode).toBe(403);
+                    });
+                });
+            } else if(testType === 'UserAgent'){
+                test(line, () => {
+                    return request(testServer.app)
+                        .get('/get')
+                        .set('User-Agent', line)
+                        .send({key: line})
+                        .then(response => {
+                            // eslint-disable-next-line jest/no-conditional-expect
+                            expect(response.statusCode).toBe(403);
+                    });
+                });
+            } else if(testType === 'Body'){
+                test(line, () => {
                     return request(testServer.app)
                         .post('/post')
                         .send({key: line})
@@ -30,14 +52,10 @@ testServer.foreachFile(__dirname + '/block', (testType, lines, fileName) => {
                             // eslint-disable-next-line jest/no-conditional-expect
                             expect(response.statusCode).toBe(403);
                     });
-                }
-                return request(testServer.app)
-                    .get(urlPath)
-                    .set('User-Agent', userAgent)
-                    .then(response => {
-                        expect(response.statusCode).toBe(403);
                 });
-            });
+            }
+                        
+            
         });
     });
 });

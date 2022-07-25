@@ -12,6 +12,9 @@ testServer.init({
         },
         xss: {
             enabled: false
+        },
+        prototypePollution: {
+            enabled: false
         }
     }
 });

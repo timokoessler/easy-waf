@@ -1,0 +1,5 @@
+!URL
+?a=__proto__&b=123
+%5F%5Fproto__
+!Body
+__proto_+AF8-
