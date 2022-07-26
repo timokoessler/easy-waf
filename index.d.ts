@@ -48,6 +48,7 @@ type EasyWafConfigModules = {
     xss?: EasyWafConfigModule;
     badBots?: EasyWafConfigModule;
     prototypePollution?: EasyWafConfigModule;
+    sqlInjection?: EasyWafConfigModule;
 };
 type EasyWafConfigModule = {
     /**
@@ -83,6 +84,12 @@ declare module "modules/specialchars.regex" {
     export const colon: string;
     export const lT: string;
     export const underscore: string;
+    export const at: string;
+    export const equals: string;
+    export const quotationMarks: string;
+    export const singleQuotationMarks: string;
+    export const and: string;
+    export const or: string;
 }
 declare module "modules/directoryTraversal" {
     /**
