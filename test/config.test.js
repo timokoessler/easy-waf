@@ -15,6 +15,9 @@ testServer.init({
         },
         prototypePollution: {
             enabled: false
+        },
+        sqlInjection: {
+            enabled: false
         }
     }
 });

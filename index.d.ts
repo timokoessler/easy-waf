@@ -77,9 +77,25 @@ type EasyWAFModuleCheckData = {
      */
     ua: string;
 };
+declare module "modules/badBots" {
+    /**
+     *
+     * @param {EasyWafConfig} conf
+     */
+    export function init(conf: EasyWafConfig): void;
+    /**
+     *
+     * @param {EasyWAFModuleCheckData} data
+     * @returns {Boolean} Is false when a possible security incident has been found
+     */
+    export function check(data: EasyWAFModuleCheckData): boolean;
+    export function info(): {
+        name: string;
+    };
+}
 declare module "modules/specialchars.regex" {
-    export const dotRegex: string;
-    export const slashRegex: string;
+    export const dot: string;
+    export const slash: string;
     export const brackedOpen: string;
     export const colon: string;
     export const lT: string;
@@ -92,38 +108,6 @@ declare module "modules/specialchars.regex" {
     export const or: string;
 }
 declare module "modules/directoryTraversal" {
-    /**
-     *
-     * @param {EasyWafConfig} conf
-     */
-    export function init(conf: EasyWafConfig): void;
-    /**
-     *
-     * @param {EasyWAFModuleCheckData} data
-     * @returns {Boolean} Is false when a possible security incident has been found
-     */
-    export function check(data: EasyWAFModuleCheckData): boolean;
-    export function info(): {
-        name: string;
-    };
-}
-declare module "modules/xss" {
-    /**
-     *
-     * @param {EasyWafConfig} conf
-     */
-    export function init(conf: EasyWafConfig): void;
-    /**
-     *
-     * @param {EasyWAFModuleCheckData} data
-     * @returns {Boolean} Is false when a possible security incident has been found
-     */
-    export function check(data: EasyWAFModuleCheckData): boolean;
-    export function info(): {
-        name: string;
-    };
-}
-declare module "modules/badBots" {
     /**
      *
      * @param {EasyWafConfig} conf
@@ -155,21 +139,39 @@ declare module "modules/prototypePollution" {
         name: string;
     };
 }
+declare module "modules/sqlInjection" {
+    /**
+     *
+     * @param {EasyWafConfig} conf
+     */
+    export function init(conf: EasyWafConfig): void;
+    /**
+     *
+     * @param {EasyWAFModuleCheckData} data
+     * @returns {Boolean} Is false when a possible security incident has been found
+     */
+    export function check(data: EasyWAFModuleCheckData): boolean;
+    export function info(): {
+        name: string;
+    };
+}
+declare module "modules/xss" {
+    /**
+     *
+     * @param {EasyWafConfig} conf
+     */
+    export function init(conf: EasyWafConfig): void;
+    /**
+     *
+     * @param {EasyWAFModuleCheckData} data
+     * @returns {Boolean} Is false when a possible security incident has been found
+     */
+    export function check(data: EasyWAFModuleCheckData): boolean;
+    export function info(): {
+        name: string;
+    };
+}
 declare module "modules/index" {
-    export const directoryTraversal: {
-        init: (conf: EasyWafConfig) => void;
-        check: (data: EasyWAFModuleCheckData) => boolean;
-        info: () => {
-            name: string;
-        };
-    };
-    export const xss: {
-        init: (conf: EasyWafConfig) => void;
-        check: (data: EasyWAFModuleCheckData) => boolean;
-        info: () => {
-            name: string;
-        };
-    };
     export const badBots: {
         init: (conf: EasyWafConfig) => void;
         check: (data: EasyWAFModuleCheckData) => boolean;
@@ -177,7 +179,28 @@ declare module "modules/index" {
             name: string;
         };
     };
+    export const directoryTraversal: {
+        init: (conf: EasyWafConfig) => void;
+        check: (data: EasyWAFModuleCheckData) => boolean;
+        info: () => {
+            name: string;
+        };
+    };
     export const prototypePollution: {
+        init: (conf: EasyWafConfig) => void;
+        check: (data: EasyWAFModuleCheckData) => boolean;
+        info: () => {
+            name: string;
+        };
+    };
+    export const sqlInjection: {
+        init: (conf: EasyWafConfig) => void;
+        check: (data: EasyWAFModuleCheckData) => boolean;
+        info: () => {
+            name: string;
+        };
+    };
+    export const xss: {
         init: (conf: EasyWafConfig) => void;
         check: (data: EasyWAFModuleCheckData) => boolean;
         info: () => {
