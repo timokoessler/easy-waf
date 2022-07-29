@@ -4,7 +4,7 @@ const request = require('supertest');
 
 testServer.init({
     allowedHTTPMethods: ['GET'],
-    disableRequestBlockedLogging: true
+    disableLogging: true
 });
 
 

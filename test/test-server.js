@@ -1,6 +1,6 @@
 const fs = require('fs');
 const express = require('express');
-const { EasyWaf } = require('../index');
+const { easyWaf } = require('../index');
 const app = express();
 
 /**
@@ -11,7 +11,7 @@ function init(config){
     app.use(express.json());
     //app.use(express.urlencoded({ extended: true }));
 
-    app.use(EasyWaf(config));
+    app.use(easyWaf(config));
 
     app.get('/get', function(req, res){
         res.status(200).send();

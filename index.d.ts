@@ -27,17 +27,17 @@ declare module "block" {
 }
 type EasyWafConfig = {
     /**
-     * List all HTTP request methods that are allowed. All other request methods will be blocked.
+     * List of all HTTP request methods that are allowed. All other request methods will be blocked.
      */
     allowedHTTPMethods?: Array<string>;
     /**
-     * If true, suspicious requests are only logged and not blocked. Also, the log format is changed so that an IPS does not ban the IP
+     * If true, suspicious requests are only logged and not blocked. In addition, the log format is changed to prevent an IPS from blocking the IP.
      */
     dryMode?: boolean;
     /**
-     * If true, blocked attacks are no longer logged and thus cannot be processed by an IPS and false positives cannot be traced.
+     * If true, nothing is logged. This is not recommended!
      */
-    disableRequestBlockedLogging?: boolean;
+    disableLogging?: boolean;
     /**
      * This option allows you to enable / disable modules or exclude paths with a regex
      */
@@ -45,6 +45,9 @@ type EasyWafConfig = {
 };
 type EasyWafConfigModules = {
     directoryTraversal?: EasyWafConfigModule;
+    /**
+     * Cross-Site-Scripting
+     */
     xss?: EasyWafConfigModule;
     badBots?: EasyWafConfigModule;
     prototypePollution?: EasyWafConfigModule;
@@ -52,11 +55,11 @@ type EasyWafConfigModules = {
 };
 type EasyWafConfigModule = {
     /**
-     * Enable or disable the modul
+     * This option allows you to completely disable a module.
      */
     enabled: boolean;
     /**
-     * Exclude paths from the check with a regex
+     * Exclude paths from being checked by this module with a regex
      */
     excludePaths?: RegExp;
 };
@@ -70,6 +73,9 @@ type EasyWAFModule = {
 };
 type EasyWAFModuleCheckData = {
     url: string;
+    /**
+     * Url path without query or fragments
+     */
     path: string;
     body: string;
     /**
@@ -214,5 +220,5 @@ declare module "easy-waf" {
      * @param {EasyWafConfig} [conf]
      * @return {Function}
      */
-    export function EasyWaf(conf?: EasyWafConfig): Function;
+    export function easyWaf(conf?: EasyWafConfig): Function;
 }

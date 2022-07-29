@@ -4,7 +4,7 @@ const request = require('supertest');
 
 testServer.init({
     allowedHTTPMethods: ['GET', 'POST'],
-    disableRequestBlockedLogging: true,
+    disableLogging: true,
     modules: {
         directoryTraversal: {
             enabled: true,
