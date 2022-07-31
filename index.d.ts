@@ -52,6 +52,7 @@ type EasyWafConfigModules = {
     badBots?: EasyWafConfigModule;
     prototypePollution?: EasyWafConfigModule;
     sqlInjection?: EasyWafConfigModule;
+    noSqlInjection?: EasyWafConfigModule;
 };
 type EasyWafConfigModule = {
     /**
@@ -112,8 +113,28 @@ declare module "modules/specialchars.regex" {
     export const singleQuotationMarks: string;
     export const and: string;
     export const or: string;
+    export const curlyBracketOpen: string;
+    export const squareBracketOpen: string;
+    export const squareBracketClose: string;
+    export const dollar: string;
 }
 declare module "modules/directoryTraversal" {
+    /**
+     *
+     * @param {EasyWafConfig} conf
+     */
+    export function init(conf: EasyWafConfig): void;
+    /**
+     *
+     * @param {EasyWAFModuleCheckData} data
+     * @returns {Boolean} Is false when a possible security incident has been found
+     */
+    export function check(data: EasyWAFModuleCheckData): boolean;
+    export function info(): {
+        name: string;
+    };
+}
+declare module "modules/noSqlInjection" {
     /**
      *
      * @param {EasyWafConfig} conf
@@ -186,6 +207,13 @@ declare module "modules/index" {
         };
     };
     export const directoryTraversal: {
+        init: (conf: EasyWafConfig) => void;
+        check: (data: EasyWAFModuleCheckData) => boolean;
+        info: () => {
+            name: string;
+        };
+    };
+    export const noSqlInjection: {
         init: (conf: EasyWafConfig) => void;
         check: (data: EasyWAFModuleCheckData) => boolean;
         info: () => {

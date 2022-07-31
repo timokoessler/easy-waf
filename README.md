@@ -21,7 +21,7 @@ app.listen(3000);
   - Cross-Site-Scripting (XSS)
   - Directory / Path Traversal
   - Prototype Pollution
-  - SQL-Injections
+  - SQL Injections and NoSQL Injections
 
 ## Installation
 I strongly recommend to activate the "dryMode" at the beginning to be able to identify possible false positives from the logs.
@@ -58,7 +58,7 @@ A few notes on PRs and code contributions:
 - Before you create a PR, run `npm t` to run all tests
 
 ## Contact
-If a public GitHub issue is not the right choice for your concern, you can contact me directly:
+If a public GitHub issue or discussion is not the right choice for your concern, you can contact me directly:
 - E-Mail: [info@timokoessler.de](mailto:info@timokoessler.de)
 - Twitter: [@timokoessler](https://twitter.com/timokoessler)
 
