@@ -18,6 +18,12 @@ testServer.init({
         },
         sqlInjection: {
             enabled: false
+        },
+        noSqlInjection: {
+            enabled: false
+        },
+        badBots: {
+            enabled: false
         }
     }
 });

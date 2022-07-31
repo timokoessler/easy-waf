@@ -4,7 +4,7 @@ module.exports = {
 		'commonjs': true,
 		'es2021': true
 	},
-	'extends': 'eslint:recommended',
+	'extends': ['eslint:recommended', 'plugin:security-node/recommended'],
 	'parserOptions': {
 		'ecmaVersion': 'latest'
 	},
@@ -23,6 +23,7 @@ module.exports = {
 		'semi': [
 			'warn',
 			'always'
-		]
+		],
+		'security-node/non-literal-reg-expr': 'off'
 	}
 };
