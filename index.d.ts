@@ -44,15 +44,16 @@ type EasyWafConfig = {
     modules?: EasyWafConfigModules;
 };
 type EasyWafConfigModules = {
+    badBots?: EasyWafConfigModule;
+    crlfInjection?: EasyWafConfigModule;
     directoryTraversal?: EasyWafConfigModule;
+    noSqlInjection?: EasyWafConfigModule;
+    prototypePollution?: EasyWafConfigModule;
+    sqlInjection?: EasyWafConfigModule;
     /**
      * Cross-Site-Scripting
      */
     xss?: EasyWafConfigModule;
-    badBots?: EasyWafConfigModule;
-    prototypePollution?: EasyWafConfigModule;
-    sqlInjection?: EasyWafConfigModule;
-    noSqlInjection?: EasyWafConfigModule;
 };
 type EasyWafConfigModule = {
     /**
@@ -73,11 +74,21 @@ type EasyWAFModule = {
     info: () => EasyWAFModuleInfo;
 };
 type EasyWAFModuleCheckData = {
+    /**
+     * Decoded url
+     */
     url: string;
+    /**
+     * Encoded url
+     */
+    encodedUrl: string;
     /**
      * Url path without query or fragments
      */
     path: string;
+    /**
+     * Body as String, can be undefined
+     */
     body: string;
     /**
      * User Agent
@@ -117,6 +128,23 @@ declare module "modules/specialchars.regex" {
     export const squareBracketOpen: string;
     export const squareBracketClose: string;
     export const dollar: string;
+    export const minus: string;
+}
+declare module "modules/crlfInjection" {
+    /**
+     *
+     * @param {EasyWafConfig} conf
+     */
+    export function init(conf: EasyWafConfig): void;
+    /**
+     *
+     * @param {EasyWAFModuleCheckData} data
+     * @returns {Boolean} Is false when a possible security incident has been found
+     */
+    export function check(data: EasyWAFModuleCheckData): boolean;
+    export function info(): {
+        name: string;
+    };
 }
 declare module "modules/directoryTraversal" {
     /**
@@ -200,6 +228,13 @@ declare module "modules/xss" {
 }
 declare module "modules/index" {
     export const badBots: {
+        init: (conf: EasyWafConfig) => void;
+        check: (data: EasyWAFModuleCheckData) => boolean;
+        info: () => {
+            name: string;
+        };
+    };
+    export const crlfInjection: {
         init: (conf: EasyWafConfig) => void;
         check: (data: EasyWAFModuleCheckData) => boolean;
         info: () => {

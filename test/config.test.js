@@ -24,6 +24,9 @@ testServer.init({
         },
         badBots: {
             enabled: false
+        },
+        crlfInjection: {
+            enabled: false
         }
     }
 });

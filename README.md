@@ -18,6 +18,7 @@ app.listen(3000);
 - Restrict allowed HTTP methods
 - Blocks requests from bad bots
 - Blocks malicious requests:
+  - CRLF Injection
   - Cross-Site-Scripting (XSS)
   - Directory / Path Traversal
   - Prototype Pollution
@@ -40,13 +41,27 @@ app.use(easyWaf({
     }
 }));
 ```
-| Option             | Type     | Default | Description                                                                                            |
-| -----------------  | -------- | ------- |  ----------------------------------------------------------------------------------------------------- |
-| allowedHTTPMethods | array    | []      | List of all HTTP request methods that are allowed. All other request methods will be blocked. By default, all HTTP methods are allowed. |
-| disableLogging     | boolean   | false  | If true, nothing is logged. *This is not recommended!* |
-| dryMode            | boolean   | false  | If true, suspicious requests are only logged and not blocked. In addition, the log format is changed to prevent an IPS from blocking the IP. |
-| modules[name].enabled            | boolean    | true   | This option allows you to completely disable a specific module. |
-| modules[name].excludePaths            | boolean    | undefined   | Exclude paths from being checked by this module with a regex. |
+| Option             | Type     | Default | Description                                                                                                                                  |
+| -----------------  | -------- | ------- |  ------------------------------------------------------------------------------------------------------------------------------------------- |
+| allowedHTTPMethods | array    | []      | List of all HTTP request methods that are allowed. All other request methods will be blocked. By default, all HTTP methods are allowed.      |
+| disableLogging     | boolean  | false   | If true, nothing is logged. *This is not recommended!*                                                                                       |
+| dryMode            | boolean  | false   | If true, suspicious requests are only logged and not blocked. In addition, the log format is changed to prevent an IPS from blocking the IP. |
+| modules[name].enabled      | boolean | true   | This option allows you to completely disable a specific module.                                                                        |
+| modules[name].excludePaths | boolean | undefined   | Exclude paths from being checked by this module with a regex.                                                                     |
+
+## Modules
+
+The following table shows which user input is checked by a module:
+
+| Name                          | URL | Body | User Agent | Cookies |
+| ----------------------------- | --- | ---- | ---------- | ------- |
+| Bad Bots                      | ❌  | ❌  | ✅         | ❌     |
+| CRLF Injection                | ✅  | ✅  | ❌         | Planed  |
+| Cross-Site-Scripting (XSS)    | ✅  | ✅  | ✅         | Planed  |
+| Directory Traversal           | ✅  | ✅  | ❌         | Planed  |
+| NoSQL Injections              | ✅  | ✅  | ✅         | Planed  |
+| Prototype Pollution           | ✅  | ✅  | ✅         | Planed  |
+| SQL Injections                | ✅  | ✅  | ✅         | Planed  |
 
 ## Contributing
 Any contribution is greatly appreciated.
