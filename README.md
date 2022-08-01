@@ -15,7 +15,7 @@ app.listen(3000);
 ```
 
 ## Features
-- Restrict allowed HTTP methods
+- Restrict allowed HTTP methods and add your own ip blacklist
 - Blocks requests from bad bots
 - Blocks malicious requests:
   - CRLF Injection
@@ -23,10 +23,13 @@ app.listen(3000);
   - Directory / Path Traversal
   - Prototype Pollution
   - SQL Injections and NoSQL Injections
+- Can block requests from the Tor network (disabled by default)
 
 ## Installation
-I strongly recommend to activate the "dryMode" at the beginning to be able to identify possible false positives from the logs.
+> I strongly recommend to activate the "dryMode" at the beginning to be able to identify possible false positives from the logs.
 If EasyWaf should parse bodies, bind the express body-parser middleware to the express app before binding EasyWaf.
+
+If you run your Node.js app behind a reverse proxy, don't forget to configure express correctly: [Express behind proxies](https://expressjs.com/en/guide/behind-proxies.html).
 
 ## Configuration
 EasyWaf is easy to use without the need for much configuration, but there are still many customization options.
@@ -43,9 +46,10 @@ app.use(easyWaf({
 ```
 | Option             | Type     | Default | Description                                                                                                                                  |
 | -----------------  | -------- | ------- |  ------------------------------------------------------------------------------------------------------------------------------------------- |
-| allowedHTTPMethods | array    | []      | List of all HTTP request methods that are allowed. All other request methods will be blocked. By default, all HTTP methods are allowed.      |
+| allowedHTTPMethods | array    | undefined | List of all HTTP request methods that are allowed. All other request methods will be blocked. By default, all HTTP methods are allowed.      |
 | disableLogging     | boolean  | false   | If true, nothing is logged. *This is not recommended!*                                                                                       |
 | dryMode            | boolean  | false   | If true, suspicious requests are only logged and not blocked. In addition, the log format is changed to prevent an IPS from blocking the IP. |
+| ipBlacklist        | array    | []   | All requests by ips on the blacklist are blocked. |
 | modules[name].enabled      | boolean | true   | This option allows you to completely disable a specific module.                                                                        |
 | modules[name].excludePaths | boolean | undefined   | Exclude paths from being checked by this module with a regex.                                                                     |
 

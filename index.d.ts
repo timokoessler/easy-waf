@@ -39,6 +39,10 @@ type EasyWafConfig = {
      */
     disableLogging?: boolean;
     /**
+     * All requests by ips on the blacklist are blocked
+     */
+    ipBlacklist?: any[];
+    /**
      * This option allows you to enable / disable modules or exclude paths with a regex
      */
     modules?: EasyWafConfigModules;
@@ -54,6 +58,7 @@ type EasyWafConfigModules = {
      * Cross-Site-Scripting
      */
     xss?: EasyWafConfigModule;
+    blockTorExitNodes?: EasyWafConfigModule;
 };
 type EasyWafConfigModule = {
     /**
@@ -82,6 +87,7 @@ type EasyWAFModuleCheckData = {
      * Encoded url
      */
     encodedUrl: string;
+    ip: string;
     /**
      * Url path without query or fragments
      */
@@ -107,6 +113,23 @@ declare module "modules/badBots" {
      * @returns {Boolean} Is false when a possible security incident has been found
      */
     export function check(data: EasyWAFModuleCheckData): boolean;
+    export function info(): {
+        name: string;
+    };
+}
+declare module "modules/blockTorExitNodes" {
+    /**
+     *
+     * @param {EasyWafConfig} conf
+     */
+    export function init(conf: EasyWafConfig): void;
+    /**
+     *
+     * @param {EasyWAFModuleCheckData} data
+     * @returns {Boolean} Is false when a possible security incident has been found
+     */
+    export function check(data: EasyWAFModuleCheckData): boolean;
+    export function updateTorExitNodesList(cb: any): void;
     export function info(): {
         name: string;
     };
@@ -233,6 +256,14 @@ declare module "modules/index" {
         info: () => {
             name: string;
         };
+    };
+    export const blockTorExitNodes: {
+        init: (conf: EasyWafConfig) => void;
+        check: (data: EasyWAFModuleCheckData) => boolean;
+        info: () => {
+            name: string;
+        };
+        updateTorExitNodesList: (cb: any) => void;
     };
     export const crlfInjection: {
         init: (conf: EasyWafConfig) => void;
