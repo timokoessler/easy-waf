@@ -31,11 +31,14 @@ If EasyWaf should parse bodies, bind the express body-parser middleware to the e
 
 If you run your Node.js app behind a reverse proxy, don't forget to configure express correctly: [Express behind proxies](https://expressjs.com/en/guide/behind-proxies.html).
 
+To enable Open Redirect protection, configure the `redirectUrlWhitelist` option.
+
 ## Configuration
 EasyWaf is easy to use without the need for much configuration, but there are still many customization options.
 ```javascript
 app.use(easyWaf({
     allowedHTTPMethods: ['GET', 'POST'],
+    redirectUrlWhitelist: ['github.com']
     modules: {
         directoryTraversal: {
             enabled: true,
@@ -47,6 +50,7 @@ app.use(easyWaf({
 | Option             | Type     | Default | Description                                                                                                                                  |
 | -----------------  | -------- | ------- |  ------------------------------------------------------------------------------------------------------------------------------------------- |
 | allowedHTTPMethods | array    | undefined | List of all HTTP request methods that are allowed. All other request methods will be blocked. By default, all HTTP methods are allowed.      |
+| redirectUrlWhitelist | array    | undefined | List of urls that are allowed to be included in the path or query of the request url. By default, all urls are allowed.      |
 | disableLogging     | boolean  | false   | If true, nothing is logged. *This is not recommended!*                                                                                       |
 | dryMode            | boolean  | false   | If true, suspicious requests are only logged and not blocked. In addition, the log format is changed to prevent an IPS from blocking the IP. |
 | ipBlacklist        | array    | []   | All requests by ips on the blacklist are blocked. |
@@ -64,6 +68,7 @@ The following table shows which user input is checked by a module:
 | Cross-Site-Scripting (XSS)    | ✅  | ✅  | ✅         | Planed  |
 | Directory Traversal           | ✅  | ✅  | ❌         | Planed  |
 | NoSQL Injections              | ✅  | ✅  | ✅         | Planed  |
+| Open Redirect                 | ✅  | ❌  | ❌         | ❌     |
 | Prototype Pollution           | ✅  | ✅  | ✅         | Planed  |
 | SQL Injections                | ✅  | ✅  | ✅         | Planed  |
 

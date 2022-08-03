@@ -31,6 +31,10 @@ type EasyWafConfig = {
      */
     allowedHTTPMethods?: Array<string>;
     /**
+     * List of urls that are allowed to be included in the path or query of the request url. If it's undefined (default value), all urls are allowed.
+     */
+    redirectUrlWhitelist?: Array<string>;
+    /**
      * If true, suspicious requests are only logged and not blocked. In addition, the log format is changed to prevent an IPS from blocking the IP.
      */
     dryMode?: boolean;
@@ -49,16 +53,17 @@ type EasyWafConfig = {
 };
 type EasyWafConfigModules = {
     badBots?: EasyWafConfigModule;
+    blockTorExitNodes?: EasyWafConfigModule;
     crlfInjection?: EasyWafConfigModule;
     directoryTraversal?: EasyWafConfigModule;
     noSqlInjection?: EasyWafConfigModule;
+    openRedirect?: EasyWafConfigModule;
     prototypePollution?: EasyWafConfigModule;
     sqlInjection?: EasyWafConfigModule;
     /**
      * Cross-Site-Scripting
      */
     xss?: EasyWafConfigModule;
-    blockTorExitNodes?: EasyWafConfigModule;
 };
 type EasyWafConfigModule = {
     /**
@@ -201,6 +206,22 @@ declare module "modules/noSqlInjection" {
         name: string;
     };
 }
+declare module "modules/openRedirect" {
+    /**
+     *
+     * @param {EasyWafConfig} conf
+     */
+    export function init(conf: EasyWafConfig): void;
+    /**
+     *
+     * @param {EasyWAFModuleCheckData} data
+     * @returns {Boolean} Is false when a possible security incident has been found
+     */
+    export function check(data: EasyWAFModuleCheckData): boolean;
+    export function info(): {
+        name: string;
+    };
+}
 declare module "modules/prototypePollution" {
     /**
      *
@@ -280,6 +301,13 @@ declare module "modules/index" {
         };
     };
     export const noSqlInjection: {
+        init: (conf: EasyWafConfig) => void;
+        check: (data: EasyWAFModuleCheckData) => boolean;
+        info: () => {
+            name: string;
+        };
+    };
+    export const openRedirect: {
         init: (conf: EasyWafConfig) => void;
         check: (data: EasyWAFModuleCheckData) => boolean;
         info: () => {
