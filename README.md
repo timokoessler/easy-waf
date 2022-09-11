@@ -1,6 +1,6 @@
 # Easy WAF 🧱
 
-An easy-to-use Web Application Firewall (WAF) for the NodeJS Express framework.
+An easy-to-use Web Application Firewall (WAF) for the NodeJS Express framework. Can also be integrated with frameworks like NextJS or NuxtJS.
 
 > ⚠️ This software tries to defend many common attacks while keeping the rate of false positives low. There will always be methods to bypass this WAF. Therefore, using this package is not a reason to neglect security when developing an application.
 
@@ -21,17 +21,19 @@ app.listen(3000);
   - CRLF Injection
   - Cross-Site-Scripting (XSS)
   - Directory / Path Traversal
+  - Open Redirect / Server Side Request Forgery (SSRF) (redirectUrlWhitelist option must be set)
   - Prototype Pollution
   - SQL Injections and NoSQL Injections
 - Can block requests from the Tor network (disabled by default)
 
 ## Installation
-> I strongly recommend to activate the "dryMode" at the beginning to be able to identify possible false positives from the logs.
-If EasyWaf should parse bodies, bind the express body-parser middleware to the express app before binding EasyWaf.
+> ⚠️ I strongly recommend to activate the "dryMode" at the beginning to be able to identify possible false positives from the logs.
+If EasyWaf should parse bodies, bind the express body-parser middleware to the express app before binding EasyWaf. The same applies to cookies.
 
 If you run your Node.js app behind a reverse proxy, don't forget to configure express correctly: [Express behind proxies](https://expressjs.com/en/guide/behind-proxies.html).
-
 To enable Open Redirect protection, configure the `redirectUrlWhitelist` option.
+
+In the examples folder you can find examples of how to integrate EasyWaf into your NextJS or NuxtJS application.
 
 ## Configuration
 EasyWaf is easy to use without the need for much configuration, but there are still many customization options.
@@ -50,27 +52,28 @@ app.use(easyWaf({
 | Option             | Type     | Default | Description                                                                                                                                  |
 | -----------------  | -------- | ------- |  ------------------------------------------------------------------------------------------------------------------------------------------- |
 | allowedHTTPMethods | array    | undefined | List of all HTTP request methods that are allowed. All other request methods will be blocked. By default, all HTTP methods are allowed.      |
-| redirectUrlWhitelist | array    | undefined | List of urls that are allowed to be included in the path or query of the request url. By default, all urls are allowed.      |
+| redirectUrlWhitelist | array    | undefined | List of urls that are allowed to be included in the path or query of the request url. By default, all urls are allowed. (Open Redirect) |
 | disableLogging     | boolean  | false   | If true, nothing is logged. *This is not recommended!*                                                                                       |
 | dryMode            | boolean  | false   | If true, suspicious requests are only logged and not blocked. In addition, the log format is changed to prevent an IPS from blocking the IP. |
 | ipBlacklist        | array    | []   | All requests by ips on the blacklist are blocked. |
-| modules[name].enabled      | boolean | true   | This option allows you to completely disable a specific module.                                                                        |
+| modules[name].enabled      | boolean | true, except "Block Tor Exit Nodes"   | This option allows you to completely disable a specific module.                                                                        |
 | modules[name].excludePaths | boolean | undefined   | Exclude paths from being checked by this module with a regex.                                                                     |
 
 ## Modules
 
 The following table shows which user input is checked by a module:
 
-| Name                          | URL | Body | User Agent | Cookies |
-| ----------------------------- | --- | ---- | ---------- | ------- |
-| Bad Bots                      | ❌  | ❌  | ✅         | ❌     |
-| CRLF Injection                | ✅  | ✅  | ❌         | Planed  |
-| Cross-Site-Scripting (XSS)    | ✅  | ✅  | ✅         | Planed  |
-| Directory Traversal           | ✅  | ✅  | ❌         | Planed  |
-| NoSQL Injections              | ✅  | ✅  | ✅         | Planed  |
-| Open Redirect                 | ✅  | ❌  | ❌         | ❌     |
-| Prototype Pollution           | ✅  | ✅  | ✅         | Planed  |
-| SQL Injections                | ✅  | ✅  | ✅         | Planed  |
+| Name                          | URL | Body | User Agent | Cookies | IP |
+| ----------------------------- | --- | ---- | ---------- | ------- | -- |
+| Bad Bots                      | ❌  | ❌  | ✅         | ❌     | ❌ |
+| Block Tor Exit Nodes          | ❌  | ❌  | ❌         | ❌     | ✅ |
+| CRLF Injection                | ✅  | ✅  | ❌         | Planed  | ❌ |
+| Cross-Site-Scripting (XSS)    | ✅  | ✅  | ✅         | Planed  | ❌ |
+| Directory Traversal           | ✅  | ✅  | ❌         | Planed  | ❌ |
+| NoSQL Injections              | ✅  | ✅  | ✅         | Planed  | ❌ |
+| Open Redirect / SSRF          | ✅  | ❌  | ❌         | ❌     | ❌ |
+| Prototype Pollution           | ✅  | ✅  | ✅         | Planed  | ❌ |
+| SQL Injections                | ✅  | ✅  | ✅         | Planed  | ❌ |
 
 ## Contributing
 Any contribution is greatly appreciated.

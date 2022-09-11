@@ -157,6 +157,9 @@ or 1=1
 select @@innodb_version;
 information_schema.tables
 mysql.innodb_table_stats
+mysql.general_log
+mysql.help_topic
+mysql.time_zone
 SELECT	0x7461626c655f6e616d65	FROM	all_tab_tables
 SELECT	CHR(116)	||	CHR(97)	||	CHR(98)	FROM	all_tab_tables
 SELECT%00table_name%00FROM%00all_tab_tables

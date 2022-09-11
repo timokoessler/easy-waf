@@ -145,6 +145,7 @@ declare module "modules/specialchars.regex" {
     export const brackedOpen: string;
     export const colon: string;
     export const lT: string;
+    export const gT: string;
     export const underscore: string;
     export const at: string;
     export const equals: string;

