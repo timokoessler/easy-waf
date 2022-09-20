@@ -1,6 +1,6 @@
 # Easy WAF 🧱
 
-An easy-to-use Web Application Firewall (WAF) for the NodeJS Express framework. Can also be integrated with frameworks like NextJS or NuxtJS.
+An easy-to-use Web Application Firewall (WAF) for Node.js.
 
 > ⚠️ This software tries to defend many common attacks while keeping the rate of false positives low. There will always be methods to bypass this WAF. Therefore, using this package is not a reason to neglect security when developing an application.
 
@@ -28,9 +28,9 @@ app.listen(3000);
 
 ## Installation
 > ⚠️ I strongly recommend to activate the "dryMode" at the beginning to be able to identify possible false positives from the logs.
-If EasyWaf should parse bodies, bind the express body-parser middleware to the express app before binding EasyWaf. The same applies to cookies.
+If EasyWaf should parse bodies, bind a body-parser middleware to your app before adding EasyWaf.
 
-If you run your Node.js app behind a reverse proxy, don't forget to configure express correctly: [Express behind proxies](https://expressjs.com/en/guide/behind-proxies.html).
+If you run your Node.js app behind a reverse proxy, don't forget to set the `trustProxy` option.
 To enable Open Redirect protection, configure the `redirectUrlWhitelist` option.
 
 In the examples folder you can find examples of how to integrate EasyWaf into your NextJS or NuxtJS application.
@@ -58,6 +58,7 @@ app.use(easyWaf({
 | ipBlacklist        | array    | []   | All requests by ips on the blacklist are blocked. |
 | modules[name].enabled      | boolean | true, except "Block Tor Exit Nodes"   | This option allows you to completely disable a specific module.                                                                        |
 | modules[name].excludePaths | boolean | undefined   | Exclude paths from being checked by this module with a regex.                                                                     |
+| trustProxy         | string / array | [] | If a reverse proxy is used, this setting must be configured. See [npm/proxy-addr](https://www.npmjs.com/package/proxy-addr) for possible values.              |
 
 ## Modules
 
