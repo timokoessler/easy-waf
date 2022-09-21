@@ -6,7 +6,7 @@ https://github.com/vercel/next.js/tree/canary/examples/custom-server-express
 
 const express = require('express');
 const next = require('next');
-const { easyWaf } = require('easy-waf');
+const easyWaf = require('easy-waf');
 
 const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== 'production';

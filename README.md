@@ -6,7 +6,7 @@ An easy-to-use Web Application Firewall (WAF) for Node.js.
 
 ```javascript
 const express = require('express');
-const { easyWaf } = require('easy-waf');
+const easyWaf = require('easy-waf');
 const app = express();
 
 app.use(easyWaf());

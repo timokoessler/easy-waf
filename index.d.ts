@@ -8,11 +8,12 @@ declare module "logger" {
     /**
      *
      * @param {EasyWAFModuleInfo} moduleInfo
-     * @param {import('express').Request} req
+     * @param {import('http').IncomingMessage} req
      * @param {String} referenceID
      * @param {EasyWafConfig} config
+     * @param {String} ip
      */
-    export function requestBlocked(moduleInfo: EasyWAFModuleInfo, req: any, referenceID: string, config: EasyWafConfig): void;
+    export function requestBlocked(moduleInfo: EasyWAFModuleInfo, req: import('http').IncomingMessage, referenceID: string, config: EasyWafConfig, ip: string): void;
 }
 declare module "block" {
     export = blocked;
@@ -258,12 +259,13 @@ declare module "modules/index" {
     };
 }
 declare module "easy-waf" {
+    export = easyWaf;
     /**
      *
      * @param {EasyWafConfig} [conf]
      * @return {Function}
      */
-    export function easyWaf(conf?: EasyWafConfig): Function;
+    function easyWaf(conf?: EasyWafConfig): Function;
 }
 type EasyWafConfig = {
     /**

@@ -1,5 +1,5 @@
 const fastify = require('fastify')();
-const {easyWaf} = require('easy-waf');
+const easyWaf = require('easy-waf');
 
 fastify.register(require('@fastify/middie'), {
     hook: 'onRequest' // default

@@ -11,7 +11,7 @@ Static Site Generation is not supported.
 */
 
 import express from 'express';
-import {easyWaf} from 'easy-waf';
+import easyWaf from 'easy-waf';
 
 const app = express();
 app.set('trust proxy', true);

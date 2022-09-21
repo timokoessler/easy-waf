@@ -1,5 +1,5 @@
 const express = require('express');
-const { easyWaf } = require('easy-waf');
+const easyWaf = require('easy-waf');
 
 const app = express();
 

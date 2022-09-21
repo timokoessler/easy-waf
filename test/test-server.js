@@ -1,6 +1,6 @@
 const fs = require('fs');
 const express = require('express');
-const { easyWaf } = require('../index');
+const easyWaf = require('../index');
 const app = express();
 
 /**
