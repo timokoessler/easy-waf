@@ -14,10 +14,10 @@ import express from 'express';
 import easyWaf from 'easy-waf';
 
 const app = express();
-app.set('trust proxy', true);
+app.set('trust proxy', true); //Not relevant for EasyWaf
 
 app.use(easyWaf({
-    trustProxy: function (addr, i) { return i < 1 } //Ignore the last IP because request is proxied by Nuxt
+    trustProxy: 1 //Required because request is proxied by Nuxt
 }));
 
 export default app;

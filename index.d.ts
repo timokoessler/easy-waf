@@ -299,7 +299,7 @@ type EasyWafConfig = {
     /**
      * If a reverse proxy is used, this setting must be configured. See https://www.npmjs.com/package/proxy-addr for possible values.
      */
-    trustProxy?: string | Array<string> | Function;
+    trustProxy?: string | Array<string> | Function | boolean | number;
 };
 type EasyWafConfigModules = {
     badBots?: EasyWafConfigModule;
