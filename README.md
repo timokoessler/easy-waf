@@ -51,14 +51,15 @@ app.use(easyWaf({
 ```
 | Option             | Type     | Default | Description                                                                                                                                  |
 | -----------------  | -------- | ------- |  ------------------------------------------------------------------------------------------------------------------------------------------- |
-| allowedHTTPMethods | array    | undefined | List of all HTTP request methods that are allowed. All other request methods will be blocked. By default, all HTTP methods are allowed.      |
-| redirectUrlWhitelist | array    | undefined | List of urls that are allowed to be included in the path or query of the request url. By default, all urls are allowed. (Open Redirect) |
+| allowedHTTPMethods | array    | undefined | List of all HTTP request methods that are allowed. All other request methods will be blocked. By default, all HTTP methods are allowed.    |
+| redirectUrlWhitelist | array    | undefined | List of urls that are allowed to be included in the path or query of the request url. By default, all urls are allowed. (Open Redirect)  |
 | disableLogging     | boolean  | false   | If true, nothing is logged. *This is not recommended!*                                                                                       |
 | dryMode            | boolean  | false   | If true, suspicious requests are only logged and not blocked. In addition, the log format is changed to prevent an IPS from blocking the IP. |
-| ipBlacklist        | array    | []   | All requests by ips on the blacklist are blocked. |
-| modules[name].enabled      | boolean | true, except "Block Tor Exit Nodes"   | This option allows you to completely disable a specific module.                                                                        |
+| ipBlacklist        | array    | []   | All requests by ips on the blacklist are blocked. CIDR notation is supported (IPv4 and IPv6). On single addresses, a prefix of /32 or /128 is assumed. |
+| ipWhitelist        | array    | []   | All requests by ips on the whitelist are never blocked. CIDR notation is supported.                                                             |
+| modules[name].enabled      | boolean | true, except "Block Tor Exit Nodes"   | This option allows you to completely disable a specific module.                                         |
 | modules[name].excludePaths | boolean | undefined   | Exclude paths from being checked by this module with a regex.                                                                     |
-| trustProxy         | string / array | [] | If a reverse proxy is used, this setting must be configured. See [npm/proxy-addr](https://www.npmjs.com/package/proxy-addr) for possible values.              |
+| trustProxy         | string / array | [] | If a reverse proxy is used, this setting must be configured. See [npm/proxy-addr](https://www.npmjs.com/package/proxy-addr) for possible values. |
 
 ## Modules
 

@@ -285,9 +285,13 @@ type EasyWafConfig = {
      */
     disableLogging?: boolean;
     /**
-     * All requests by ips on the blacklist are blocked
+     * All requests by ips on the blacklist are blocked. CIDR notation is supported (IPv4 and IPv6). On single addresses, a prefix of /32 or /128 is assumed.
      */
-    ipBlacklist?: any[];
+    ipBlacklist?: Array<string>;
+    /**
+     * All requests by ips on the whitelist are never blocked. CIDR notation is supported.
+     */
+    ipWhitelist?: Array<string>;
     /**
      * This option allows you to enable / disable modules or exclude paths with a regex
      */
