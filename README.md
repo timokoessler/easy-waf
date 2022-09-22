@@ -1,6 +1,6 @@
 # Easy WAF 🧱
 
-An easy-to-use Web Application Firewall (WAF) for Node.js.
+An easy-to-use Web Application Firewall (WAF) for Node.js. Can be used with Express, Fastify, NextJS, NuxtJS ... or Node.js http.
 
 > ⚠️ This software tries to defend many common attacks while keeping the rate of false positives low. There will always be methods to bypass this WAF. Therefore, using this package is not a reason to neglect security when developing an application.
 
@@ -25,15 +25,20 @@ app.listen(3000);
   - Prototype Pollution
   - SQL Injections and NoSQL Injections
 - Can block requests from the Tor network (disabled by default)
+- Compatible with many popular web frameworks and with the integrated Node.js HTTP server
 
 ## Installation
 > ⚠️ I strongly recommend to activate the "dryMode" at the beginning to be able to identify possible false positives from the logs.
 If EasyWaf should parse bodies, bind a body-parser middleware to your app before adding EasyWaf.
 
+```bash
+npm i easy-waf
+```
+
+In the [examples](examples/) folder you can find samples of how to integrate EasyWaf into your application.
+
 If you run your Node.js app behind a reverse proxy, don't forget to set the `trustProxy` option.
 To enable Open Redirect protection, configure the `redirectUrlWhitelist` option.
-
-In the examples folder you can find examples of how to integrate EasyWaf into your NextJS or NuxtJS application.
 
 ## Configuration
 EasyWaf is easy to use without the need for much configuration, but there are still many customization options.
