@@ -45,6 +45,11 @@ function foreachFile(path, cb) {
     });
 }
 
+if (require.main === module) {
+    init();
+    app.listen(3000);
+    console.log('App listening on port', 3000);
+}
 
 module.exports = {
     init: init,

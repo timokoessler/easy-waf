@@ -4,6 +4,7 @@ const request = require('supertest');
 
 testServer.init({
     allowedHTTPMethods: ['GET', 'POST'],
+    customBlockedPage: 'Test: {dateTime}',
     disableLogging: true,
     redirectUrlWhitelist: ['github.com'],
     modules: {
@@ -91,6 +92,16 @@ describe('Open Redirect', function() {
             .get('/get?redirect=https://hacker.com/42')
             .then(response => {
                 expect(response.statusCode).toBe(403);
+        });
+    });
+});
+describe('Custom blocked page', function() {
+    test('Check content', () => {
+        return request(testServer.app)
+            .get('/get?file=/etc/passwd')
+            .then(response => {
+                expect(response.statusCode).toBe(403);
+                expect(response.text).toBe('Test: ' + new Date().toUTCString());
         });
     });
 });

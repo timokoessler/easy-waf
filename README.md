@@ -57,6 +57,7 @@ app.use(easyWaf({
 | Option             | Type     | Default | Description                                                                                                                                  |
 | -----------------  | -------- | ------- |  ------------------------------------------------------------------------------------------------------------------------------------------- |
 | allowedHTTPMethods | array    | undefined | List of all HTTP request methods that are allowed. All other request methods will be blocked. By default, all HTTP methods are allowed.    |
+| customBlockedPage  | string   | undefined | Add HTML code to override the default "Request blocked" page. [View example with placeholders](examples/custom-blocked-page.js)            |
 | redirectUrlWhitelist | array    | undefined | List of urls that are allowed to be included in the path or query of the request url. By default, all urls are allowed. (Open Redirect)  |
 | disableLogging     | boolean  | false   | If true, nothing is logged. *This is not recommended!*                                                                                       |
 | dryMode            | boolean  | false   | If true, suspicious requests are only logged and not blocked. In addition, the log format is changed to prevent an IPS from blocking the IP. |

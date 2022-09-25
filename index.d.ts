@@ -273,6 +273,10 @@ type EasyWafConfig = {
      */
     allowedHTTPMethods?: Array<string>;
     /**
+     * Add HTML code to override the default "Request blocked" page. Placeholders: {dateTime} {ip} {referenceID} {moduleName}. You can find an example in the Git repo.
+     */
+    customBlockedPage?: string;
+    /**
      * List of urls that are allowed to be included in the path or query of the request url. If it's undefined (default value), all urls are allowed.
      */
     redirectUrlWhitelist?: Array<string>;
