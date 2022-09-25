@@ -66,21 +66,24 @@ app.use(easyWaf({
 | modules[name].excludePaths | boolean | undefined   | Exclude paths from being checked by this module with a regex.                                                                     |
 | trustProxy         | string / array | [] | If a reverse proxy is used, this setting must be configured. See [npm/proxy-addr](https://www.npmjs.com/package/proxy-addr) for possible values. |
 
-## Modules
+## What is checked?
 
-The following table shows which user input is checked by a module:
+The following table shows which user input is checked by which module:
 
-| Name                          | URL | Body | User Agent | Cookies | IP |
-| ----------------------------- | --- | ---- | ---------- | ------- | -- |
-| Bad Bots                      | ❌  | ❌  | ✅         | ❌     | ❌ |
-| Block Tor Exit Nodes          | ❌  | ❌  | ❌         | ❌     | ✅ |
-| CRLF Injection                | ✅  | ✅  | ❌         | Planed  | ❌ |
-| Cross-Site-Scripting (XSS)    | ✅  | ✅  | ✅         | Planed  | ❌ |
-| Directory Traversal           | ✅  | ✅  | ❌         | Planed  | ❌ |
-| NoSQL Injections              | ✅  | ✅  | ✅         | Planed  | ❌ |
-| Open Redirect / SSRF          | ✅  | ❌  | ❌         | ❌     | ❌ |
-| Prototype Pollution           | ✅  | ✅  | ✅         | Planed  | ❌ |
-| SQL Injections                | ✅  | ✅  | ✅         | Planed  | ❌ |
+| Name                          | URL | Body* | Headers** | IP |
+| ----------------------------- | --- | ----- | ------- | -- |
+| Bad Bots                      | ❌  | ❌   | ✅     | ❌ |
+| Block Tor Exit Nodes          | ❌  | ❌   | ❌     | ✅ |
+| CRLF Injection                | ✅  | ✅   | ❌     | ❌ |
+| Cross-Site-Scripting (XSS)    | ✅  | ✅   | ✅     | ❌ |
+| Directory Traversal           | ✅  | ✅   | ❌     | ❌ |
+| NoSQL Injections              | ✅  | ✅   | ✅     | ❌ |
+| Open Redirect / SSRF          | ✅  | ❌   | ❌     | ❌ |
+| Prototype Pollution           | ✅  | ✅   | ✅     | ❌ |
+| SQL Injections                | ✅  | ✅   | ✅     | ❌ |
+
+\* Bodies are only checked if req.body is set by a middleware or the web framework itself before EasyWAF.  
+\** Includes user agent and cookies
 
 ## Contributing
 Any contribution is greatly appreciated.

@@ -335,24 +335,28 @@ type EasyWAFModule = {
 };
 type EasyWAFRequestInfo = {
     /**
-     * Decoded url
+     * Body as string, can be undefined
      */
-    url: string;
+    body: string;
+    /**
+     * A string that contains the values of all headers
+     */
+    headers: string;
     ip: string;
+    /**
+     * HTTP method (POST/GET...)
+     */
+    method: string;
     /**
      * Url path without query or fragments
      */
     path: string;
     /**
-     * Body as string, can be undefined
-     */
-    body: string;
-    /**
      * User Agent
      */
     ua: string;
     /**
-     * HTTP method (POST/GET...)
+     * Decoded url
      */
-    method: string;
+    url: string;
 };

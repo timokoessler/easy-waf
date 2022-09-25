@@ -548,6 +548,7 @@ valueOf=alert;window+''
 x=new DOMMatrix;matrix=alert;x.a=1337;location='javascript'+':'+x
 setTimeout(alert, 0, 'I get passed to alert')
 t.innerHTML=''
+!UserAgent
 [].sort.call`${alert}1337`
 [].map.call`${eval}\\u{61}lert\x281337\x29`
 function x(){ alert(arguments[0]); arguments[1]('hello') } function y(str){ alert(str); } x`x${y}x`
