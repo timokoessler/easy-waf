@@ -1,4 +1,4 @@
-# Easy WAF 🧱
+# Easy WAF (Beta) 🧱
 
 An easy-to-use Web Application Firewall (WAF) for Node.js. Can be used with Express, Fastify, NextJS, NuxtJS ... or Node.js http.
 
@@ -15,13 +15,13 @@ app.listen(3000);
 ```
 
 ## Features
-- Restrict allowed HTTP methods and add your own ip blacklist
+- Restrict allowed HTTP methods and add your own ip black- and whitelist
 - Blocks requests from bad bots
 - Blocks malicious requests:
   - CRLF Injection
   - Cross-Site-Scripting (XSS)
   - Directory / Path Traversal
-  - Open Redirect / Server Side Request Forgery (SSRF) (redirectUrlWhitelist option must be set)
+  - Open Redirect / Server Side Request Forgery (SSRF) (queryUrlWhitelist option must be set)
   - Prototype Pollution
   - SQL Injections and NoSQL Injections
 - Can block requests from the Tor network (disabled by default)
@@ -38,14 +38,14 @@ npm i easy-waf
 In the [examples](examples/) folder you can find samples of how to integrate EasyWaf into your application.
 
 If you run your Node.js app behind a reverse proxy, don't forget to set the `trustProxy` option.
-To enable Open Redirect protection, configure the `redirectUrlWhitelist` option.
+To enable Open Redirect protection, configure the `queryUrlWhitelist` option.
 
 ## Configuration
 EasyWaf is easy to use without the need for much configuration, but there are still many customization options.
 ```javascript
 app.use(easyWaf({
     allowedHTTPMethods: ['GET', 'POST'],
-    redirectUrlWhitelist: ['github.com']
+    queryUrlWhitelist: ['github.com']
     modules: {
         directoryTraversal: {
             enabled: true,
@@ -58,7 +58,7 @@ app.use(easyWaf({
 | -----------------  | -------- | ------- |  ------------------------------------------------------------------------------------------------------------------------------------------- |
 | allowedHTTPMethods | array    | undefined | List of all HTTP request methods that are allowed. All other request methods will be blocked. By default, all HTTP methods are allowed.    |
 | customBlockedPage  | string   | undefined | Add HTML code to override the default "Request blocked" page. [View example with placeholders](examples/custom-blocked-page.js)            |
-| redirectUrlWhitelist | array    | undefined | List of urls that are allowed to be included in the path or query of the request url. By default, all urls are allowed. (Open Redirect)  |
+| queryUrlWhitelist | array    | undefined | List of urls that are allowed to be included in the path or query of the request url. By default, all urls are allowed. (Open Redirect / SSRF)  |
 | disableLogging     | boolean  | false   | If true, nothing is logged. *This is not recommended!*                                                                                       |
 | dryMode            | boolean  | false   | If true, suspicious requests are only logged and not blocked. In addition, the log format is changed to prevent an IPS from blocking the IP. |
 | ipBlacklist        | array    | []   | All requests by ips on the blacklist are blocked. CIDR notation is supported (IPv4 and IPv6). On single addresses, a prefix of /32 or /128 is assumed. |
@@ -104,3 +104,7 @@ If a public GitHub issue or discussion is not the right choice for your concern,
 - [Payloads All The Thing: A list of useful payloads and bypass for Web Application Security](https://github.com/swisskyrepo/PayloadsAllTheThings)
 - [HackTricks: A free hacking book](https://book.hacktricks.xyz/pentesting-web/)
 - [Nginx Ultimate Bad Bot Blocker: The source of the bad bots list for EasyWaf](https://github.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker)
+
+## License
+© Timo Kössler 2022  
+Released under the [MIT license](LICENSE)

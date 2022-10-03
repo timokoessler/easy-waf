@@ -3,3 +3,4 @@
 /favicon.ico
 /img/mysql.svg
 /get/test
+/.well-known/security.txt

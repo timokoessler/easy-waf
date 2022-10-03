@@ -79,6 +79,7 @@ declare module "modules/specialchars.regex" {
     export const squareBracketClose: string;
     export const dollar: string;
     export const minus: string;
+    export const percent: string;
 }
 declare module "modules/crlfInjection" {
     /**
@@ -279,7 +280,7 @@ type EasyWafConfig = {
     /**
      * List of urls that are allowed to be included in the path or query of the request url. If it's undefined (default value), all urls are allowed.
      */
-    redirectUrlWhitelist?: Array<string>;
+    queryUrlWhitelist?: Array<string>;
     /**
      * If true, suspicious requests are only logged and not blocked. In addition, the log format is changed to prevent an IPS from blocking the IP.
      */

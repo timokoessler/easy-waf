@@ -6,7 +6,7 @@ testServer.init({
     allowedHTTPMethods: ['GET', 'POST'],
     customBlockedPage: 'Test: {dateTime}',
     disableLogging: true,
-    redirectUrlWhitelist: ['github.com'],
+    queryUrlWhitelist: ['github.com'],
     modules: {
         directoryTraversal: {
             enabled: true,
@@ -101,7 +101,7 @@ describe('Custom blocked page', function() {
             .get('/get?file=/etc/passwd')
             .then(response => {
                 expect(response.statusCode).toBe(403);
-                expect(response.text).toBe('Test: ' + new Date().toUTCString());
+                expect(response.text.slice(0, -8)).toBe('Test: ' + new Date().toUTCString().slice(0, -8));
         });
     });
 });

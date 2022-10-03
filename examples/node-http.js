@@ -1,12 +1,12 @@
 const http = require('http');
 const EasyWaf = require('easy-waf');
 
-const host = 'localhost';
+const host = '127.0.0.1';
 const port = 3000;
 
 const easyWaf = EasyWaf({
     allowedHTTPMethods: ['GET', 'POST'],
-    redirectUrlWhitelist: ['github.com']
+    queryUrlWhitelist: ['github.com']
 });
 
 const server = http.createServer((req, res) => {

@@ -6,7 +6,7 @@ const app = new Koa();
 
 app.use(c2k(easyWaf({
     allowedHTTPMethods: ['GET', 'POST'],
-    redirectUrlWhitelist: ['github.com']
+    queryUrlWhitelist: ['github.com']
 })));
 
 app.listen(3000);

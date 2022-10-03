@@ -1,4 +1,5 @@
 !Body
+{}
 {"username": "test", "password": "test}
 {"userID": "test", "devices": [{"id": 1, "name": "Test"}, {"id": 2, "name": undefined}]}
 #Stripe
