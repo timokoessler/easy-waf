@@ -4,3 +4,5 @@ test/
 coverage/
 .eslintrc.js
 tsconfig.json
+.github/
+.eslintignore

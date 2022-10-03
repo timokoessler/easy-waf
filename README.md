@@ -2,7 +2,14 @@
 
 An easy-to-use Web Application Firewall (WAF) for Node.js. Can be used with Express, Fastify, NextJS, NuxtJS ... or Node.js http.
 
-> ⚠️ This software tries to defend many common attacks while keeping the rate of false positives low. There will always be methods to bypass this WAF. Therefore, using this package is not a reason to neglect security when developing an application.
+[![npm version](https://badgen.net/npm/v/easy-waf)](https://www.npmjs.com/package/easy-waf)
+[![license](https://badgen.net/npm/license/easy-waf)](LICENSE)
+[![Jest](https://github.com/timokoessler/easy-waf/actions/workflows/jest.yml/badge.svg)](https://github.com/timokoessler/easy-waf/actions/workflows/jest.yml)
+[![ESLint](https://github.com/timokoessler/easy-waf/actions/workflows/eslint.yml/badge.svg)](https://github.com/timokoessler/easy-waf/actions/workflows/eslint.yml)
+[![CodeFactor](https://www.codefactor.io/repository/github/timokoessler/easy-waf/badge)](https://www.codefactor.io/repository/github/timokoessler/easy-waf)
+[![codecov](https://codecov.io/gh/timokoessler/easy-waf/branch/main/graph/badge.svg?token=62LUMSMRL0)](https://codecov.io/gh/timokoessler/easy-waf)
+[![install size](https://packagephobia.com/badge?p=easy-waf)](https://packagephobia.com/result?p=easy-waf)
+
 
 ```javascript
 const express = require('express');
@@ -13,6 +20,8 @@ app.use(easyWaf());
 
 app.listen(3000);
 ```
+
+> ⚠️ This software tries to defend many common attacks while keeping the rate of false positives low. There will always be methods to bypass this WAF. Therefore, using this package is not a reason to neglect security when developing an application.
 
 ## Features
 - Restrict allowed HTTP methods and add your own ip black- and whitelist
