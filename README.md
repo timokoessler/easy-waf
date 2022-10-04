@@ -3,9 +3,9 @@
 An easy-to-use Web Application Firewall (WAF) for Node.js. Can be used with Express, Fastify, NextJS, NuxtJS ... or Node.js http.
 
 [![npm version](https://badgen.net/npm/v/easy-waf)](https://www.npmjs.com/package/easy-waf)
+[![npm downloads](https://badgen.net/npm/dt/easy-waf)](https://www.npmjs.com/package/easy-waf)
 [![license](https://badgen.net/npm/license/easy-waf)](LICENSE)
-[![Jest](https://github.com/timokoessler/easy-waf/actions/workflows/jest.yml/badge.svg)](https://github.com/timokoessler/easy-waf/actions/workflows/jest.yml)
-[![ESLint](https://github.com/timokoessler/easy-waf/actions/workflows/eslint.yml/badge.svg)](https://github.com/timokoessler/easy-waf/actions/workflows/eslint.yml)
+[![checks](https://badgen.net/github/checks/timokoessler/easy-waf)](https://github.com/timokoessler/easy-waf/actions/)
 [![CodeFactor](https://www.codefactor.io/repository/github/timokoessler/easy-waf/badge)](https://www.codefactor.io/repository/github/timokoessler/easy-waf)
 [![codecov](https://codecov.io/gh/timokoessler/easy-waf/branch/main/graph/badge.svg?token=62LUMSMRL0)](https://codecov.io/gh/timokoessler/easy-waf)
 [![install size](https://packagephobia.com/badge?p=easy-waf)](https://packagephobia.com/result?p=easy-waf)
@@ -54,7 +54,7 @@ EasyWaf is easy to use without the need for much configuration, but there are st
 ```javascript
 app.use(easyWaf({
     allowedHTTPMethods: ['GET', 'POST'],
-    queryUrlWhitelist: ['github.com']
+    queryUrlWhitelist: ['github.com'],
     modules: {
         directoryTraversal: {
             enabled: true,
