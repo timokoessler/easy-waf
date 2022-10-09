@@ -8,6 +8,7 @@ testServer.init({
     allowedHTTPMethods: ['GET', 'POST'],
     disableLogging: true,
     ipWhitelist: ['::1', '127.0.0.1', '::ffff:127.0.0.1'],
+    trustProxy: () => { return false; }
 });
 
 test('Request should not be blocked (ip whitelist)', () => {

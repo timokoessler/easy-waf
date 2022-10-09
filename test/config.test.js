@@ -7,6 +7,7 @@ testServer.init({
     customBlockedPage: 'Test: {dateTime}',
     disableLogging: true,
     queryUrlWhitelist: ['github.com'],
+    trustProxy: false,
     modules: {
         directoryTraversal: {
             enabled: true,

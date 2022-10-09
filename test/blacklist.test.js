@@ -8,6 +8,7 @@ testServer.init({
     allowedHTTPMethods: ['GET', 'POST'],
     disableLogging: true,
     ipBlacklist: ['::1', '127.0.0.1', '::ffff:127.0.0.1'],
+    trustProxy: 0
 });
 
 test('Request should be blocked (ip blacklist)', () => {

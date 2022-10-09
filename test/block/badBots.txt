@@ -625,7 +625,6 @@ meanpathbot
 mediawords
 muhstik-scan
 netEstate NE Crawler
-oBot
 page scorer
 pcBrowser
 plumanalytics
