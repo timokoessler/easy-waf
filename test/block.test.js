@@ -2,11 +2,12 @@
 const testServer = require('./test-server');
 const request = require('supertest');
 
+jest.useFakeTimers();
+
 testServer.init({
     allowedHTTPMethods: ['GET', 'POST'],
     disableLogging: true
 });
-
 
 testServer.foreachFile(__dirname + '/block', (lines, fileName) => {
     var testType = '';
@@ -28,7 +29,6 @@ testServer.foreachFile(__dirname + '/block', (lines, fileName) => {
                     return request(testServer.app)
                         .get('/get?q=' + line)
                         .then(response => {
-                            // eslint-disable-next-line jest/no-conditional-expect
                             expect(response.statusCode).toBe(403);
                     });
                 });
@@ -39,7 +39,6 @@ testServer.foreachFile(__dirname + '/block', (lines, fileName) => {
                         .set('User-Agent', line)
                         .send({key: line})
                         .then(response => {
-                            // eslint-disable-next-line jest/no-conditional-expect
                             expect(response.statusCode).toBe(403);
                     });
                 });
@@ -49,7 +48,6 @@ testServer.foreachFile(__dirname + '/block', (lines, fileName) => {
                         .post('/post')
                         .send({key: line})
                         .then(response => {
-                            // eslint-disable-next-line jest/no-conditional-expect
                             expect(response.statusCode).toBe(403);
                     });
                 });

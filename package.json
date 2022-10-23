@@ -27,7 +27,6 @@
     "url": "https://github.com/timokoessler/easy-waf/issues"
   },
   "homepage": "https://github.com/timokoessler/easy-waf#readme",
-  "private": true,
   "engines": {
     "node": ">=16"
   },

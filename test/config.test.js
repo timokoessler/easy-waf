@@ -30,6 +30,9 @@ testServer.init({
         },
         crlfInjection: {
             enabled: false
+        },
+        fakeSearchCrawlers: {
+            enabled: false
         }
     },
 });

@@ -43,6 +43,25 @@ declare module "modules/badBots" {
         name: string;
     };
 }
+declare module "utils" {
+    /**
+     * Modifies the passed array so that all entries are written in CIDR notation (even single ones).
+     * @param {Array.<String>} array
+     */
+    export function refactorIPArray(array: Array<string>): void;
+    /**
+     * Extends the proxyaddr.compile function so that functions, numbers and Boolean values can also be used in the configuration.
+     * @param {String|Array.<String>|Function|Boolean|Number} val
+     * @returns {Function}
+     */
+    export function compileProxyTrust(val: string | Array<string> | Function | boolean | number): Function;
+    /**
+     *
+     * @param {String} url
+     * @param {Function} cb
+     */
+    export function httpGET(url: string, cb: Function): void;
+}
 declare module "modules/blockTorExitNodes" {
     /**
      *
@@ -109,6 +128,22 @@ declare module "modules/directoryTraversal" {
      * @returns {Boolean} Is false when a possible security incident has been found
      */
     export function check(data: EasyWAFRequestInfo): boolean;
+    export function info(): {
+        name: string;
+    };
+}
+declare module "modules/fakeSearchCrawlers" {
+    /**
+     *
+     * @param {EasyWafConfig} conf
+     */
+    export function init(conf: EasyWafConfig): void;
+    /**
+     *
+     * @param {EasyWAFRequestInfo} reqInfo
+     * @param {Function} cb
+     */
+    export function checkCB(reqInfo: EasyWAFRequestInfo, cb: Function): void;
     export function info(): {
         name: string;
     };
@@ -223,6 +258,13 @@ declare module "modules/index" {
             name: string;
         };
     };
+    export const fakeSearchCrawlers: {
+        init: (conf: EasyWafConfig) => void;
+        checkCB: (reqInfo: EasyWAFRequestInfo, cb: Function) => void;
+        info: () => {
+            name: string;
+        };
+    };
     export const noSqlInjection: {
         init: (conf: EasyWafConfig) => void;
         check: (data: EasyWAFRequestInfo) => boolean;
@@ -311,6 +353,10 @@ type EasyWafConfigModules = {
     blockTorExitNodes?: EasyWafConfigModule;
     crlfInjection?: EasyWafConfigModule;
     directoryTraversal?: EasyWafConfigModule;
+    /**
+     * Blocks crawlers that pretend to be a google bot or a bot from other major search engines or internet companies.
+     */
+    fakeSearchCrawlers?: EasyWafConfigModule;
     noSqlInjection?: EasyWafConfigModule;
     openRedirect?: EasyWafConfigModule;
     prototypePollution?: EasyWafConfigModule;
@@ -336,6 +382,7 @@ type EasyWAFModuleInfo = {
 };
 type EasyWAFModule = {
     check: (arg0: EasyWAFRequestInfo) => boolean;
+    checkCB: (arg0: EasyWAFRequestInfo, arg1: Function) => void;
     info: () => EasyWAFModuleInfo;
 };
 type EasyWAFRequestInfo = {

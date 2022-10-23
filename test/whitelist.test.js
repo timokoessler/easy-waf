@@ -1,4 +1,3 @@
-/* eslint-disable jest/valid-title */
 const testServer = require('./test-server');
 const request = require('supertest');
 
@@ -13,7 +12,7 @@ testServer.init({
 
 test('Request should not be blocked (ip whitelist)', () => {
     return request(testServer.app)
-        .get('/get')
+        .get('/get?t=../passwd')
         .then(response => {
             expect(response.statusCode).toBe(200);
     });

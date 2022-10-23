@@ -1,4 +1,3 @@
-/* eslint-disable jest/valid-title */
 const testServer = require('./test-server');
 const request = require('supertest');
 

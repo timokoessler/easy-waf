@@ -2,11 +2,12 @@
 const testServer = require('./test-server');
 const request = require('supertest');
 
+jest.useFakeTimers();
+
 testServer.init({
     allowedHTTPMethods: ['GET'],
     disableLogging: true
 });
-
 
 testServer.foreachFile(__dirname + '/allow', (lines, fileName) => {
     var userAgent = 'Test';

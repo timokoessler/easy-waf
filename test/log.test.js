@@ -2,6 +2,8 @@
 const testServer = require('./test-server');
 const request = require('supertest');
 
+jest.useFakeTimers();
+
 global.console = {
     warn: (msg) => {
         if(msg.startsWith('EasyWAF DryMode - Blocked:')){

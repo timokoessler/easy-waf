@@ -25,7 +25,7 @@ app.listen(3000);
 
 ## Features
 - Restrict allowed HTTP methods and add your own ip black- and whitelist
-- Blocks requests from bad bots
+- Blocks requests from bad bots and fake search crawlers
 - Blocks malicious requests:
   - CRLF Injection
   - Cross-Site-Scripting (XSS)
@@ -87,6 +87,7 @@ The following table shows which user input is checked by which module:
 | CRLF Injection                | ✅  | ✅   | ❌     | ❌ |
 | Cross-Site-Scripting (XSS)    | ✅  | ✅   | ✅     | ❌ |
 | Directory Traversal           | ✅  | ✅   | ❌     | ❌ |
+| Fake Search Crawlers          | ❌  | ❌   | ✅     | ✅ |
 | NoSQL Injections              | ✅  | ✅   | ✅     | ❌ |
 | Open Redirect / SSRF          | ✅  | ❌   | ❌     | ❌ |
 | Prototype Pollution           | ✅  | ✅   | ✅     | ❌ |
