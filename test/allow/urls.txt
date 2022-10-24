@@ -4,3 +4,6 @@
 /img/mysql.svg
 /get/test
 /.well-known/security.txt
+/robots.txt
+/sitemap.xml
+/manifest.json
