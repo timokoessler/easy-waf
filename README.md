@@ -74,6 +74,8 @@ app.use(easyWaf({
 | ipWhitelist        | array    | []   | All requests by ips on the whitelist are never blocked. CIDR notation is supported.                                                             |
 | modules[name].enabled      | boolean | true, except "Block Tor Exit Nodes"   | This option allows you to completely disable a specific module.                                         |
 | modules[name].excludePaths | boolean | undefined   | Exclude paths from being checked by this module with a regex.                                                                     |
+| postBlockHook      | callback | undefined | Run your own code after a request is blocked. For example, you can send a notification.                                                    |
+| preBlockHook       | callback | undefined | Run your own code before a request is blocked. Return false if the request should not be blocked.                                          |
 | trustProxy         | string / array | [] | If a reverse proxy is used, this setting must be configured. See [npm/proxy-addr](https://www.npmjs.com/package/proxy-addr) for possible values. |
 
 ## What is checked?

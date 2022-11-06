@@ -7,7 +7,7 @@ jest.useFakeTimers();
 global.console = {
     warn: (msg) => {
         if(msg.startsWith('EasyWAF DryMode - Blocked:')){
-            expect(msg).toMatch(/^EasyWAF DryMode - Blocked: ip=.* module=xss time=.* url="\/get\?q=.*" rid=.*/);
+            expect(msg).toMatch(/^EasyWAF DryMode - Blocked: ip=.* module=xss time=.* url="\/get\?q=.*" ua="*" method=GET rid=.*/);
         } else {
             expect(msg).toMatch(/^EasyWAF - Warning: DryMode is enabled\..*/);
         }

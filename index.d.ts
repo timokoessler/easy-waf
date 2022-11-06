@@ -24,8 +24,9 @@ declare module "block" {
      * @param {EasyWAFModuleInfo} moduleInfo
      * @param {EasyWafConfig} config
      * @param {String} ip
+     * @returns {Boolean}
      */
-    function blocked(req: import('http').IncomingMessage, res: import('http').ServerResponse, moduleInfo: EasyWAFModuleInfo, config: EasyWafConfig, ip: string): void;
+    function blocked(req: import('http').IncomingMessage, res: import('http').ServerResponse, moduleInfo: EasyWAFModuleInfo, config: EasyWafConfig, ip: string): boolean;
 }
 declare module "modules/badBots" {
     /**
@@ -344,6 +345,14 @@ type EasyWafConfig = {
      */
     modules?: EasyWafConfigModules;
     /**
+     * Run your own code after a request is blocked. For example, you can send a notification.
+     */
+    postBlockHook?: EasyWAFPostBlockHook;
+    /**
+     * Run your own code before a request is blocked. Return false if the request should not be blocked.
+     */
+    preBlockHook?: EasyWAFPreBlockHook;
+    /**
      * If a reverse proxy is used, this setting must be configured. See https://www.npmjs.com/package/proxy-addr for possible values.
      */
     trustProxy?: string | Array<string> | Function | boolean | number;
@@ -412,3 +421,5 @@ type EasyWAFRequestInfo = {
      */
     url: string;
 };
+type EasyWAFPreBlockHook = (req: import('http').IncomingMessage, moduleInfo: EasyWAFModuleInfo, ip: string) => boolean;
+type EasyWAFPostBlockHook = (req: import('http').IncomingMessage, moduleInfo: EasyWAFModuleInfo, ip: string) => any;
