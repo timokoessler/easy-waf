@@ -313,7 +313,7 @@ declare module "easy-waf" {
 }
 type EasyWafConfig = {
     /**
-     * List of all HTTP request methods that are allowed. All other request methods will be blocked.
+     * List of all HTTP request methods that are allowed. All other request methods will be blocked. Don't forget lesser known methods like HEAD or OPTIONS
      */
     allowedHTTPMethods?: Array<string>;
     /**

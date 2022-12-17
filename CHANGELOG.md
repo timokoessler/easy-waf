@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.3.1] - 2022-12-17
+
+### Changed
+
+- Update dependencies to fix CVE-2022-24999 (only devDependencies affected)
+- Improve prototype pollution detection
+
 ## [0.3.0] - 2022-11-06
 
 Hooks, log request method, improvements and bug fixes.

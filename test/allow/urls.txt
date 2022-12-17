@@ -7,3 +7,5 @@
 /robots.txt
 /sitemap.xml
 /manifest.json
+/prototype/test.txt
+/test?g=Object.prototypetest
