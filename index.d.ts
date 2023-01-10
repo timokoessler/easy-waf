@@ -16,7 +16,7 @@ declare module "logger" {
     export function requestBlocked(moduleInfo: EasyWAFModuleInfo, req: import('http').IncomingMessage, referenceID: string, config: EasyWafConfig, ip: string): void;
 }
 declare module "block" {
-    export = blocked;
+    export = block;
     /**
      *
      * @param {import('http').IncomingMessage} req
@@ -26,14 +26,9 @@ declare module "block" {
      * @param {String} ip
      * @returns {Boolean}
      */
-    function blocked(req: import('http').IncomingMessage, res: import('http').ServerResponse, moduleInfo: EasyWAFModuleInfo, config: EasyWafConfig, ip: string): boolean;
+    function block(req: import('http').IncomingMessage, res: import('http').ServerResponse, moduleInfo: EasyWAFModuleInfo, config: EasyWafConfig, ip: string): boolean;
 }
 declare module "modules/badBots" {
-    /**
-     *
-     * @param {EasyWafConfig} conf
-     */
-    export function init(conf: EasyWafConfig): void;
     /**
      *
      * @param {EasyWAFRequestInfo} data
@@ -57,7 +52,7 @@ declare module "utils" {
      */
     export function compileProxyTrust(val: string | Array<string> | Function | boolean | number): Function;
     /**
-     *
+     * Simple HTTP GET request without any dependencies
      * @param {String} url
      * @param {Function} cb
      */
@@ -104,11 +99,6 @@ declare module "modules/specialchars.regex" {
 declare module "modules/crlfInjection" {
     /**
      *
-     * @param {EasyWafConfig} conf
-     */
-    export function init(conf: EasyWafConfig): void;
-    /**
-     *
      * @param {EasyWAFRequestInfo} data
      * @returns {Boolean} Is false when a possible security incident has been found
      */
@@ -118,11 +108,6 @@ declare module "modules/crlfInjection" {
     };
 }
 declare module "modules/directoryTraversal" {
-    /**
-     *
-     * @param {EasyWafConfig} conf
-     */
-    export function init(conf: EasyWafConfig): void;
     /**
      *
      * @param {EasyWAFRequestInfo} data
@@ -142,19 +127,13 @@ declare module "modules/fakeSearchCrawlers" {
     /**
      *
      * @param {EasyWAFRequestInfo} reqInfo
-     * @param {Function} cb
      */
-    export function checkCB(reqInfo: EasyWAFRequestInfo, cb: Function): void;
+    export function check(reqInfo: EasyWAFRequestInfo): Promise<any>;
     export function info(): {
         name: string;
     };
 }
 declare module "modules/noSqlInjection" {
-    /**
-     *
-     * @param {EasyWafConfig} conf
-     */
-    export function init(conf: EasyWafConfig): void;
     /**
      *
      * @param {EasyWAFRequestInfo} data
@@ -184,11 +163,6 @@ declare module "modules/openRedirect" {
 declare module "modules/prototypePollution" {
     /**
      *
-     * @param {EasyWafConfig} conf
-     */
-    export function init(conf: EasyWafConfig): void;
-    /**
-     *
      * @param {EasyWAFRequestInfo} data
      * @returns {Boolean} Is false when a possible security incident has been found
      */
@@ -198,11 +172,6 @@ declare module "modules/prototypePollution" {
     };
 }
 declare module "modules/sqlInjection" {
-    /**
-     *
-     * @param {EasyWafConfig} conf
-     */
-    export function init(conf: EasyWafConfig): void;
     /**
      *
      * @param {EasyWAFRequestInfo} data
@@ -216,11 +185,6 @@ declare module "modules/sqlInjection" {
 declare module "modules/xss" {
     /**
      *
-     * @param {EasyWafConfig} conf
-     */
-    export function init(conf: EasyWafConfig): void;
-    /**
-     *
      * @param {EasyWAFRequestInfo} data
      * @returns {Boolean} Is false when a possible security incident has been found
      */
@@ -231,7 +195,6 @@ declare module "modules/xss" {
 }
 declare module "modules/index" {
     export const badBots: {
-        init: (conf: EasyWafConfig) => void;
         check: (data: EasyWAFRequestInfo) => boolean;
         info: () => {
             name: string;
@@ -246,14 +209,12 @@ declare module "modules/index" {
         updateTorExitNodesList: (cb: any) => void;
     };
     export const crlfInjection: {
-        init: (conf: EasyWafConfig) => void;
         check: (data: EasyWAFRequestInfo) => boolean;
         info: () => {
             name: string;
         };
     };
     export const directoryTraversal: {
-        init: (conf: EasyWafConfig) => void;
         check: (data: EasyWAFRequestInfo) => boolean;
         info: () => {
             name: string;
@@ -261,13 +222,12 @@ declare module "modules/index" {
     };
     export const fakeSearchCrawlers: {
         init: (conf: EasyWafConfig) => void;
-        checkCB: (reqInfo: EasyWAFRequestInfo, cb: Function) => void;
+        check: (reqInfo: EasyWAFRequestInfo) => Promise<any>;
         info: () => {
             name: string;
         };
     };
     export const noSqlInjection: {
-        init: (conf: EasyWafConfig) => void;
         check: (data: EasyWAFRequestInfo) => boolean;
         info: () => {
             name: string;
@@ -281,21 +241,18 @@ declare module "modules/index" {
         };
     };
     export const prototypePollution: {
-        init: (conf: EasyWafConfig) => void;
         check: (data: EasyWAFRequestInfo) => boolean;
         info: () => {
             name: string;
         };
     };
     export const sqlInjection: {
-        init: (conf: EasyWafConfig) => void;
         check: (data: EasyWAFRequestInfo) => boolean;
         info: () => {
             name: string;
         };
     };
     export const xss: {
-        init: (conf: EasyWafConfig) => void;
         check: (data: EasyWAFRequestInfo) => boolean;
         info: () => {
             name: string;
@@ -391,8 +348,8 @@ type EasyWAFModuleInfo = {
 };
 type EasyWAFModule = {
     check: (arg0: EasyWAFRequestInfo) => boolean;
-    checkCB: (arg0: EasyWAFRequestInfo, arg1: Function) => void;
     info: () => EasyWAFModuleInfo;
+    init: (arg0: EasyWafConfig) => void;
 };
 type EasyWAFRequestInfo = {
     /**

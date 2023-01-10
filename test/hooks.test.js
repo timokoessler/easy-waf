@@ -1,4 +1,3 @@
-/* eslint-disable jest/valid-title */
 const testServer = require('./test-server');
 const request = require('supertest');
 
@@ -13,6 +12,9 @@ testServer.init({
             && req.url.match('^[^?]*')[0] === '/test') { //Do not block xss from localhost at path /test
             return false;
         }
+    },
+    postBlockHook: () => {
+        //
     }
 });
 

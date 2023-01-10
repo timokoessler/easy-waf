@@ -14,8 +14,8 @@ fakeSearchCrawlers.init({
 });
 
 describe('DuckDuckBot', () => {
-    test('Disallow (whitelist not loaded)', done => {
-        fakeSearchCrawlers.checkCB({
+    test('Disallow (whitelist not loaded)', async () => {
+        const ok = await fakeSearchCrawlers.check({
             url: '/test?q=123',
             body: undefined,
             headers: {
@@ -25,19 +25,14 @@ describe('DuckDuckBot', () => {
             method: 'GET',
             path: '/test',
             ua: 'DuckDuckBot/X.0; (+http://duckduckgo.com/duckduckbot.html)'
-        }, (ok) => {
-            try {
-                expect(ok).toBe(false);
-                done();
-            } catch (error) {
-                done(error);
-            }
         });
+        expect(ok).toBe(false);
     });
 });
+
 describe('Googlebot', () => {
-    test('Allow', done => {
-        fakeSearchCrawlers.checkCB({
+    test('Allow', async () => {
+        const ok = await fakeSearchCrawlers.check({
             url: '/test?q=123',
             body: undefined,
             headers: {
@@ -47,17 +42,11 @@ describe('Googlebot', () => {
             method: 'GET',
             path: '/test',
             ua: 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Chrome/W.X.Y.Z Safari/537.36'
-        }, (ok) => {
-            try {
-                expect(ok).toBe(true);
-                done();
-            } catch (error) {
-                done(error);
-            }
         });
+        expect(ok).toBe(true);
     });
-    test('Block', done => {
-        fakeSearchCrawlers.checkCB({
+    test('Block', async () => {
+        const ok = await fakeSearchCrawlers.check({
             url: '/test?q=123',
             body: undefined,
             headers: {
@@ -67,20 +56,14 @@ describe('Googlebot', () => {
             method: 'GET',
             path: '/test',
             ua: 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Chrome/W.X.Y.Z Safari/537.36'
-        }, (ok) => {
-            try {
-                expect(ok).toBe(false);
-                done();
-            } catch (error) {
-                done(error);
-            }
         });
+        expect(ok).toBe(false);
     });
 });
 
 describe('Bing', () => {
-    test('Allow', done => {
-        fakeSearchCrawlers.checkCB({
+    test('Allow', async () => {
+        const ok = await fakeSearchCrawlers.check({
             url: '/test?q=123',
             body: undefined,
             headers: {
@@ -90,17 +73,11 @@ describe('Bing', () => {
             method: 'GET',
             path: '/test',
             ua: 'Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)'
-        }, (ok) => {
-            try {
-                expect(ok).toBe(true);
-                done();
-            } catch (error) {
-                done(error);
-            }
         });
+        expect(ok).toBe(true);
     });
-    test('Block', done => {
-        fakeSearchCrawlers.checkCB({
+    test('Block', async () => {
+        const ok = await fakeSearchCrawlers.check({
             url: '/test?q=123',
             body: undefined,
             headers: {
@@ -110,14 +87,8 @@ describe('Bing', () => {
             method: 'GET',
             path: '/test',
             ua: 'Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)'
-        }, (ok) => {
-            try {
-                expect(ok).toBe(false);
-                done();
-            } catch (error) {
-                done(error);
-            }
         });
+        expect(ok).toBe(false);
     });
 });
 describe('DuckDuckBot 2', () => {
@@ -128,8 +99,8 @@ describe('DuckDuckBot 2', () => {
         expect(foo).toBeDefined();
         jest.useFakeTimers();
     });
-    test('Allow (whitelist loaded)', done => {
-        fakeSearchCrawlers.checkCB({
+    test('Allow (whitelist loaded)', async () => {
+        const ok = await fakeSearchCrawlers.check({
             url: '/test?q=123',
             body: undefined,
             headers: {
@@ -139,13 +110,7 @@ describe('DuckDuckBot 2', () => {
             method: 'GET',
             path: '/test',
             ua: 'DuckDuckBot/X.0; (+http://duckduckgo.com/duckduckbot.html)'
-        }, (ok) => {
-            try {
-                expect(ok).toBe(true);
-                done();
-            } catch (error) {
-                done(error);
-            }
         });
+        expect(ok).toBe(true);
     });
 });

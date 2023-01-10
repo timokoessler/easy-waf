@@ -27,5 +27,4 @@ describe('Module options', function() {
                 expect(response.statusCode).toBe(200);
         });
     });
-
 });
