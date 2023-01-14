@@ -11,7 +11,7 @@ app.use(helmet());
 
 app.use(easyWaf({
     dryMode: true, //Suspicious requests are only logged and not blocked
-    allowedHTTPMethods: ['GET', 'POST'],
+    allowedHTTPMethods: ['GET', 'POST', 'HEAD', 'OPTIONS'],
     ipBlacklist: ['1.1.1.1', '2.2.2.2'],
     ipWhitelist: ['::1', '172.16.0.0/12'],
     queryUrlWhitelist: ['github.com'],

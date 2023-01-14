@@ -5,7 +5,6 @@ const easyWaf = require('easy-waf');
 const app = new Koa();
 
 app.use(c2k(easyWaf({
-    allowedHTTPMethods: ['GET', 'POST'],
     queryUrlWhitelist: ['github.com']
 })));
 
