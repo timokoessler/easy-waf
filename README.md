@@ -98,15 +98,6 @@ The following table shows which user input is checked by which module:
 \* Bodies are only checked if req.body is set by a middleware or the web framework itself before EasyWAF.  
 \** Includes user agent and cookies
 
-## Contributing
-Any contribution is greatly appreciated.
-
-A few notes on PRs and code contributions:
-- After cloning the repo run `npm i`
-- Run `npm run precommit` before every commit: this runs ESLint and TypeScript (this should normally be done automatically by a git hook)
-- If you add new modules or other features, create tests
-- Before you create a PR, run `npm t` to run all tests
-
 ## Contact
 If a public GitHub issue or discussion is not the right choice for your concern, you can contact me directly:
 - E-Mail: [info@timokoessler.de](mailto:info@timokoessler.de)
