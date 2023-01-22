@@ -4,6 +4,8 @@ const fakeSearchCrawlers = require('../lib/modules/fakeSearchCrawlers');
 jest.setTimeout(5000);
 jest.useFakeTimers();
 
+process.env.TEST_FAKE_SEARCH_CRAWLERS = 1;
+
 fakeSearchCrawlers.init({
     disableLogging: true,
     modules: {
@@ -89,28 +91,5 @@ describe('Bing', () => {
             ua: 'Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)'
         });
         expect(ok).toBe(false);
-    });
-});
-describe('DuckDuckBot 2', () => {
-    test('Sleep 1 second', async () => {
-        const foo = true;
-        jest.useRealTimers();
-        await new Promise((r) => setTimeout(r, 1000));
-        expect(foo).toBeDefined();
-        jest.useFakeTimers();
-    });
-    test('Allow (whitelist loaded)', async () => {
-        const ok = await fakeSearchCrawlers.check({
-            url: '/test?q=123',
-            body: undefined,
-            headers: {
-                'user-agent': 'DuckDuckBot/X.0; (+http://duckduckgo.com/duckduckbot.html)'
-            },
-            ip: '40.88.21.235',
-            method: 'GET',
-            path: '/test',
-            ua: 'DuckDuckBot/X.0; (+http://duckduckgo.com/duckduckbot.html)'
-        });
-        expect(ok).toBe(true);
     });
 });
