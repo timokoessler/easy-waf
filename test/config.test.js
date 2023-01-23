@@ -86,7 +86,7 @@ describe('Module options', function() {
 describe('Open Redirect', function() {
     test('Allow github.com', () => {
         return request(testServer.app)
-            .get('/get?q=https://github.com/test&q=5')
+            .get('/get?q=https://github.com/test&t=5')
             .then(response => {
                 expect(response.statusCode).toBe(200);
         });

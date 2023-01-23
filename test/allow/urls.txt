@@ -9,3 +9,4 @@
 /manifest.json
 /prototype/test.txt
 /test?g=Object.prototypetest
+/test?data=test&data2=test2

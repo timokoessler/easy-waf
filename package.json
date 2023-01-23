@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --coverage --collectCoverageFrom=lib/**/*.js",
+    "test-server": "node test/test-server",
     "lint": "eslint .",
     "precommit": "tsc && eslint .",
     "prepare": "git config core.hooksPath .git_hooks"
