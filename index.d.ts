@@ -70,7 +70,6 @@ declare module "modules/blockTorExitNodes" {
      * @returns {Boolean} Is false when a possible security incident has been found
      */
     export function check(data: EasyWAFRequestInfo): boolean;
-    export function updateTorExitNodesList(cb: any): void;
     export function info(): {
         name: string;
     };
@@ -144,9 +143,6 @@ declare module "modules/httpParameterPollution" {
      * @returns {Boolean} Is false when a possible security incident has been found
      */
     export function check(data: EasyWAFRequestInfo): boolean;
-    export function info(): {
-        name: string;
-    };
 }
 declare module "modules/noSqlInjection" {
     /**
@@ -221,7 +217,6 @@ declare module "modules/index" {
         info: () => {
             name: string;
         };
-        updateTorExitNodesList: (cb: any) => void;
     };
     export const crlfInjection: {
         check: (data: EasyWAFRequestInfo) => boolean;
@@ -245,9 +240,6 @@ declare module "modules/index" {
     };
     export const httpParameterPollution: {
         check: (data: EasyWAFRequestInfo) => boolean;
-        info: () => {
-            name: string;
-        };
     };
     export const noSqlInjection: {
         check: (data: EasyWAFRequestInfo) => boolean;

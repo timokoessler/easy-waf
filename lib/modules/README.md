@@ -18,7 +18,7 @@ This module detects and blocks path traversal attacks. This vulnerability allows
 [OSWAP: Path Traversal](https://owasp.org/www-community/attacks/Path_Traversal)
 
 ## Fake Search Crawlers
-This module blocks requests from bots that pretend to be a known search engine or similar. A up to date whitelist with IPS from Google, Bing and DuckDuckGo is used for this purpose. For other providers, the authenticity is checked by doing a reverse DNS lookup and the ip is then temporarily whitelisted.
+This module blocks requests from bots that pretend to be a known search engine or similar. For this purpose, a hourly updated whitelist with IPS from Google, Bing and DuckDuckGo is used. For other providers, the authenticity is checked by doing a reverse DNS lookup and the IP address is temporarily whitelisted.
 
 Whitelist sources: [Google](https://www.gstatic.com/ipranges/goog.json), [Bing](https://www.bing.com/toolbox/bingbot.json), [DuckDuckGo](https://raw.githubusercontent.com/duckduckgo/duckduckgo-help-pages/master/_docs/results/duckduckbot.md)  
 Supported companies: Google, Microsoft, DuckDuckGo, Yahoo!, Yandex, Baidu, Qwant

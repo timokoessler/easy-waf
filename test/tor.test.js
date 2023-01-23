@@ -2,8 +2,12 @@
 const testServer = require('./test-server');
 const request = require('supertest');
 const blockTorExitNodes = require('../lib/modules/blockTorExitNodes');
+const utils = require('../lib/utils');
 
 jest.useFakeTimers();
+jest.setTimeout(5000);
+
+var torIP = '';
 
 testServer.init({
     allowedHTTPMethods: ['GET', 'POST'],
@@ -15,21 +19,40 @@ testServer.init({
     }
 });
 
+test('Get Tor IP', () => {
+    return new Promise(done => {
+        utils.httpGET('https://check.torproject.org/torbulkexitlist', (data) => {
+            data = data.split(/\r?\n/);
+            data = data.filter(line => line.length != 0);
+            expect(Array.isArray(data)).toBe(true);
+            torIP = data[0];
+            done();
+        });
+    });
+});
+test('Sleep 1 second', async () => {
+    const foo = true;
+    jest.useRealTimers();
+    await new Promise((r) => setTimeout(r, 1000));
+    expect(foo).toBeDefined();
+    jest.useFakeTimers();
+});
 test('Request should not be blocked', () => {
     return request(testServer.app)
         .get('/get')
         .then(response => {
             expect(response.statusCode).toBe(200);
-    });
+        });
 });
-
-// eslint-disable-next-line jest/no-done-callback, jest/expect-expect
-test('Test if Tor Exit Node List GET Request works', (done) => {
-    blockTorExitNodes.updateTorExitNodesList((torExitNodes) => {
-        if(torExitNodes.length == 0){
-            done(new Error());
-            return;
-        }
-        done();
+test('Test if Tor ip is blocked', () => {
+    const ok = blockTorExitNodes.check({
+        url: '/get',
+        body: undefined,
+        headers: {},
+        ip: torIP,
+        method: 'GET',
+        path: '/get',
+        ua: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/109.0'
     });
+    expect(ok).toBe(false);
 });
