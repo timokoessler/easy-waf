@@ -30,6 +30,7 @@ app.listen(3000);
   - CRLF Injection
   - Cross-Site-Scripting (XSS)
   - Directory / Path Traversal
+  - HTTP Parameter Pollution
   - Open Redirect / Server Side Request Forgery (SSRF) (queryUrlWhitelist option must be set)
   - Prototype Pollution
   - SQL Injections and NoSQL Injections
@@ -82,21 +83,25 @@ app.use(easyWaf({
 
 The following table shows which user input is checked by which module:
 
-| Name                          | URL | Body* | Headers** | IP |
-| ----------------------------- | --- | ----- | ------- | -- |
-| Bad Bots                      | ❌  | ❌   | ✅     | ❌ |
-| Block Tor Exit Nodes          | ❌  | ❌   | ❌     | ✅ |
-| CRLF Injection                | ✅  | ✅   | ❌     | ❌ |
-| Cross-Site-Scripting (XSS)    | ✅  | ✅   | ✅     | ❌ |
-| Directory Traversal           | ✅  | ✅   | ❌     | ❌ |
-| Fake Search Crawlers          | ❌  | ❌   | ✅     | ✅ |
-| NoSQL Injections              | ✅  | ✅   | ✅     | ❌ |
-| Open Redirect / SSRF          | ✅  | ❌   | ❌     | ❌ |
-| Prototype Pollution           | ✅  | ✅   | ✅     | ❌ |
-| SQL Injections                | ✅  | ✅   | ✅     | ❌ |
+| Name                          | URL    | Body* | Headers** | IP |
+| ----------------------------- | ------ | ----- | --------- | -- |
+| Bad Bots                      | ❌     | ❌   | ✅       | ❌ |
+| Block Tor Exit Nodes          | ❌     | ❌   | ❌       | ✅ |
+| CRLF Injection                | ✅     | ✅   | ❌       | ❌ |
+| Cross-Site-Scripting (XSS)    | ✅     | ✅   | ✅       | ❌ |
+| Directory Traversal           | ✅     | ✅   | ❌       | ❌ |
+| Fake Search Crawlers          | ❌     | ❌   | ✅       | ✅ |
+| HTTP Parameter Pollution      | ✅***  | ❌   | ❌       | ❌ |
+| NoSQL Injections              | ✅     | ✅   | ✅       | ❌ |
+| Open Redirect / SSRF          | ✅     | ❌   | ❌       | ❌ |
+| Prototype Pollution           | ✅     | ✅   | ✅       | ❌ |
+| SQL Injections                | ✅     | ✅   | ✅       | ❌ |
 
 \* Bodies are only checked if req.body is set by a middleware or the web framework itself before EasyWAF.  
-\** Includes user agent and cookies
+\*\* Includes user agent and cookies  
+\*\*\* Only if req.query is set by a framework.
+
+A short description of all modules can be found in [lib/modules](lib/modules).
 
 ## Contact
 If a public GitHub issue or discussion is not the right choice for your concern, you can contact me directly:

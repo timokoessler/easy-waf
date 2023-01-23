@@ -14,7 +14,7 @@ testServer.init({
     },
 });
 
-describe('Fake Googlebot', function () {
+describe('Fake Googlebot', () => {
     test('Request should be blocked', () => {
         return request(testServer.app)
             .get('/get')

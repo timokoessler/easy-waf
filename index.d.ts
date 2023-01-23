@@ -137,6 +137,17 @@ declare module "modules/fakeSearchCrawlers" {
         name: string;
     };
 }
+declare module "modules/httpParameterPollution" {
+    /**
+     *
+     * @param {EasyWAFRequestInfo} data
+     * @returns {Boolean} Is false when a possible security incident has been found
+     */
+    export function check(data: EasyWAFRequestInfo): boolean;
+    export function info(): {
+        name: string;
+    };
+}
 declare module "modules/noSqlInjection" {
     /**
      *
@@ -228,6 +239,12 @@ declare module "modules/index" {
         init: (conf: EasyWafConfig) => void;
         check: (reqInfo: EasyWAFRequestInfo) => Promise<any>;
         updateIPWhitelist: () => void;
+        info: () => {
+            name: string;
+        };
+    };
+    export const httpParameterPollution: {
+        check: (data: EasyWAFRequestInfo) => boolean;
         info: () => {
             name: string;
         };
@@ -328,6 +345,7 @@ type EasyWafConfigModules = {
      * Blocks crawlers that pretend to be a google bot or a bot from other major search engines or internet companies.
      */
     fakeSearchCrawlers?: EasyWafConfigModule;
+    httpParameterPollution?: EasyWafConfigModule;
     noSqlInjection?: EasyWafConfigModule;
     openRedirect?: EasyWafConfigModule;
     prototypePollution?: EasyWafConfigModule;
@@ -375,6 +393,10 @@ type EasyWAFRequestInfo = {
      */
     path: string;
     /**
+     * Parsed url query
+     */
+    query: any;
+    /**
      * User Agent
      */
     ua: string;
@@ -385,3 +407,7 @@ type EasyWAFRequestInfo = {
 };
 type EasyWAFPreBlockHook = (req: import('http').IncomingMessage, moduleInfo: EasyWAFModuleInfo, ip: string) => boolean;
 type EasyWAFPostBlockHook = (req: import('http').IncomingMessage, moduleInfo: EasyWAFModuleInfo, ip: string) => any;
+type EasyWAFExtendIncomingMessage = {
+    body?: any;
+    query?: any;
+};
