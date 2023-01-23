@@ -30,6 +30,7 @@ app.listen(3000);
   - CRLF Injection
   - Cross-Site-Scripting (XSS)
   - Directory / Path Traversal
+  - HTTP Parameter Pollution
   - Open Redirect / Server Side Request Forgery (SSRF) (queryUrlWhitelist option must be set)
   - Prototype Pollution
   - SQL Injections and NoSQL Injections
@@ -99,6 +100,8 @@ The following table shows which user input is checked by which module:
 \* Bodies are only checked if req.body is set by a middleware or the web framework itself before EasyWAF.  
 \*\* Includes user agent and cookies  
 \*\*\* Only if req.query is set by a framework.
+
+A short description of all modules can be found in [lib/modules](lib/modules).
 
 ## Contact
 If a public GitHub issue or discussion is not the right choice for your concern, you can contact me directly:

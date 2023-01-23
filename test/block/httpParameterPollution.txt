@@ -1,3 +1,0 @@
-!URL
-18&t=5&a=abc&t=9&b=6
-abc&test[]=6
