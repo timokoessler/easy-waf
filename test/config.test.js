@@ -2,6 +2,8 @@
 const testServer = require('./test-server');
 const request = require('supertest');
 
+jest.useFakeTimers();
+
 testServer.init({
     allowedHTTPMethods: ['GET', 'POST'],
     customBlockedPage: 'Test: {dateTime}',

@@ -54,9 +54,8 @@ declare module "utils" {
     /**
      * Simple HTTP GET request without any dependencies
      * @param {String} url
-     * @param {Function} cb
      */
-    export function httpGET(url: string, cb: Function): void;
+    export function httpGET(url: string): Promise<any>;
 }
 declare module "modules/blockTorExitNodes" {
     /**
@@ -131,7 +130,7 @@ declare module "modules/fakeSearchCrawlers" {
     /**
      * Downloads Google and Bing ip list and adds DuckDuckGo ips
      */
-    export function updateIPWhitelist(): void;
+    export function updateIPWhitelist(): Promise<void>;
     export function info(): {
         name: string;
     };
@@ -233,7 +232,7 @@ declare module "modules/index" {
     export const fakeSearchCrawlers: {
         init: (conf: EasyWafConfig) => void;
         check: (reqInfo: EasyWAFRequestInfo) => Promise<any>;
-        updateIPWhitelist: () => void;
+        updateIPWhitelist: () => Promise<void>;
         info: () => {
             name: string;
         };

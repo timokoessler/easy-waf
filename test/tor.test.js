@@ -19,16 +19,12 @@ testServer.init({
     }
 });
 
-test('Get Tor IP', () => {
-    return new Promise(done => {
-        utils.httpGET('https://check.torproject.org/torbulkexitlist', (data) => {
-            data = data.split(/\r?\n/);
-            data = data.filter(line => line.length != 0);
-            expect(Array.isArray(data)).toBe(true);
-            torIP = data[0];
-            done();
-        });
-    });
+test('Get Tor IP', async () => {
+    let data = await utils.httpGET('https://check.torproject.org/torbulkexitlist');
+    data = data.split(/\r?\n/);
+    data = data.filter(line => line.length != 0);
+    expect(Array.isArray(data)).toBe(true);
+    torIP = data[0];
 });
 test('Sleep 1 second', async () => {
     const foo = true;
