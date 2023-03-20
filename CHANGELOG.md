@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.4.1] - 2023-03-20
+
+*HTTP request bug fixes*
+
+### Changed
+
+- Fixed crash if outgoing http request does not work
+
 ## [0.4.0] - 2023-01-23
 
 *HTTP Parameter Pollution, bug fixes and more*
