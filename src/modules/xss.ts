@@ -1,5 +1,6 @@
 /* eslint-disable no-useless-escape */
-const {dot, slash, brackedOpen, colon, lT, equals} = require('./specialchars.regex');
+import { dot, slash, brackedOpen, colon, lT, equals } from './specialchars.regex';
+import type { EasyWaf } from '../types';
 
 //Regex build with data of https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/XSS%20Injection
 const htmlTags = '(a|abbr|acronym|address|applet|area|article|aside|audio|b|base|basefont|bdi|bdo|big|blockquote|body|br|button|canvas|caption|center|cite|code|col|colgroup|command|data|datalist|dd|del|details|dfn|dir|div|dl|dt|em|embed|fieldset|figcaption|figure|font|footer|form|frame|frameset|h1|h2|h3|h4|h5|h6|head|header|hr|html|i|iframe|img|input|ins|kbd|keygen|label|layer|legend|li|line|link|listing|main|map|mark|marquee|math|menu|menuitem|meta|meter|nav|nobr|noembed|noframes|nolayer|noscript|object|ol|optgroup|option|output|p|param|plaintext|pre|progress|q|rp|rt|ruby|s|samp|script|section|select|small|source|span|strike|strong|style|sub|summary|sup|svg|t|table|tbody|td|template|textarea|tfoot|th|thead|time|title|tr|track|tt|u|ul|var|video|wbr|xmp|foreignObject)';
@@ -8,27 +9,15 @@ const functions = `(alert|call|confirm|console${dot}[a-zA-Z]{1,}|eval|fetch|prom
 
 const regex = new RegExp(`(${lT}${slash}?(java)?script|${lT}${slash}?${htmlTags}|${functions}(${brackedOpen}|\`|(\\\\){1,2}x28)|(${brackedOpen}|${equals})${functions}|javascript${colon}|${lT}xss|${lT}${slash}?(\\\?|%3F)?xml|${lT}${slash}?dialog|(navigator|document|localStorage|process)${dot}\\\S|${jsEvents}|${lT}\\\??import|top\\[|${dot}(inner|outer)HTML|response${dot}write${brackedOpen})`, 'i');
 
-/**
- * 
- * @param {EasyWAFRequestInfo} data
- * @returns {Boolean} Is false when a possible security incident has been found
- */
-function check(data){
-    if(regex.test(data.url) || regex.test(data.ua) || regex.test(data.headers)){
-        return false;
-    }
-     
-    if(data.body && regex.test(data.body)){
-        return false;
-    }
-    return true;
-}
+export default {
+    check: (req: EasyWaf.Request) => {
+        if (regex.test(req.url) || regex.test(req.ua) || regex.test(req.headers)) {
+            return false;
+        }
 
-module.exports = {
-    check: check,
-    info: () => {
-        return {
-            name: 'xss'
-        };
+        if (req.body && regex.test(req.body)) {
+            return false;
+        }
+        return true;
     }
 };

@@ -1,6 +1,6 @@
 const fs = require('fs');
 const express = require('express');
-const easyWaf = require('../index');
+const easyWaf = require('../dist/index.js');
 const app = express();
 
 /**
@@ -29,11 +29,11 @@ function init(config){
  * 
  */
 function foreachFile(path, cb) {
-    var files = fs.readdirSync(path).filter((name) => /.*\.(txt)$/i.test(name));
+    const files = fs.readdirSync(path).filter((name) => /.*\.(txt)$/i.test(name));
     if(!path.endsWith('/')) path += '/';
     files.forEach(txtFile => {
-        var lines = fs.readFileSync(path + txtFile, 'utf-8').split(/\r?\n/);
-        var fileName = txtFile.replace(/\.[^/.]+$/, '');
+        const lines = fs.readFileSync(path + txtFile, 'utf-8').split(/\r?\n/);
+        const fileName = txtFile.replace(/\.[^/.]+$/, '');
     
         if(!lines[0].startsWith('!')){
             throw new Error('Add the test type in first line of the file ' + fileName);

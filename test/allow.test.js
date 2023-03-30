@@ -10,9 +10,9 @@ testServer.init({
 });
 
 testServer.foreachFile(__dirname + '/allow', (lines, fileName) => {
-    var userAgent = 'Test';
-    var urlPath = '/get';
-    var testType = '';
+    let userAgent = 'Test';
+    let urlPath = '/get';
+    let testType = '';
 
     describe(fileName, function() {
         lines.forEach(line =>  {

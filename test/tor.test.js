@@ -1,13 +1,13 @@
 /* eslint-disable jest/valid-title */
 const testServer = require('./test-server');
 const request = require('supertest');
-const blockTorExitNodes = require('../lib/modules/blockTorExitNodes');
+const blockTorExitNodes = require('../src/modules/blockTorExitNodes');
 const utils = require('../lib/utils');
 
 jest.useFakeTimers();
 jest.setTimeout(5000);
 
-var torIP = '';
+let torIP = '';
 
 testServer.init({
     allowedHTTPMethods: ['GET', 'POST'],

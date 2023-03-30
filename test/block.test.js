@@ -10,7 +10,7 @@ testServer.init({
 });
 
 testServer.foreachFile(__dirname + '/block', (lines, fileName) => {
-    var testType = '';
+    let testType = '';
 
     describe(fileName, function() {
         lines.forEach(line =>  {

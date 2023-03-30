@@ -1,5 +1,7 @@
 # Easy WAF (Beta) 🧱
 
+## ⚠️ This branch is a work in progress rewrite from JS to TS
+
 An easy-to-use Web Application Firewall (WAF) for Node.js. Can be used with Express, Fastify, NextJS, NuxtJS ... or Node.js http.
 
 [![npm version](https://badgen.net/npm/v/easy-waf)](https://www.npmjs.com/package/easy-waf)

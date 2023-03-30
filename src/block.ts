@@ -1,23 +1,16 @@
-const logger = require('./logger');
-const crypto = require('crypto');
+import { sha256 } from 'utils';
+import * as logger from './logger';
+import type { EasyWaf } from './types';
 
 /**
  * 
- * @param {import('http').IncomingMessage} req 
- * @param {import('http').ServerResponse} res 
- * @param {EasyWAFModuleInfo} moduleInfo 
- * @param {EasyWafConfig} config 
- * @param {String} ip
- * @returns {Boolean}
  */
-function block(req, res, moduleInfo, config, ip){
+export function block(req: EasyWaf.Request, res: EasyWaf.Response, moduleName: string, config: EasyWaf.Config): boolean {
 
-    /** @type {Date} */
-    var date = new Date();
-    /** @type {String} */
-    var referenceID = crypto.createHash('sha256').update(ip + date.getTime()).digest('hex');
+    const date = new Date();
+    const referenceID = sha256(req.ip + date.getTime());
 
-    if(typeof config.preBlockHook === 'function' && config.preBlockHook(req, moduleInfo, ip) === false){
+    if(typeof config.preBlockHook === 'function' && config.preBlockHook(req, moduleName, req.ip) === false){
         return false;
     }
 
@@ -42,30 +35,30 @@ function block(req, res, moduleInfo, config, ip){
                             You have sent a suspicious request, therefore your request has been blocked.</p>
                             <hr style="margin-top:1rem;margin-bottom:1rem;border:0;border-top:1px solid rgba(0, 0, 0, 0.1);">
                             <p>Time: ` + date.toUTCString() + `<br>
-                            Your IP: ` + ip + `<br>
+                            Your IP: ` + req.ip + `<br>
                             Reference ID: ` + referenceID + `</p>
                         </div>
                     </div>
                 </body>
             </html>`);
         } else {
-            var mapObj = {
+            const mapObj = {
                 dateTime: date.toUTCString(),
-                ip: ip,
+                ip: req.ip,
                 referenceID: referenceID,
-                moduleName: moduleInfo.name
+                moduleName: moduleName
             };
-            res.write(config.customBlockedPage.replace(/{\w+}/g, function(matched){
-                return mapObj[matched.slice(1, -1)];
+            res.write(config.customBlockedPage.replace(/{\w+}/g, (matched) => {
+                return mapObj[matched.slice(1, -1) as keyof typeof mapObj];
             }));
         }
         res.end();
     }
 
-    logger.requestBlocked(moduleInfo, req, referenceID, config, ip);
+    logger.requestBlocked(moduleName, req, referenceID, config);
 
     if(typeof config.postBlockHook === 'function'){
-        config.postBlockHook(req, moduleInfo, ip);
+        config.postBlockHook(req, moduleName, req.ip);
     }
 
     if(config.dryMode){
@@ -73,5 +66,3 @@ function block(req, res, moduleInfo, config, ip){
     }
     return true;
 }
-
-module.exports = block;

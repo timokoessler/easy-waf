@@ -1,26 +1,29 @@
 module.exports = {
-	'env': {
-		'node': true,
-		'commonjs': true,
-		'es2021': true
+	env: {
+		node: true,
+		es2021: true
 	},
-	'extends': ['eslint:recommended', 'plugin:security-node/recommended'],
-	'parserOptions': {
-		'ecmaVersion': 'latest'
-	},
-	'overrides': [
-		{ 'files': [ 'test/**' ], 'plugins': [ 'jest' ], 'extends': [ 'plugin:jest/recommended' ],}
+	parser: '@typescript-eslint/parser',
+	plugins: [
+		'@typescript-eslint'
 	],
-	'rules': {
-		'indent': [
+	extends: [
+		'plugin:@typescript-eslint/eslint-recommended',
+		'plugin:@typescript-eslint/recommended'
+	],
+	parserOptions: {
+		ecmaVersion: 'latest'
+	},
+	rules: {
+		indent: [
 			'off',
 			'tab'
 		],
-		'quotes': [
+		quotes: [
 			'warn',
 			'single'
 		],
-		'semi': [
+		semi: [
 			'warn',
 			'always'
 		],
