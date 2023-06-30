@@ -1,4 +1,4 @@
-import type { EasyWaf } from 'types';
+import type { EasyWaf } from '../types';
 
 export default {
     check: (req: EasyWaf.Request) => {

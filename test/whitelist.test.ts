@@ -1,10 +1,9 @@
-const testServer = require('./test-server');
-const request = require('supertest');
+import testServer from './test-server';
+import request from 'supertest';
 
 jest.useFakeTimers();
 
 testServer.init({
-    allowedHTTPMethods: ['GET', 'POST'],
     disableLogging: true,
     ipWhitelist: ['::1', '127.0.0.1', '::ffff:127.0.0.1'],
     trustProxy: () => { return false; }

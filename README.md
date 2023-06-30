@@ -116,5 +116,5 @@ If a public GitHub issue or discussion is not the right choice for your concern,
 - [Nginx Ultimate Bad Bot Blocker: The source of the bad bots list for EasyWaf](https://github.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker)
 
 ## License
-© Timo Kössler 2022  
+© Timo Kössler 2023  
 Released under the [MIT license](LICENSE)

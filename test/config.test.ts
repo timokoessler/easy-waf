@@ -1,6 +1,5 @@
-/* eslint-disable jest/valid-title */
-const testServer = require('./test-server');
-const request = require('supertest');
+import testServer from './test-server';
+import request from 'supertest';
 
 testServer.init({
     allowedHTTPMethods: ['GET', 'POST'],

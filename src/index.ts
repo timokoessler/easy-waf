@@ -19,6 +19,12 @@ let config: EasyWaf.Config = {
 let trustProxy: string | string[] | ((addr: string, i: number) => boolean);
 let ipBlacklist: IPMatcher, ipWhitelist: IPMatcher;
 
+export type { EasyWaf };
+
+/**
+ * EasyWAF Middleware - View examples at https://github.com/timokoessler/easy-waf/tree/main/examples
+ * @param conf Optional configuration
+ */
 export default function easyWaf(conf?: EasyWaf.Config) {
     if (typeof conf === 'object' && conf !== null && !Array.isArray(conf)) {
 
@@ -65,9 +71,7 @@ export default function easyWaf(conf?: EasyWaf.Config) {
 
     for (const [, module] of Object.entries(modules)) {
         if (typeof (module as EasyWaf.Module).init === 'function') {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            (module as EasyWaf.Module).init(config);
+            (module as EasyWaf.Module).init?.(config);
         }
     }
 
@@ -94,19 +98,16 @@ export default function easyWaf(conf?: EasyWaf.Config) {
             url: '',
             rawReq
         };
-        let url = '';
         try {
-            url = decodeURIComponent(rawReq.url as string);
+            req.url = decodeURIComponent(rawReq.url as string);
         } catch (e) {
+            req.url = typeof rawReq.url === 'string' ? rawReq.url : '';
             if (!block(req, res, 'uriMalformed', config)) {
                 next();
             }
             return;
         }
-
-        req.url = url;
-
-        const pathRegexRes = url.match('^[^?]*');
+        const pathRegexRes = req.url.match('^[^?]*');
         req.path = Array.isArray(pathRegexRes) && typeof pathRegexRes[0] === 'string' ? pathRegexRes[0] : '';
         
 

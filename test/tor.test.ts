@@ -1,8 +1,7 @@
-/* eslint-disable jest/valid-title */
-const testServer = require('./test-server');
-const request = require('supertest');
-const blockTorExitNodes = require('../src/modules/blockTorExitNodes');
-const utils = require('../lib/utils');
+import testServer from './test-server';
+import request from 'supertest';
+import blockTorExitNodes from '../src/modules/blockTorExitNodes';
+import { httpGET } from '../src/utils';
 
 jest.useFakeTimers();
 jest.setTimeout(5000);
@@ -10,7 +9,6 @@ jest.setTimeout(5000);
 let torIP = '';
 
 testServer.init({
-    allowedHTTPMethods: ['GET', 'POST'],
     disableLogging: true,
     modules: {
         blockTorExitNodes: {
@@ -19,16 +17,17 @@ testServer.init({
     }
 });
 
-test('Get Tor IP', () => {
-    return new Promise(done => {
-        utils.httpGET('https://check.torproject.org/torbulkexitlist', (data) => {
-            data = data.split(/\r?\n/);
-            data = data.filter(line => line.length != 0);
-            expect(Array.isArray(data)).toBe(true);
-            torIP = data[0];
-            done();
-        });
-    });
+test('Get Tor IP', async () => {
+    const data = await httpGET('https://check.torproject.org/torbulkexitlist');
+    if (typeof data !== 'string') {
+        throw new Error('Data is not a string');
+    }
+    let arr = data.split(/\r?\n/);
+    if (!Array.isArray(arr)) {
+        throw new Error('Data is not an array');
+    }
+    arr = arr.filter(line => line.length != 0);
+    torIP = arr[0];
 });
 test('Sleep 1 second', async () => {
     const foo = true;
@@ -48,11 +47,15 @@ test('Test if Tor ip is blocked', () => {
     const ok = blockTorExitNodes.check({
         url: '/get',
         body: undefined,
-        headers: {},
+        headers: '',
         ip: torIP,
         method: 'GET',
         path: '/get',
-        ua: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/109.0'
+        ua: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/109.0',
+        query: {},
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        rawReq: undefined,
     });
     expect(ok).toBe(false);
 });

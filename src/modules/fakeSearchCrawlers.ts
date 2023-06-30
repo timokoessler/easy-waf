@@ -1,5 +1,5 @@
-import { httpGET, refactorIPArray } from 'utils';
-import { log } from 'logger';
+import { httpGET, refactorIPArray } from '../utils';
+import { log } from '../logger';
 import { reverse, lookup } from 'dns/promises';
 import { createCIDR } from 'ip6addr';
 import type { EasyWaf } from '../types';
@@ -16,7 +16,7 @@ const ipList: string[] = [];
 export default {
     init: (conf: EasyWaf.Config) => {
         config = conf;
-        if (config.modules?.fakeSearchCrawlers && 'enabled' in config.modules.fakeSearchCrawlers && config.modules.fakeSearchCrawlers.enabled && typeof process.env.TEST_FAKE_SEARCH_CRAWLERS !== 'string' && process.env.TEST_FAKE_SEARCH_CRAWLERS !== '1') {
+        if (config.modules?.fakeSearchCrawlers && 'enabled' in config.modules.fakeSearchCrawlers && config.modules.fakeSearchCrawlers.enabled && typeof process.env.TEST_FAKE_SEARCH_CRAWLERS !== 'string') {
             updateIPWhitelist();
         }
     },
@@ -32,18 +32,25 @@ export default {
             if (!Array.isArray(hostnames)) {
                 return false;
             }
-            const matchedHostname = hostnames.find(h => rdnsRegex.test(h));
-            if (!Array.isArray(matchedHostname) || !matchedHostname.length) {
+            const matchedHostname = [];
+            for(const hostname of hostnames){
+                if(rdnsRegex.test(hostname)){
+                    matchedHostname.push(hostname);
+                }
+            }
+            if (!matchedHostname.length) {
                 return false;
             }
-            const lookupRes = await lookup(matchedHostname);
-            if (!lookupRes) {
-                return false;
-            }
-            if (lookupRes.address === req.ip) {
-                // The request comes from a real search crawler, so add to the whitelist (only temporarily)
-                addIPToWhitelist(req.ip);
-                return true;
+            for(const hostname of matchedHostname){
+                const lookupRes = await lookup(hostname);
+                if (!lookupRes) {
+                    continue;
+                }
+                if (lookupRes.address === req.ip) {
+                    // The request comes from a real search crawler, so add to the whitelist (only temporarily)
+                    addIPToWhitelist(req.ip);
+                    return true;
+                }
             }
             return false;
         } catch (err) {
@@ -52,7 +59,8 @@ export default {
             }
             return false;
         }
-    }
+    },
+    updateIPWhitelist: updateIPWhitelist,
 };
 
 /**
@@ -71,11 +79,12 @@ function validateCIDR(ip: string) {
 }
 
 /**
- * Changes the prefix list of Google and Bing into an array
+ * Parses the ip list from Google and Bing and returns an array of valid CIDR notations.
  */
 function parsePrefixList(arr: unknown) {
     const list: string[] = [];
     if (!Array.isArray(arr)) {
+        /* istanbul ignore next */
         log('Warn', 'fakeSearchCrawlers in parsePrefixList: arr is not an array');
         return list;
     }
@@ -94,39 +103,43 @@ function parsePrefixList(arr: unknown) {
 }
 
 /**
- * Downloads Google and Bing ip list and adds DuckDuckGo ips
+ * Updates the ip whitelist with the ip addresses of Google, Bing and DuckDuckGo.
  */
-function updateIPWhitelist() {
+async function updateIPWhitelist() {
     ipList.length = 0;
     // Google
-    httpGET('https://www.gstatic.com/ipranges/goog.json').then(data => {
-        let json = JSON.parse(data);
+    try {
+        const result = await httpGET('https://www.gstatic.com/ipranges/goog.json');
+        const json = JSON.parse(result);
         ipList.push(...parsePrefixList(json.prefixes));
-        // Bing
-        httpGET('https://www.gstatic.com/ipranges/goog.json').then(data => {
-            json = JSON.parse(data);
-            ipList.push(...parsePrefixList(json.prefixes));
-            // DuckDuckGo 
-            // https://raw.githubusercontent.com/duckduckgo/duckduckgo-help-pages/master/_docs/results/duckduckbot.md
-            ipList.push(...['20.191.45.212', '40.88.21.235', '40.76.173.151', '40.76.163.7', '20.185.79.47', '52.142.26.175', '20.185.79.15', '52.142.24.149', '40.76.162.208', '40.76.163.23', '40.76.162.191', '40.76.162.247']);
-            refactorIPArray(ipList);
-            ipWhitelist = new Matcher(ipList);
-        }).catch(err => {
-            if (err instanceof Error) {
-                log('Error', 'Exception while updating Bing / DuckDUckGo ip whitelist: ' + err.message);
-            }
-        });
-    }).catch(err => {
+    } catch (err) {
+        /* istanbul ignore next */
         if (err instanceof Error) {
             log('Error', 'Exception while updating Google ip whitelist: ' + err.message);
         }
-    });
+    }
+    // Bing
+    try {
+        const result = await httpGET('https://www.bing.com/toolbox/bingbot.json');
+        const json = JSON.parse(result);
+        ipList.push(...parsePrefixList(json.prefixes));
+    } catch (err) {
+        /* istanbul ignore next */
+        if (err instanceof Error) {
+            log('Error', 'Exception while updating Bing ip whitelist: ' + err.message);
+        }
+    }
+    // DuckDuckGo
+    // https://raw.githubusercontent.com/duckduckgo/duckduckgo-help-pages/master/_docs/results/duckduckbot.md
+    ipList.push(...['20.191.45.212', '40.88.21.235', '40.76.173.151', '40.76.163.7', '20.185.79.47', '52.142.26.175', '20.185.79.15', '52.142.24.149', '40.76.162.208', '40.76.163.23', '40.76.162.191', '40.76.162.247']);
+    refactorIPArray(ipList);
+    ipWhitelist = new Matcher(ipList);
 
     setTimeout(updateIPWhitelist, 3600000); //1 hour
 }
 
 /**
- * Adds an ip address to the fakeSearchCrawlers whitelist 
+ * Adds an IP to the fake search crawler whitelist.
  */
 function addIPToWhitelist(ip: string) {
     if (!ip.includes('/')) {

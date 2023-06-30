@@ -5,8 +5,9 @@ import type { EasyWaf } from '../types';
 let config: EasyWaf.Config;
 let torExitNodes: string[] = [];
 
-function updateTorExitNodesList() {
-    httpGET('https://check.torproject.org/torbulkexitlist').then(data => {
+async function updateTorExitNodesList() {
+    try {
+        const data = await httpGET('https://check.torproject.org/torbulkexitlist');
         if (typeof data !== 'string') {
             throw new Error('Data is not a string');
         }
@@ -16,11 +17,11 @@ function updateTorExitNodesList() {
         }
         arr = arr.filter(line => line.length != 0);
         torExitNodes = arr;
-    }).catch(err => {
+    } catch (err) {
         if (err instanceof Error) {
             log('Error', 'Exception while updating Tor Exit Nodes list: ' + err.message);
         }
-    });
+    }
     setTimeout(updateTorExitNodesList, 3600000); //1 hour
 }
 

@@ -1,9 +1,8 @@
-const testServer = require('./test-server');
-const request = require('supertest');
+import testServer from './test-server';
+import request from 'supertest';
 
 jest.useFakeTimers();
 
-process.env.TEST_FAKE_SEARCH_CRAWLERS = 2;
 
 testServer.init({
     disableLogging: true,

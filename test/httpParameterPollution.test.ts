@@ -1,9 +1,10 @@
-const express = require('express');
-const easyWaf = require('../index');
-const app = express();
-const request = require('supertest');
+import express from 'express';
+import easyWaf from '../src';
+import request from 'supertest';
 
 jest.useFakeTimers();
+
+const app = express();
 
 app.use(easyWaf({
     disableLogging: true,

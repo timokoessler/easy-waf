@@ -1,13 +1,15 @@
-const fs = require('fs');
-const express = require('express');
-const easyWaf = require('../dist/index.js');
+import { readdirSync, readFileSync }  from 'node:fs';
+import express from 'express';
+import easyWaf, { EasyWaf } from '../src';
+
+
+
+// https://plainenglish.io/blog/beginners-guide-to-testing-jest-with-node-typescript
+
+
 const app = express();
 
-/**
- * Add EasyWaf middleware and some test routes
- * @param {EasyWafConfig} config 
- */
-function init(config){
+function init(config?: EasyWaf.Config){
     app.use(express.json());
     //app.use(express.urlencoded({ extended: true }));
 
@@ -22,17 +24,11 @@ function init(config){
     });
 }
 
-/**
- * This function parses the txt files at the specified path and calls the callback with the test type, the lines and the fileName for each file.
- * @param {String} path 
- * @param {CallableFunction} cb 
- * 
- */
-function foreachFile(path, cb) {
-    const files = fs.readdirSync(path).filter((name) => /.*\.(txt)$/i.test(name));
+function foreachFile(path: string, cb: (lines: string[], fileName: string) => void) {
+    const files = readdirSync(path).filter((name) => /.*\.(txt)$/i.test(name));
     if(!path.endsWith('/')) path += '/';
     files.forEach(txtFile => {
-        const lines = fs.readFileSync(path + txtFile, 'utf-8').split(/\r?\n/);
+        const lines = readFileSync(path + txtFile, 'utf-8').split(/\r?\n/);
         const fileName = txtFile.replace(/\.[^/.]+$/, '');
     
         if(!lines[0].startsWith('!')){
@@ -51,7 +47,7 @@ if (require.main === module) {
     console.log('App listening on port', 3000);
 }
 
-module.exports = {
+export default {
     init: init,
     foreachFile: foreachFile,
     app: app
