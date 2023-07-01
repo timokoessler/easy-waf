@@ -1,7 +1,4 @@
 # Easy WAF (Beta) 🧱
-
-## ⚠️ This branch is a work in progress rewrite from JS to TS
-
 An easy-to-use Web Application Firewall (WAF) for Node.js. Can be used with Express, Fastify, NextJS, NuxtJS ... or Node.js http.
 
 [![npm version](https://badgen.net/npm/v/easy-waf)](https://www.npmjs.com/package/easy-waf)
@@ -14,8 +11,8 @@ An easy-to-use Web Application Firewall (WAF) for Node.js. Can be used with Expr
 
 
 ```javascript
-const express = require('express');
-const easyWaf = require('easy-waf');
+import express from 'express';
+import easyWaf from 'easy-waf'; // CommonJS is also supported (require)
 const app = express();
 
 app.use(easyWaf());
@@ -38,6 +35,7 @@ app.listen(3000);
   - SQL Injections and NoSQL Injections
 - Can block requests from the Tor network (disabled by default)
 - Compatible with many popular web frameworks and with the integrated Node.js HTTP server
+- Supports ES modules and CommonJS
 
 ## Installation
 > ⚠️ I strongly recommend to activate the "dryMode" at the beginning to be able to identify possible false positives from the logs.
@@ -103,7 +101,7 @@ The following table shows which user input is checked by which module:
 \*\* Includes user agent and cookies  
 \*\*\* Only if req.query is set by a framework.
 
-A short description of all modules can be found in [lib/modules](lib/modules).
+A short description of all modules can be found in [src/modules](src/modules).
 
 ## Contact
 If a public GitHub issue or discussion is not the right choice for your concern, you can contact me directly:
