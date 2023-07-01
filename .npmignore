@@ -6,3 +6,6 @@ coverage/
 tsconfig.json
 .github/
 .eslintignore
+src/
+tsup.config.ts
+jest.config.js

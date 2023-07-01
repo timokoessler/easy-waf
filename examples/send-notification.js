@@ -3,7 +3,7 @@ const easyWaf = require('easy-waf');
 const nodemailer = require('nodemailer');
 const app = express();
 
-var mailTransporter = nodemailer.createTransport({
+const mailTransporter = nodemailer.createTransport({
     host: 'mail.example.com',
     port: 587, secure: false,
     auth: { user: 'user@example.com', pass: 'pass' }

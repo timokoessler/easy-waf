@@ -1,4 +1,3 @@
-#npm
 .npm
 node_modules/
 *.log
@@ -6,3 +5,4 @@ node_modules/
 *.tgz
 coverage/
 test/temp.js
+dist

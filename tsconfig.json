@@ -1,15 +1,22 @@
 {
-  "include": ["lib/**/*"],
-  "exclude": ["node_modules/"],
-  "compilerOptions": {
-    "allowJs": true,
-    "checkJs": true,
-    "declaration": true,
-    "emitDeclarationOnly": true,
-    "declarationMap": false,
-    "outFile": "index.d.ts",
-    "target": "ES2020",
-    "moduleResolution": "Node",
-    "module": "CommonJS"
-  }
+    "include": [
+        "src/**/*.ts",
+    ],
+    "exclude": [
+        "node_modules/",
+        "dist"
+    ],
+    "compilerOptions": {
+        "baseUrl": "src",
+        "allowSyntheticDefaultImports": true,
+        "target": "ES2022",
+        "moduleResolution": "Node",
+        "outDir": "dist",
+        "declaration": true,
+        "esModuleInterop": true,
+        "strict": true,
+        "allowJs": false,
+        "resolveJsonModule": true,
+        "inlineSourceMap": false
+    }
 }
