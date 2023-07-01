@@ -1,6 +1,6 @@
 import proxyaddr from 'proxy-addr';
 import { Matcher as IPMatcher } from 'netparser';
-import { refactorIPArray, compileProxyTrust } from './utils';
+import { compileProxyTrust } from './utils';
 import * as modules from './modules';
 import { block } from './block';
 import * as logger from './logger';
@@ -50,7 +50,6 @@ export default function easyWaf(conf?: EasyWaf.Config) {
                 /* istanbul ignore next */
                 throw new Error('EasyWafConfig: ipBlacklist is not an array');
             }
-            refactorIPArray(conf.ipBlacklist);
             ipBlacklist = new IPMatcher(conf.ipBlacklist);
         }
 
@@ -59,7 +58,6 @@ export default function easyWaf(conf?: EasyWaf.Config) {
                 /* istanbul ignore next */
                 throw new Error('EasyWafConfig: ipWhitelist is not an array');
             }
-            refactorIPArray(conf.ipWhitelist);
             ipWhitelist = new IPMatcher(conf.ipWhitelist);
         }
 

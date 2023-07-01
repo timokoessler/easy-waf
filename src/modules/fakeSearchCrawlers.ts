@@ -1,7 +1,6 @@
-import { httpGET, refactorIPArray } from '../utils';
+import { httpGET } from '../utils';
 import { log } from '../logger';
 import { reverse, lookup } from 'dns/promises';
-import { createCIDR } from 'ip6addr';
 import type { EasyWaf } from '../types';
 import { Matcher } from 'netparser';
 
@@ -63,20 +62,7 @@ export default {
     updateIPWhitelist: updateIPWhitelist,
 };
 
-/**
- * Checks whether an IP is written in a valid CIDR notation.
- */
-function validateCIDR(ip: string) {
-    try {
-        createCIDR(ip);
-        return true;
-    } catch (err) /* istanbul ignore next */ {
-        if (err instanceof Error) {
-            log('Warn', `Invalid ip in CIDR format: ${ip} Msg: ${err.message}`);
-        }
-        return false;
-    }
-}
+
 
 /**
  * Parses the ip list from Google and Bing and returns an array of valid CIDR notations.
@@ -91,12 +77,12 @@ function parsePrefixList(arr: unknown) {
     arr.forEach(e => {
         if (typeof e.ipv4Prefix === 'string') {
             e.ipv4Prefix = e.ipv4Prefix.replaceAll('\u200b', ''); //Some Bing ip addresses contain the unicode character "Zero Width Space" (200B).
-            if (validateCIDR(e.ipv4Prefix)) list.push(e.ipv4Prefix);
+            list.push(e.ipv4Prefix);
             return;
         }
         if (typeof e.ipv6Prefix === 'string') {
             e.ipv6Prefix = e.ipv6Prefix.replaceAll('\u200b', ''); //Some Bing ip addresses contain the unicode character "Zero Width Space" (200B).
-            if (validateCIDR(e.ipv6Prefix)) list.push(e.ipv6Prefix);
+            list.push(e.ipv6Prefix);
         }
     });
     return list;
@@ -132,7 +118,6 @@ async function updateIPWhitelist() {
     // DuckDuckGo
     // https://raw.githubusercontent.com/duckduckgo/duckduckgo-help-pages/master/_docs/results/duckduckbot.md
     ipList.push(...['20.191.45.212', '40.88.21.235', '40.76.173.151', '40.76.163.7', '20.185.79.47', '52.142.26.175', '20.185.79.15', '52.142.24.149', '40.76.162.208', '40.76.163.23', '40.76.162.191', '40.76.162.247']);
-    refactorIPArray(ipList);
     ipWhitelist = new Matcher(ipList);
 
     setTimeout(updateIPWhitelist, 3600000); //1 hour

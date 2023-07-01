@@ -3,21 +3,6 @@ import https from 'node:https';
 import { createHash } from 'node:crypto';
 
 /**
- * Modifies the passed array so that all entries are written in CIDR notation (even single ones).
- */
-export function refactorIPArray(array: string[]) {
-    array.forEach((ip, i, a) => {
-        if (!ip.includes('/')) {
-            if (ip.includes(':')) {
-                a[i] += '/128';
-            } else {
-                a[i] += '/32';
-            }
-        }
-    });
-}
-
-/**
  * Extends the proxyaddr.compile function so that functions, numbers and Boolean values can also be used in the configuration.
  */
 // eslint-disable-next-line @typescript-eslint/ban-types

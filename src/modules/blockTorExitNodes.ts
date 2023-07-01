@@ -1,9 +1,10 @@
 import { log } from '../logger';
 import { httpGET } from '../utils';
 import type { EasyWaf } from '../types';
+import { Matcher } from 'netparser';
 
 let config: EasyWaf.Config;
-let torExitNodes: string[] = [];
+let torExitNodes: Matcher;
 
 async function updateTorExitNodesList() {
     try {
@@ -16,7 +17,7 @@ async function updateTorExitNodesList() {
             throw new Error('Data is not an array');
         }
         arr = arr.filter(line => line.length != 0);
-        torExitNodes = arr;
+        torExitNodes = new Matcher(arr);
     } catch (err) {
         if (err instanceof Error) {
             log('Error', 'Exception while updating Tor Exit Nodes list: ' + err.message);
@@ -33,7 +34,7 @@ export default {
         }
     },
     check: (req: EasyWaf.Request) => {
-        if (torExitNodes.includes(req.ip)) {
+        if (typeof torExitNodes !== 'undefined' && torExitNodes.get(req.ip)) {
             return false;
         }
         return true;
