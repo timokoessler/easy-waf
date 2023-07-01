@@ -1,6 +1,8 @@
 import testServer from './test-server';
 import request from 'supertest';
 
+jest.useFakeTimers();
+
 testServer.init({
     allowedHTTPMethods: ['GET', 'POST'],
     customBlockedPage: 'Test: {dateTime}',
