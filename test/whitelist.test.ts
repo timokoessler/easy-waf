@@ -6,7 +6,12 @@ jest.useFakeTimers();
 testServer.init({
     disableLogging: true,
     ipWhitelist: ['::1', '127.0.0.1', '::ffff:127.0.0.1'],
-    trustProxy: () => { return false; }
+    trustProxy: () => { return false; },
+    modules: {
+        fakeCrawlers: {
+            enabled: false,
+        },
+    },
 });
 
 test('Request should not be blocked (ip whitelist)', () => {

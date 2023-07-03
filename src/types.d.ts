@@ -54,7 +54,7 @@ export namespace EasyWaf {
         blockTorExitNodes?: ConfigModule;
         crlfInjection?: ConfigModule;
         directoryTraversal?: ConfigModule;
-        fakeSearchCrawlers?: ConfigModule;
+        fakeCrawlers?: ConfigModule;
         httpParameterPollution?: ConfigModule;
         noSqlInjection?: ConfigModule;
         openRedirect?: ConfigModule;

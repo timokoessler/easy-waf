@@ -6,7 +6,12 @@ jest.useFakeTimers();
 testServer.init({
     disableLogging: true,
     ipBlacklist: ['::1', '127.0.0.1', '::ffff:127.0.0.1'],
-    trustProxy: 0
+    trustProxy: 0,
+    modules: {
+        fakeCrawlers: {
+            enabled: false,
+        },
+    },
 });
 
 test('Request should be blocked (ip blacklist)', () => {

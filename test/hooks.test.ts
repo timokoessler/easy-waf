@@ -6,6 +6,11 @@ jest.useFakeTimers();
 testServer.init({
     allowedHTTPMethods: ['GET', 'POST'],
     disableLogging: true,
+    modules: {
+        fakeCrawlers: {
+            enabled: false,
+        },
+    },
     preBlockHook: (req, moduleName, ip) => {
         const path = req.url.match('^[^?]*');
         if (moduleName === 'xss'

@@ -24,7 +24,7 @@ app.listen(3000);
 
 ## Features
 - Restrict allowed HTTP methods and add your own ip black- and whitelist
-- Blocks requests from bad bots and fake search crawlers
+- Blocks requests from bad bots and fake crawlers
 - Blocks malicious requests:
   - CRLF Injection
   - Cross-Site-Scripting (XSS)
@@ -39,19 +39,19 @@ app.listen(3000);
 
 ## Installation
 > ⚠️ I strongly recommend to activate the "dryMode" at the beginning to be able to identify possible false positives from the logs.
-If EasyWaf should parse bodies, bind a body-parser middleware to your app before adding EasyWaf.
+If EasyWAF should parse bodies, bind a body-parser middleware to your app before adding EasyWAF.
 
 ```bash
 npm i easy-waf
 ```
 
-In the [examples](examples/) folder you can find samples of how to integrate EasyWaf into your application.
+In the [examples](examples/) folder you can find samples of how to integrate EasyAF into your application.
 
 If you run your Node.js app behind a reverse proxy, don't forget to set the `trustProxy` option.
 To enable Open Redirect protection, configure the `queryUrlWhitelist` option.
 
 ## Configuration
-EasyWaf is easy to use without the need for much configuration, but there are still many customization options.
+EasyWAF is easy to use without the need for much configuration, but there are still many customization options.
 ```javascript
 app.use(easyWaf({
     allowedHTTPMethods: ['GET', 'POST'],
@@ -90,7 +90,7 @@ The following table shows which user input is checked by which module:
 | CRLF Injection                | ✅     | ✅   | ❌       | ❌ |
 | Cross-Site-Scripting (XSS)    | ✅     | ✅   | ✅       | ❌ |
 | Directory Traversal           | ✅     | ✅   | ❌       | ❌ |
-| Fake Search Crawlers          | ❌     | ❌   | ✅       | ✅ |
+| Fake Crawlers                 | ❌     | ❌   | ✅       | ✅ |
 | HTTP Parameter Pollution      | ✅***  | ❌   | ❌       | ❌ |
 | NoSQL Injections              | ✅     | ✅   | ✅       | ❌ |
 | Open Redirect / SSRF          | ✅     | ❌   | ❌       | ❌ |
@@ -111,7 +111,7 @@ If a public GitHub issue or discussion is not the right choice for your concern,
 ## Sources
 - [Payloads All The Thing: A list of useful payloads and bypass for Web Application Security](https://github.com/swisskyrepo/PayloadsAllTheThings)
 - [HackTricks: A free hacking book](https://book.hacktricks.xyz/pentesting-web/)
-- [Nginx Ultimate Bad Bot Blocker: The source of the bad bots list for EasyWaf](https://github.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker)
+- [Nginx Ultimate Bad Bot Blocker: The source of the bad bots list for EasyWAF](https://github.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker)
 
 ## License
 © Timo Kössler 2023  

@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import fakeSearchCrawlers from '../src/modules/fakeSearchCrawlers';
+import fakeCrawlers from '../src/modules/fakeCrawlers';
 
 jest.setTimeout(5000);
 jest.useFakeTimers();
 
-process.env.TEST_FAKE_SEARCH_CRAWLERS = 'do not load whitelist';
+process.env.TEST_FAKE_CRAWLERS = 'do not load whitelist';
 
-fakeSearchCrawlers.init({
+fakeCrawlers.init({
     disableLogging: true,
     modules: {
-        fakeSearchCrawlers: {
+        fakeCrawlers: {
             enabled: true
         }
     },
@@ -17,7 +17,7 @@ fakeSearchCrawlers.init({
 
 describe('DuckDuckBot', () => {
     test('Disallow (whitelist not loaded)', async () => {
-        const ok = await fakeSearchCrawlers.check({
+        const ok = await fakeCrawlers.check({
             url: '/test?q=123',
             body: undefined,
             headers: 'user-agent: DuckDuckBot/X.0; (+http://duckduckgo.com/duckduckbot.html)',
@@ -35,7 +35,7 @@ describe('DuckDuckBot', () => {
 
 describe('Googlebot', () => {
     test('Allow', async () => {
-        const ok = await fakeSearchCrawlers.check({
+        const ok = await fakeCrawlers.check({
             url: '/test?q=123',
             body: undefined,
             headers: 'user-agent: Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Chrome/W.X.Y.Z Safari/537.36',
@@ -50,7 +50,7 @@ describe('Googlebot', () => {
         expect(ok).toBe(true);
     });
     test('Block', async () => {
-        const ok = await fakeSearchCrawlers.check({
+        const ok = await fakeCrawlers.check({
             url: '/test?q=123',
             body: undefined,
             headers: 'user-agent: Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Chrome/W.X.Y.Z Safari/537.36',
@@ -68,7 +68,7 @@ describe('Googlebot', () => {
 
 describe('Bing', () => {
     test('Allow', async () => {
-        const ok = await fakeSearchCrawlers.check({
+        const ok = await fakeCrawlers.check({
             url: '/test?q=123',
             body: undefined,
             headers: 'user-agent: Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)',
@@ -83,7 +83,7 @@ describe('Bing', () => {
         expect(ok).toBe(true);
     });
     test('Block', async () => {
-        const ok = await fakeSearchCrawlers.check({
+        const ok = await fakeCrawlers.check({
             url: '/test?q=123',
             body: undefined,
             headers: 'user-agent: Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)',

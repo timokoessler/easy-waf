@@ -32,7 +32,7 @@ testServer.init({
         crlfInjection: {
             enabled: false
         },
-        fakeSearchCrawlers: {
+        fakeCrawlers: {
             enabled: false
         }
     },

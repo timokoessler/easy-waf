@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import fakeSearchCrawlers from '../src/modules/fakeSearchCrawlers';
+import fakeCrawlers from '../src/modules/fakeCrawlers';
 
 jest.useFakeTimers();
 jest.setTimeout(5000);
 
-process.env.TEST_FAKE_SEARCH_CRAWLERS = 'do not load whitelist';
+process.env.TEST_FAKE_CRAWLERS = 'do not load whitelist';
 
-fakeSearchCrawlers.init({
+fakeCrawlers.init({
     disableLogging: true,
     modules: {
-        fakeSearchCrawlers: {
+        fakeCrawlers: {
             enabled: true
         }
     },
@@ -17,7 +17,7 @@ fakeSearchCrawlers.init({
 
 describe('DuckDuckBot', () => {
     test('Disallow (whitelist not loaded)', async () => {
-        const ok = await fakeSearchCrawlers.check({
+        const ok = await fakeCrawlers.check({
             url: '/test?q=123',
             body: undefined,
             headers: 'user-agent: DuckDuckBot/X.0; (+http://duckduckgo.com/duckduckbot.html)',
@@ -33,19 +33,15 @@ describe('DuckDuckBot', () => {
     });
 });
 
-// @ts-ignore
-fakeSearchCrawlers.updateIPWhitelist();
+describe('IP whitelist', () => {
+    test('Load', async () => {
+        await fakeCrawlers.updateIPWhitelist();
+    }, 20000);
+});
 
 describe('Googlebot', () => {
-    test('Sleep 3 second', async () => {
-        const foo = true;
-        jest.useRealTimers();
-        await new Promise((r) => setTimeout(r, 3000));
-        expect(foo).toBeDefined();
-        jest.useFakeTimers();
-    });
     test('Allow', async () => {
-        const ok = await fakeSearchCrawlers.check({
+        const ok = await fakeCrawlers.check({
             url: '/test?q=123',
             body: undefined,
             headers: 'user-agent: Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Chrome/W.X.Y.Z Safari/537.36',
@@ -60,7 +56,7 @@ describe('Googlebot', () => {
         expect(ok).toBe(true);
     });
     test('Block', async () => {
-        const ok = await fakeSearchCrawlers.check({
+        const ok = await fakeCrawlers.check({
             url: '/test?q=123',
             body: undefined,
             headers: 'user-agent: Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Chrome/W.X.Y.Z Safari/537.36',
@@ -78,7 +74,7 @@ describe('Googlebot', () => {
 
 describe('Bing', () => {
     test('Allow', async () => {
-        const ok = await fakeSearchCrawlers.check({
+        const ok = await fakeCrawlers.check({
             url: '/test?q=123',
             body: undefined,
             headers: 'user-agent: Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)',
@@ -93,7 +89,7 @@ describe('Bing', () => {
         expect(ok).toBe(true);
     });
     test('Block', async () => {
-        const ok = await fakeSearchCrawlers.check({
+        const ok = await fakeCrawlers.check({
             url: '/test?q=123',
             body: undefined,
             headers: 'user-agent: Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)',
@@ -110,7 +106,7 @@ describe('Bing', () => {
 });
 describe('DuckDuckBot 2', () => {
     test('Allow (whitelist loaded)', async () => {
-        const ok = await fakeSearchCrawlers.check({
+        const ok = await fakeCrawlers.check({
             url: '/test?q=123',
             body: undefined,
             headers: 'user-agent: DuckDuckBot/X.0; (+http://duckduckgo.com/duckduckbot.html)',
@@ -123,5 +119,71 @@ describe('DuckDuckBot 2', () => {
             rawReq: undefined,
         });
         expect(ok).toBe(true);
+    });
+});
+
+describe('Twitter', () => {
+    test('Allow', async () => {
+        const ok = await fakeCrawlers.check({
+            url: '/test?q=123',
+            body: undefined,
+            headers: 'user-agent: Twitterbot/1.0',
+            ip: '199.16.156.1',
+            method: 'GET',
+            path: '/test',
+            ua: 'Twitterbot/1.0',
+            query: {},
+            // @ts-ignore
+            rawReq: undefined,
+        });
+        expect(ok).toBe(true);
+    });
+    test('Block', async () => {
+        const ok = await fakeCrawlers.check({
+            url: '/test?q=123',
+            body: undefined,
+            headers: 'user-agent: Twitterbot/1.0',
+            ip: '1.1.1.1',
+            method: 'GET',
+            path: '/test',
+            ua: 'Twitterbot/1.0',
+            query: {},
+            // @ts-ignore
+            rawReq: undefined,
+        });
+        expect(ok).toBe(false);
+    });
+});
+
+describe('Facebook', () => {
+    test('Allow', async () => {
+        const ok = await fakeCrawlers.check({
+            url: '/test?q=123',
+            body: undefined,
+            headers: 'user-agent: facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)',
+            ip: '69.63.176.1',
+            method: 'GET',
+            path: '/test',
+            ua: 'facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)',
+            query: {},
+            // @ts-ignore
+            rawReq: undefined,
+        });
+        expect(ok).toBe(true);
+    });
+    test('Block', async () => {
+        const ok = await fakeCrawlers.check({
+            url: '/test?q=123',
+            body: undefined,
+            headers: 'user-agent: facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)',
+            ip: '1.1.1.1',
+            method: 'GET',
+            path: '/test',
+            ua: 'facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)',
+            query: {},
+            // @ts-ignore
+            rawReq: undefined,
+        });
+        expect(ok).toBe(false);
     });
 });

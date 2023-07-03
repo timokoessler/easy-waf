@@ -17,11 +17,10 @@ This module blocks HTTP header injections with carriage returns and linefeed cha
 This module detects and blocks path traversal attacks. This vulnerability allows an attacker to read arbitrary files on the server that is running an application.  
 [OSWAP: Path Traversal](https://owasp.org/www-community/attacks/Path_Traversal)
 
-## Fake Search Crawlers
-This module blocks requests from bots that pretend to be a known search engine or similar. For this purpose, a hourly updated whitelist with IPS from Google, Bing and DuckDuckGo is used. For other providers, the authenticity is checked by doing a reverse DNS lookup and the IP address is temporarily whitelisted.
+## Fake Crawlers
+This module blocks requests from bots that pretend to be a known crawler of a search engine or a big company. The authenticity of most crawlers can be determined with a reverse DNS lookup, but an additional IP whitelist increases performance. In addition, the authenticity of some crawlers, such as the Facebook crawler, can only be determined by the IP. For more information visit the [Easy WAF Data Repository](https://github.com/timokoessler/easy-waf-data).
 
-Whitelist sources: [Google](https://www.gstatic.com/ipranges/goog.json), [Bing](https://www.bing.com/toolbox/bingbot.json), [DuckDuckGo](https://raw.githubusercontent.com/duckduckgo/duckduckgo-help-pages/master/_docs/results/duckduckbot.md)  
-Supported companies: Google, Microsoft, DuckDuckGo, Yahoo!, Yandex, Baidu, Qwant
+Supported companies: Google, Microsoft, Facebook, Twitter, DuckDuckGo, Yahoo!, Pinterest, Yandex, Baidu, Qwant
 
 ## HTTP Parameter Pollution
 *Request is not blocked or logged, req.query must be set by a web framework*

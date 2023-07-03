@@ -12,7 +12,12 @@ global.console.warn = (msg) => {
 };
 
 testServer.init({
-    dryMode: true
+    dryMode: true,
+    modules: {
+        fakeCrawlers: {
+            enabled: false,
+        },
+    },
 });
 
 describe('Module options', function () {

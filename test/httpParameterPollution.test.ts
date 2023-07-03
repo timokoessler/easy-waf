@@ -8,6 +8,11 @@ const app = express();
 
 app.use(easyWaf({
     disableLogging: true,
+    modules: {
+        fakeCrawlers: {
+            enabled: false,
+        },
+    },
 }));
 
 app.get('/get', function (req, res) {

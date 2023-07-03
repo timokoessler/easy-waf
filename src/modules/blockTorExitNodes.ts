@@ -19,6 +19,7 @@ async function updateTorExitNodesList() {
         arr = arr.filter(line => line.length != 0);
         torExitNodes = new Matcher(arr);
     } catch (err) {
+        /* istanbul ignore next */
         if (err instanceof Error) {
             log('Error', 'Exception while updating Tor Exit Nodes list: ' + err.message);
         }
@@ -34,7 +35,7 @@ export default {
         }
     },
     check: (req: EasyWaf.Request) => {
-        if (typeof torExitNodes !== 'undefined' && torExitNodes.get(req.ip)) {
+        if (typeof torExitNodes !== 'undefined' && torExitNodes.has(req.ip)) {
             return false;
         }
         return true;

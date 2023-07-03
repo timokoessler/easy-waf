@@ -20,7 +20,7 @@ A clear and concise description of what you expected to happen.
  - OS: (e.g. Debian 11, Windows 11)
  - Runtime: (e.g. Node.js)
  - Runtime version: (e.g. 18.13)
- - EasyWaf version: (e.g. 0.3.1)
+ - EasyWAF version: (e.g. 0.3.1)
  - Webframework: (e.g. none, Express.js, ...)
 
 **Additional context**

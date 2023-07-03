@@ -7,7 +7,7 @@ jest.useFakeTimers();
 testServer.init({
     disableLogging: true,
     modules: {
-        fakeSearchCrawlers: {
+        fakeCrawlers: {
             enabled: true
         }
     },

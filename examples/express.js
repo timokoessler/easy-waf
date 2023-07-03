@@ -3,7 +3,7 @@ const easyWaf = require('easy-waf');
 const helmet = require('helmet');
 const app = express();
 
-//If EasyWaf should check the request body, express body parser middlewares must be added before EasyWaf.
+//If EasyWAF should check the request body, express body parser middlewares must be added before EasyWAF.
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
