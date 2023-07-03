@@ -12,7 +12,7 @@ An easy-to-use Web Application Firewall (WAF) for Node.js. Can be used with Expr
 
 ```javascript
 import express from 'express';
-import easyWaf from 'easy-waf'; // CommonJS is also supported (require)
+import easyWaf from 'easy-waf'; // CommonJS: require('easy-waf').default;
 const app = express();
 
 app.use(easyWaf());

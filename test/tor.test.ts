@@ -2,7 +2,6 @@ import testServer from './test-server';
 import request from 'supertest';
 import blockTorExitNodes from '../src/modules/blockTorExitNodes';
 import { httpGET } from '../src/utils';
-import { fakeCrawlers } from '../src/modules';
 
 jest.useFakeTimers();
 jest.setTimeout(5000);
