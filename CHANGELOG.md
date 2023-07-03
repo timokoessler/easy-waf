@@ -1,6 +1,29 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.5.0] - 2023-07-03
+
+*TypeScript, ESM and Fake Crawlers*
+
+### ⚠️ Breaking changes
+
+- Package is now published as an ECMAScript module (ESM) and a CommonJS module (CJS)
+- CommonJS require syntax has changed. You now have to use `require('easy-waf').default;` instead of `require('easy-waf');`
+- Renamed fakeSearchCrawlers module to fakeCrawlers
+
+### Added
+- Added Facebook, Twitter and Pinterest to fake crawlers detection
+
+### Changed
+
+- Code is now written in TypeScript instead of JavaScript
+- Package is now published as an ECMAScript module (ESM) and a CommonJS module (CJS)
+- The fake crawlers whitelist will now be downloaded from the repository [easy-waf-data](https://github.com/timokoessler/easy-waf-data)
+- The performance of IP lists has been significantly increased (netparser is used instead of cidr-matcher)
+- Node.js v20 is used in GitHub Actions
+- Updated dependencies
+
+
 ## [0.4.1] - 2023-03-20
 
 *HTTP request bug fixes*
