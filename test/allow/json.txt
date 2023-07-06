@@ -1,7 +1,7 @@
 !Body
 {}
-{"username": "test", "password": "test}
-{"userID": "test", "devices": [{"id": 1, "name": "Test"}, {"id": 2, "name": undefined}]}
+{"username": "test", "password": "test"}
+{"userID": "test", "devices": [{"id": 1, "name": "Test"}, {"id": 2, "name": "???"}]}
 #Stripe
 { "id": "cus_5imgzoCoMkGduV", "object": "customer", "address": null, "balance": 0, "created": 1424217077, "currency": "usd", "default_currency": "usd", "default_source": "card_15XL7Z2eZvKYlo2CaLsb58gg", "delinquent": true, "description": null, "discount": null, "email": null, "invoice_prefix": "E42E59B", "invoice_settings": { "custom_fields": null, "default_payment_method": null, "footer": null, "rendering_options": null }, "livemode": false, "metadata": {}, "name": null, "next_invoice_sequence": 36197, "phone": null, "preferred_locales": [], "shipping": null, "tax_exempt": "none", "test_clock": null }
 { "id": "prod_M9px9fcQXB3jxR", "object": "product", "active": true, "created": 1659251378, "default_price": null, "description": "Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.", "images": [ "http://localhost:3000/images/cookie-tin.jpg" ], "livemode": false, "metadata": {}, "name": "Tin of Cookies", "package_dimensions": null, "shippable": null, "statement_descriptor": null, "tax_code": null, "unit_label": null, "updated": 1659251378, "url": null }

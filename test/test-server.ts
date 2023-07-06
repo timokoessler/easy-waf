@@ -2,11 +2,6 @@ import { readdirSync, readFileSync } from 'node:fs';
 import express from 'express';
 import easyWaf, { EasyWaf } from '../src';
 
-
-
-// https://plainenglish.io/blog/beginners-guide-to-testing-jest-with-node-typescript
-
-
 const app = express();
 
 function init(config?: EasyWaf.Config) {
