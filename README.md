@@ -4,7 +4,7 @@ An easy-to-use Web Application Firewall (WAF) for Node.js. Can be used with Expr
 [![npm version](https://badgen.net/npm/v/easy-waf)](https://www.npmjs.com/package/easy-waf)
 [![npm downloads](https://badgen.net/npm/dt/easy-waf)](https://www.npmjs.com/package/easy-waf)
 [![license](https://badgen.net/npm/license/easy-waf)](LICENSE)
-[![checks](https://badgen.net/github/checks/timokoessler/easy-waf)](https://github.com/timokoessler/easy-waf/actions/)
+[![Known Vulnerabilities](https://snyk.io/test/github/timokoessler/easy-waf/badge.svg)]
 [![CodeFactor](https://www.codefactor.io/repository/github/timokoessler/easy-waf/badge)](https://www.codefactor.io/repository/github/timokoessler/easy-waf)
 [![codecov](https://codecov.io/gh/timokoessler/easy-waf/branch/main/graph/badge.svg?token=62LUMSMRL0)](https://codecov.io/gh/timokoessler/easy-waf)
 [![install size](https://packagephobia.com/badge?p=easy-waf)](https://packagephobia.com/result?p=easy-waf)
