@@ -1,7 +1,8 @@
 // .
 export const dot = '(%2e|\\.|%u002e|%c0%2e|%e0%40%ae|%c0%ae|%252e|0x2e|%uff0e|%00\\.|\\.%00|%c0\\.|%25c0%25ae|%%32%{1,2}65)';
 // / \
-export const slash = '(%2f|%5C|\\\\|\\/|%u2215|%u2216|%c0%af|%e0%80%af|%c0%2f|%c0%5c|%c0%80%5c|%252f|%255c|0x2f|0x5c|%uff0f|%25c0%25af|%25c0%252f|%%32%{1,2}66|%%35%{1,2}63|%25c1%259c|%25c0%25af|%f0%80%80%af|%f8%80%80%80%af|%c1%9c|%c1%pc|%c0%9v|%c0%qf|%c1%8s|%c1%1c|%c1%af|%bg%qf|%uEFC8|%uF025|%e0%81%9c|%f0%80%81%9c)';
+export const slash =
+    '(%2f|%5C|\\\\|\\/|%u2215|%u2216|%c0%af|%e0%80%af|%c0%2f|%c0%5c|%c0%80%5c|%252f|%255c|0x2f|0x5c|%uff0f|%25c0%25af|%25c0%252f|%%32%{1,2}66|%%35%{1,2}63|%25c1%259c|%25c0%25af|%f0%80%80%af|%f8%80%80%80%af|%c1%9c|%c1%pc|%c0%9v|%c0%qf|%c1%8s|%c1%1c|%c1%af|%bg%qf|%uEFC8|%uF025|%e0%81%9c|%f0%80%81%9c)';
 // (
 export const brackedOpen = '(\\(|%28|&#x0{0,}28;?|&lpar;)';
 // :
@@ -19,7 +20,8 @@ export const equals = '(=|%3D|\\+AD0-|\\\\u003d|\\\\x0{0,}3d)';
 // "
 export const quotationMarks = '("|%22|\\+ACI-|\\\\u0022|\\\\x0{0,}22)';
 // '
-export const singleQuotationMarks = '(\'|%27|\\\\u0027|\\\\x0{0,}27)';
+// eslint-disable-next-line quotes
+export const singleQuotationMarks = "('|%27|\\\\u0027|\\\\x0{0,}27)";
 // &
 export const and = '(&|%26|\\+ACY-|\\\\u0026|\\\\x0{0,}26)';
 // |

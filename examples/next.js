@@ -15,7 +15,7 @@ const app = next({ dev });
 const handle = app.getRequestHandler();
 
 const easyWaf = EasyWaf({
-    queryUrlWhitelist: ['github.com']
+    queryUrlWhitelist: ['github.com'],
 });
 
 app.prepare().then(() => {
@@ -25,8 +25,6 @@ app.prepare().then(() => {
             handle(req, res, parsedUrl);
         });
     }).listen(port, () => {
-        console.log(
-            `> Server listening at http://localhost:${port} as ${dev ? 'development' : process.env.NODE_ENV}`
-        );
+        console.log(`> Server listening at http://localhost:${port} as ${dev ? 'development' : process.env.NODE_ENV}`);
     });
 });

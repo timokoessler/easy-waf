@@ -16,7 +16,7 @@ async function updateTorExitNodesList() {
         if (!Array.isArray(arr)) {
             throw new Error('Data is not an array');
         }
-        arr = arr.filter(line => line.length != 0);
+        arr = arr.filter((line) => line.length != 0);
         torExitNodes = new Matcher(arr);
     } catch (err) {
         /* istanbul ignore next */

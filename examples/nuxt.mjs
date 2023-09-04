@@ -16,8 +16,10 @@ import easyWaf from 'easy-waf';
 const app = express();
 app.set('trust proxy', true); //Not relevant for EasyWaf
 
-app.use(easyWaf({
-    trustProxy: 1 //Required because request is proxied by Nuxt
-}));
+app.use(
+    easyWaf({
+        trustProxy: 1, //Required because request is proxied by Nuxt
+    }),
+);
 
 export default app;

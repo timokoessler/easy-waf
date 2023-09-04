@@ -47,7 +47,7 @@ export namespace EasyWaf {
          */
         // eslint-disable-next-line @typescript-eslint/ban-types
         trustProxy?: string | string[] | Function | boolean | number;
-    }
+    };
 
     type ConfigModules = {
         badBots?: ConfigModule;
@@ -61,7 +61,7 @@ export namespace EasyWaf {
         prototypePollution?: ConfigModule;
         sqlInjection?: ConfigModule;
         xss?: ConfigModule;
-    }
+    };
 
     type ConfigModule = {
         /**
@@ -72,12 +72,12 @@ export namespace EasyWaf {
          * Exclude paths from being checked by this module with a regex
          */
         excludePaths?: RegExp;
-    }
+    };
 
     type Module = {
         init?: (config: EasyWaf.Config) => void;
         check: (req: EasyWaf.Request) => boolean;
-    }
+    };
 
     type LogType = 'Info' | 'Warn' | 'Error';
 
@@ -93,11 +93,11 @@ export namespace EasyWaf {
         /**
          * Url path without query or fragments.
          */
-        path: string,
+        path: string;
         /**
          * Parsed url query
          */
-        query: object,
+        query: object;
         /**
          * The original plain request
          */
@@ -107,11 +107,10 @@ export namespace EasyWaf {
          */
         ua: string;
         url: string;
-    }
+    };
 
     type RawRequest = IncomingMessage & {
         body?: unknown;
         query?: unknown;
     };
-
 }

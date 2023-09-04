@@ -11,3 +11,5 @@ tsup.config.ts
 jest.config.js
 examples/
 *.tgz
+.prettierrc.mjs
+.prettierignore

@@ -4,14 +4,14 @@ import request from 'supertest';
 jest.useFakeTimers();
 
 testServer.init({
-    disableLogging: false
+    disableLogging: false,
 });
 
 testServer.foreachFile(__dirname + '/allow', (lines, fileName) => {
     let testType = '';
 
     describe(fileName, function () {
-        lines.forEach(line => {
+        lines.forEach((line) => {
             if (!line) return;
             if (line.startsWith('#')) return;
             if (line.startsWith('!')) {
@@ -21,33 +21,33 @@ testServer.foreachFile(__dirname + '/allow', (lines, fileName) => {
                 }
                 return;
             }
-            if(testType === 'URL'){
+            if (testType === 'URL') {
                 test(line, () => {
                     return request(testServer.app)
                         .get('/get?q=' + line)
-                        .then(response => {
+                        .then((response) => {
                             expect(response.statusCode).toBe(200);
-                    });
+                        });
                 });
-            } else if(testType === 'UserAgent'){
+            } else if (testType === 'UserAgent') {
                 test(line, () => {
                     return request(testServer.app)
                         .get('/get')
                         .set('User-Agent', line)
-                        .send({key: line})
-                        .then(response => {
+                        .send({ key: line })
+                        .then((response) => {
                             expect(response.statusCode).toBe(200);
-                    });
+                        });
                 });
-            } else if(testType === 'Body'){
+            } else if (testType === 'Body') {
                 test(line, () => {
                     return request(testServer.app)
                         .post('/post')
                         .set('Content-Type', 'application/json')
                         .send(line)
-                        .then(response => {
+                        .then((response) => {
                             expect(response.statusCode).toBe(200);
-                    });
+                        });
                 });
             }
         });

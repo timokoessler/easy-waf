@@ -11,10 +11,14 @@ export function compileProxyTrust(val: string | string[] | Function | boolean | 
         return val;
     }
     if (typeof val === 'number') {
-        return (a: string, i: number) => { return i < val; };
+        return (a: string, i: number) => {
+            return i < val;
+        };
     }
     if (typeof val === 'boolean') {
-        return () => { return val; };
+        return () => {
+            return val;
+        };
     }
 
     return proxyaddr.compile(val);
@@ -25,29 +29,32 @@ export function compileProxyTrust(val: string | string[] | Function | boolean | 
  */
 export function httpGET(url: string): Promise<string> {
     return new Promise((resolve, reject) => {
-        https.get(url, { timeout: 5000 }, res => {
-            let data = '';
-            res.on('data', (chunk) => {
-                data += chunk;
-            });
-            res.on('error', reject);
-            res.on('end', () => {
-                const { statusCode } = res;
-                if (typeof statusCode !== 'number') {
-                    reject(new Error('Invalid status code'));
-                    return;
-                }
-                const validResponse = statusCode >= 200 && statusCode <= 299;
-                if (validResponse) {
-                    resolve(data);
-                    return;
-                }
-                reject(new Error(`Request failed. Status: ${statusCode} Url: ${url}`));
-            });
-        }).on('error', reject).end();
+        https
+            .get(url, { timeout: 5000 }, (res) => {
+                let data = '';
+                res.on('data', (chunk) => {
+                    data += chunk;
+                });
+                res.on('error', reject);
+                res.on('end', () => {
+                    const { statusCode } = res;
+                    if (typeof statusCode !== 'number') {
+                        reject(new Error('Invalid status code'));
+                        return;
+                    }
+                    const validResponse = statusCode >= 200 && statusCode <= 299;
+                    if (validResponse) {
+                        resolve(data);
+                        return;
+                    }
+                    reject(new Error(`Request failed. Status: ${statusCode} Url: ${url}`));
+                });
+            })
+            .on('error', reject)
+            .end();
     });
 }
 
-export function sha256(content: string){
+export function sha256(content: string) {
     return createHash('sha256').update(content).digest('hex');
 }

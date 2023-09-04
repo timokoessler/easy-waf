@@ -6,15 +6,26 @@ import { Matcher } from 'netparser';
 
 let config: EasyWaf.Config;
 
-const uaRegex = new RegExp('(Google|Bingbot|AdIdxBot|BingPreview|MicrosoftPreview|DuckDuck(Go|Bot)|Yahoo!|Yandex\\S|Baiduspider|Qwantify|Pinterestbot|pinterest\.com\/bot|Twitterbot|facebookexternalhit|facebookcatalog)', 'i');
-const rdnsRegex = new RegExp('(.googlebot.com|.google.com|.live.com|.msn.com|.bing.com|.microsoft.com|.yahoo.com|.yahoo.net|.yandex.net|.yandex.ru|.yandex.com|.baidu.com|.baidu.jp|.qwant.com|.pinterest.com|.pinterestcrawler.com|.twttr.com|.twitter.com)$', 'i');
+const uaRegex = new RegExp(
+    '(Google|Bingbot|AdIdxBot|BingPreview|MicrosoftPreview|DuckDuck(Go|Bot)|Yahoo!|Yandex\\S|Baiduspider|Qwantify|Pinterestbot|pinterest.com/bot|Twitterbot|facebookexternalhit|facebookcatalog)',
+    'i',
+);
+const rdnsRegex = new RegExp(
+    '(.googlebot.com|.google.com|.live.com|.msn.com|.bing.com|.microsoft.com|.yahoo.com|.yahoo.net|.yandex.net|.yandex.ru|.yandex.com|.baidu.com|.baidu.jp|.qwant.com|.pinterest.com|.pinterestcrawler.com|.twttr.com|.twitter.com)$',
+    'i',
+);
 
 let ipWhitelist: Matcher;
 
 export default {
     init: (conf: EasyWaf.Config) => {
         config = conf;
-        if (config.modules?.fakeCrawlers && 'enabled' in config.modules.fakeCrawlers && config.modules.fakeCrawlers.enabled && typeof process.env.TEST_FAKE_CRAWLERS !== 'string') {
+        if (
+            config.modules?.fakeCrawlers &&
+            'enabled' in config.modules.fakeCrawlers &&
+            config.modules.fakeCrawlers.enabled &&
+            typeof process.env.TEST_FAKE_CRAWLERS !== 'string'
+        ) {
             updateIPWhitelist();
         }
     },
@@ -69,12 +80,12 @@ async function updateIPWhitelist(): Promise<void> {
     try {
         const result = await httpGET('https://raw.githubusercontent.com/timokoessler/easy-waf-data/main/data/crawler-ips/all.json');
         const json = JSON.parse(result);
-        if(!Array.isArray(json)) throw new Error('Invalid JSON');
+        if (!Array.isArray(json)) throw new Error('Invalid JSON');
         ipWhitelist = new Matcher(json);
     } catch (err) {
         log('Error', 'Exception while updating Google ip whitelist: ' + (err as Error).message);
     }
-    setTimeout(updateIPWhitelist, 1000*60*60*4); //4 hours
+    setTimeout(updateIPWhitelist, 1000 * 60 * 60 * 4); //4 hours
     return;
 }
 
@@ -82,9 +93,8 @@ async function updateIPWhitelist(): Promise<void> {
  * Adds an IP to the fake crawler whitelist
  */
 function addIPToWhitelist(ip: string) {
-    if(typeof ipWhitelist === 'undefined'){
+    if (typeof ipWhitelist === 'undefined') {
         ipWhitelist = new Matcher();
     }
     ipWhitelist.add(ip);
 }
-

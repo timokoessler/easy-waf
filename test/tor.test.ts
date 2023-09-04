@@ -12,12 +12,12 @@ testServer.init({
     disableLogging: true,
     modules: {
         blockTorExitNodes: {
-            enabled: true
+            enabled: true,
         },
         fakeCrawlers: {
             enabled: false,
         },
-    }
+    },
 });
 
 test('Get Tor IP', async () => {
@@ -29,7 +29,7 @@ test('Get Tor IP', async () => {
     if (!Array.isArray(arr)) {
         throw new Error('Data is not an array');
     }
-    arr = arr.filter(line => line.length != 0);
+    arr = arr.filter((line) => line.length != 0);
     torIP = arr[0];
 });
 test('Sleep 1 second', async () => {
@@ -42,7 +42,7 @@ test('Sleep 1 second', async () => {
 test('Request should not be blocked', () => {
     return request(testServer.app)
         .get('/get')
-        .then(response => {
+        .then((response) => {
             expect(response.statusCode).toBe(200);
         });
 });

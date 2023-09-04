@@ -24,14 +24,14 @@ describe('Module options', function () {
     test('Dry mode should be enabled and logged', () => {
         return request(testServer.app)
             .get('/get?q=<script>alert("Test");</script>')
-            .then(response => {
+            .then((response) => {
                 expect(response.statusCode).toBe(200);
             });
     });
     test('Malformed Url should not be blocked', () => {
         return request(testServer.app)
             .get('/get?%E0%A4%A')
-            .then(response => {
+            .then((response) => {
                 expect(response.statusCode).toBe(200);
             });
     });

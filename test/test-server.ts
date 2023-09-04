@@ -21,7 +21,7 @@ function init(config?: EasyWaf.Config) {
 function foreachFile(path: string, cb: (lines: string[], fileName: string) => void) {
     const files = readdirSync(path).filter((name) => /.*\.(txt)$/i.test(name));
     if (!path.endsWith('/')) path += '/';
-    files.forEach(txtFile => {
+    files.forEach((txtFile) => {
         const lines = readFileSync(path + txtFile, 'utf-8').split(/\r?\n/);
         const fileName = txtFile.replace(/\.[^/.]+$/, '');
 
@@ -44,5 +44,5 @@ if (require.main === module) {
 export default {
     init: init,
     foreachFile: foreachFile,
-    app: app
+    app: app,
 };

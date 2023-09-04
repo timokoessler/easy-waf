@@ -11,9 +11,9 @@ let config: EasyWaf.Config = {
     disableLogging: false,
     modules: {
         blockTorExitNodes: {
-            enabled: false
+            enabled: false,
         },
-    }
+    },
 };
 
 let trustProxy: string | string[] | ((addr: string, i: number) => boolean);
@@ -27,9 +27,8 @@ export type { EasyWaf };
  */
 export default function easyWaf(conf?: EasyWaf.Config) {
     if (typeof conf === 'object' && conf !== null && !Array.isArray(conf)) {
-
         if (Array.isArray(conf.allowedHTTPMethods)) {
-            for (const [i,] of conf.allowedHTTPMethods.entries()) {
+            for (const [i] of conf.allowedHTTPMethods.entries()) {
                 if (typeof conf.allowedHTTPMethods[i] !== 'string') {
                     /* istanbul ignore next */
                     throw new Error('EasyWafConfig: allowedHTTPMethods may only contain strings!');
@@ -65,7 +64,10 @@ export default function easyWaf(conf?: EasyWaf.Config) {
         config = { ...config, ...conf };
     }
 
-    trustProxy = compileProxyTrust(typeof config.trustProxy !== 'undefined' ? config.trustProxy : []) as string | string[] | ((addr: string, i: number) => boolean);
+    trustProxy = compileProxyTrust(typeof config.trustProxy !== 'undefined' ? config.trustProxy : []) as
+        | string
+        | string[]
+        | ((addr: string, i: number) => boolean);
 
     for (const [, module] of Object.entries(modules)) {
         if (typeof (module as EasyWaf.Module).init === 'function') {
@@ -91,10 +93,10 @@ export default function easyWaf(conf?: EasyWaf.Config) {
             ip,
             method: rawReq.method as string,
             path: '',
-            query: (typeof rawReq.query === 'object' && rawReq.query !== null ? rawReq.query : {}),
+            query: typeof rawReq.query === 'object' && rawReq.query !== null ? rawReq.query : {},
             ua: rawReq.headers['user-agent'] || '',
             url: '',
-            rawReq
+            rawReq,
         };
         try {
             req.url = decodeURIComponent(rawReq.url as string);
@@ -107,7 +109,6 @@ export default function easyWaf(conf?: EasyWaf.Config) {
         }
         const pathRegexRes = req.url.match('^[^?]*');
         req.path = Array.isArray(pathRegexRes) && typeof pathRegexRes[0] === 'string' ? pathRegexRes[0] : '';
-        
 
         if (typeof ipBlacklist !== 'undefined' && ipBlacklist.get(ip)) {
             if (block(req, res, 'IPBlacklist', config)) {
@@ -130,11 +131,14 @@ export default function easyWaf(conf?: EasyWaf.Config) {
         }
 
         for (const [moduleName, module] of Object.entries(modules)) {
-            if(typeof config.modules !== 'undefined' && moduleName in config.modules){
-                if (!config.modules[moduleName as keyof EasyWaf.ConfigModules]?.enabled){
+            if (typeof config.modules !== 'undefined' && moduleName in config.modules) {
+                if (!config.modules[moduleName as keyof EasyWaf.ConfigModules]?.enabled) {
                     continue;
                 }
-                if (config.modules[moduleName as keyof EasyWaf.ConfigModules]?.excludePaths instanceof RegExp && config.modules[moduleName as keyof EasyWaf.ConfigModules]?.excludePaths?.test(req.path)) {
+                if (
+                    config.modules[moduleName as keyof EasyWaf.ConfigModules]?.excludePaths instanceof RegExp &&
+                    config.modules[moduleName as keyof EasyWaf.ConfigModules]?.excludePaths?.test(req.path)
+                ) {
                     continue;
                 }
             }

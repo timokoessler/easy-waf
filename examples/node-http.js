@@ -5,23 +5,20 @@ const host = '127.0.0.1';
 const port = 3000;
 
 const easyWaf = EasyWaf({
-    queryUrlWhitelist: ['github.com']
+    queryUrlWhitelist: ['github.com'],
 });
 
 const server = http.createServer((req, res) => {
-
     easyWaf(req, res, () => {
-
-        if(req.url === '/' && req.method === 'GET'){
+        if (req.url === '/' && req.method === 'GET') {
             res.writeHead(200);
             res.end('Hello world!');
             return;
         }
-    
+
         res.writeHead(404);
         res.end();
     });
-
 });
 
 server.listen(port, host, () => {

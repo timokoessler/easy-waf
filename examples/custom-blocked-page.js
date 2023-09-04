@@ -4,8 +4,9 @@ const app = express();
 
 //Placeholders: {dateTime} {ip} {referenceID} {moduleName}
 
-app.use(easyWaf({
-    customBlockedPage: `<!DOCTYPE html><html lang="en" style="height:95%;">
+app.use(
+    easyWaf({
+        customBlockedPage: `<!DOCTYPE html><html lang="en" style="height:95%;">
         <head>
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,10 +29,11 @@ app.use(easyWaf({
                 </div>
             </div>
         </body>
-    </html>`
-}));
+    </html>`,
+    }),
+);
 
-app.get('/get', function(req, res){
+app.get('/get', function (req, res) {
     res.status(200).send();
 });
 

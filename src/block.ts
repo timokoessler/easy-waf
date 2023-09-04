@@ -3,21 +3,21 @@ import * as logger from './logger';
 import type { EasyWaf } from './types';
 
 /**
- * 
+ *
  */
 export function block(req: EasyWaf.Request, res: EasyWaf.Response, moduleName: string, config: EasyWaf.Config): boolean {
-
     const date = new Date();
     const referenceID = sha256(req.ip + date.getTime());
 
-    if(typeof config.preBlockHook === 'function' && config.preBlockHook(req, moduleName, req.ip) === false){
+    if (typeof config.preBlockHook === 'function' && config.preBlockHook(req, moduleName, req.ip) === false) {
         return false;
     }
 
-    if(!config.dryMode){
-        res.writeHead(403, {'Content-Type': 'text/html'});
-        if(!config.customBlockedPage){
-            res.write(`<!DOCTYPE html><html lang="en" style="height:95%;">
+    if (!config.dryMode) {
+        res.writeHead(403, { 'Content-Type': 'text/html' });
+        if (!config.customBlockedPage) {
+            res.write(
+                `<!DOCTYPE html><html lang="en" style="height:95%;">
                 <head>
                     <meta charset="utf-8">
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,34 +34,43 @@ export function block(req: EasyWaf.Request, res: EasyWaf.Response, moduleName: s
                             <p>This website uses a firewall to protect itself from online attacks.<br>
                             You have sent a suspicious request, therefore your request has been blocked.</p>
                             <hr style="margin-top:1rem;margin-bottom:1rem;border:0;border-top:1px solid rgba(0, 0, 0, 0.1);">
-                            <p>Time: ` + date.toUTCString() + `<br>
-                            Your IP: ` + req.ip + `<br>
-                            Reference ID: ` + referenceID + `</p>
+                            <p>Time: ` +
+                    date.toUTCString() +
+                    `<br>
+                            Your IP: ` +
+                    req.ip +
+                    `<br>
+                            Reference ID: ` +
+                    referenceID +
+                    `</p>
                         </div>
                     </div>
                 </body>
-            </html>`);
+            </html>`,
+            );
         } else {
             const mapObj = {
                 dateTime: date.toUTCString(),
                 ip: req.ip,
                 referenceID: referenceID,
-                moduleName: moduleName
+                moduleName: moduleName,
             };
-            res.write(config.customBlockedPage.replace(/{\w+}/g, (matched) => {
-                return mapObj[matched.slice(1, -1) as keyof typeof mapObj];
-            }));
+            res.write(
+                config.customBlockedPage.replace(/{\w+}/g, (matched) => {
+                    return mapObj[matched.slice(1, -1) as keyof typeof mapObj];
+                }),
+            );
         }
         res.end();
     }
 
     logger.requestBlocked(moduleName, req, referenceID, config);
 
-    if(typeof config.postBlockHook === 'function'){
+    if (typeof config.postBlockHook === 'function') {
         config.postBlockHook(req, moduleName, req.ip);
     }
 
-    if(config.dryMode){
+    if (config.dryMode) {
         return false;
     }
     return true;

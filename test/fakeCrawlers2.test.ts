@@ -10,8 +10,8 @@ fakeCrawlers.init({
     disableLogging: true,
     modules: {
         fakeCrawlers: {
-            enabled: true
-        }
+            enabled: true,
+        },
     },
 });
 
@@ -44,7 +44,8 @@ describe('Googlebot', () => {
         const ok = await fakeCrawlers.check({
             url: '/test?q=123',
             body: undefined,
-            headers: 'user-agent: Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Chrome/W.X.Y.Z Safari/537.36',
+            headers:
+                'user-agent: Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Chrome/W.X.Y.Z Safari/537.36',
             ip: '66.249.90.77',
             method: 'GET',
             path: '/test',
@@ -59,7 +60,8 @@ describe('Googlebot', () => {
         const ok = await fakeCrawlers.check({
             url: '/test?q=123',
             body: undefined,
-            headers: 'user-agent: Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Chrome/W.X.Y.Z Safari/537.36',
+            headers:
+                'user-agent: Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Chrome/W.X.Y.Z Safari/537.36',
             ip: '1.1.1.1',
             method: 'GET',
             path: '/test',

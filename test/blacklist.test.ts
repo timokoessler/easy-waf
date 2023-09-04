@@ -17,7 +17,7 @@ testServer.init({
 test('Request should be blocked (ip blacklist)', () => {
     return request(testServer.app)
         .get('/get')
-        .then(response => {
+        .then((response) => {
             expect(response.statusCode).toBe(403);
-    });
+        });
 });

@@ -4,8 +4,12 @@ const easyWaf = require('easy-waf');
 
 const app = new Koa();
 
-app.use(c2k(easyWaf({
-    queryUrlWhitelist: ['github.com']
-})));
+app.use(
+    c2k(
+        easyWaf({
+            queryUrlWhitelist: ['github.com'],
+        }),
+    ),
+);
 
 app.listen(3000);
