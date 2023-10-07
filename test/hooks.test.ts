@@ -11,7 +11,7 @@ testServer.init({
             enabled: false,
         },
     },
-    preBlockHook: (req, moduleName, ip) => {
+    preBlockHook: async (req, moduleName, ip) => {
         const path = req.url.match('^[^?]*');
         if (moduleName === 'xss' && ['::1', '127.0.0.1', '::ffff:127.0.0.1'].includes(ip) && path?.length && path[0] === '/test') {
             //Do not block xss from localhost at path /test

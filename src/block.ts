@@ -1,15 +1,15 @@
 import { sha256 } from './utils';
-import * as logger from './logger';
+import { logBlockedRequest } from './logger';
 import type { EasyWaf } from './types';
 
 /**
  *
  */
-export function block(req: EasyWaf.Request, res: EasyWaf.Response, moduleName: string, config: EasyWaf.Config): boolean {
+export async function block(req: EasyWaf.Request, res: EasyWaf.Response, moduleName: string, config: EasyWaf.Config): Promise<boolean> {
     const date = new Date();
     const referenceID = sha256(req.ip + date.getTime());
 
-    if (typeof config.preBlockHook === 'function' && config.preBlockHook(req, moduleName, req.ip) === false) {
+    if (typeof config.preBlockHook === 'function' && await config.preBlockHook(req, moduleName, req.ip) === false) {
         return false;
     }
 
@@ -64,10 +64,10 @@ export function block(req: EasyWaf.Request, res: EasyWaf.Response, moduleName: s
         res.end();
     }
 
-    logger.requestBlocked(moduleName, req, referenceID, config);
+    logBlockedRequest(moduleName, req, referenceID, config);
 
     if (typeof config.postBlockHook === 'function') {
-        config.postBlockHook(req, moduleName, req.ip);
+        await config.postBlockHook(req, moduleName, req.ip);
     }
 
     if (config.dryMode) {

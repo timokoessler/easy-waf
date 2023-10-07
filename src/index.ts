@@ -3,7 +3,7 @@ import { Matcher as IPMatcher } from 'netparser';
 import { compileProxyTrust } from './utils';
 import * as modules from './modules';
 import { block } from './block';
-import * as logger from './logger';
+import { log } from './logger';
 import type { EasyWaf } from './types';
 
 let config: EasyWaf.Config = {
@@ -41,7 +41,7 @@ export default function easyWaf(conf?: EasyWaf.Config) {
             /* istanbul ignore next */
             throw new Error('EasyWafConfig: dryMode is not a boolean');
         } else if (conf.dryMode && !conf.disableLogging) {
-            logger.log('Warn', 'DryMode is enabled. Suspicious requests are only logged and not blocked!');
+            log('Warn', 'DryMode is enabled. Suspicious requests are only logged and not blocked!');
         }
 
         if (typeof conf.ipBlacklist !== 'undefined') {
@@ -102,7 +102,7 @@ export default function easyWaf(conf?: EasyWaf.Config) {
             req.url = decodeURIComponent(rawReq.url as string);
         } catch (e) {
             req.url = typeof rawReq.url === 'string' ? rawReq.url : '';
-            if (!block(req, res, 'uriMalformed', config)) {
+            if (!await block(req, res, 'uriMalformed', config)) {
                 next();
             }
             return;
@@ -111,13 +111,13 @@ export default function easyWaf(conf?: EasyWaf.Config) {
         req.path = Array.isArray(pathRegexRes) && typeof pathRegexRes[0] === 'string' ? pathRegexRes[0] : '';
 
         if (typeof ipBlacklist !== 'undefined' && ipBlacklist.get(ip)) {
-            if (block(req, res, 'IPBlacklist', config)) {
+            if (await block(req, res, 'IPBlacklist', config)) {
                 return;
             }
         }
 
         if (Array.isArray(config.allowedHTTPMethods) && !config.allowedHTTPMethods.includes(req.method)) {
-            if (block(req, res, 'HTTPMethod', config)) {
+            if (await block(req, res, 'HTTPMethod', config)) {
                 return;
             }
         }
@@ -143,7 +143,7 @@ export default function easyWaf(conf?: EasyWaf.Config) {
                 }
             }
             const ok = await module.check(req);
-            if (!ok && block(req, res, moduleName, config)) {
+            if (!ok && await block(req, res, moduleName, config)) {
                 return;
             }
         }

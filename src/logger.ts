@@ -18,7 +18,7 @@ export function log(type: EasyWaf.LogType, msg: string) {
 /**
  *
  */
-export function requestBlocked(moduleName: string, req: EasyWaf.Request, referenceID: string, config: EasyWaf.Config) {
+export function logBlockedRequest(moduleName: string, req: EasyWaf.Request, referenceID: string, config: EasyWaf.Config) {
     if (config.disableLogging) return;
     const url = req.url.replace(/(\n|\r|\v)/gi, '').replace(/"/g, '&quot;');
     const ua = req.ua.replace(/(\n|\r|\v)/gi, '').replace(/"/g, '&quot;');

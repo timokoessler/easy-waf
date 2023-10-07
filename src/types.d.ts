@@ -37,11 +37,11 @@ export namespace EasyWaf {
         /**
          * Run your own code after a request is blocked (e.g. send a notification).
          */
-        postBlockHook?: (req: EasyWaf.Request, moduleName: string, ip: string) => void;
+        postBlockHook?: (req: EasyWaf.Request, moduleName: string, ip: string) => void | Promise<void>;
         /**
          * Run your own code before a request is blocked. Return false if the request should not be blocked.
          */
-        preBlockHook?: (req: EasyWaf.Request, moduleName: string, ip: string) => boolean;
+        preBlockHook?: (req: EasyWaf.Request, moduleName: string, ip: string) => boolean | Promise<boolean>;
         /**
          * If a reverse proxy is used, this setting must be configured. See https://www.npmjs.com/package/proxy-addr for possible values.
          */

@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.5.1] - 2023-10-07
+
+_Async Hooks, GitHub Actions and some improvements_
+
+### Changed
+
+-   Hooks can now be async functions
+-   Minimal improvements to sql detection
+-   Prevent false positive xss detection
+-   Publish via GitHub Actions
+-   Added prettier
+-   Updated dependencies
+
 ## [0.5.0] - 2023-07-03
 
 _TypeScript, ESM and Fake Crawlers_
