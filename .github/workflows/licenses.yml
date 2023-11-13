@@ -1,0 +1,22 @@
+name: Check licenses
+
+on:
+    push:
+        branches: ['main']
+    pull_request:
+        branches: ['main']
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - name: Use Node.js 20
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 20.x
+                  cache: 'npm'
+            - name: Install dependencies
+              run: npm ci
+            - name: Check licenses
+              run: npx license-checker-rseidelsohn --onlyAllow 'MIT;ISC;Apache-2.0;BSD-3-Clause;BSD-2-Clause;Python-2.0;CC-BY-4.0;0BSD;OFL-1.1;MPL-2.0;Unlicense;BlueOak-1.0.0;CC-BY-3.0;CC0-1.0' --summary --excludePrivatePackages
