@@ -19,8 +19,8 @@ app.use(easyWaf());
 
 app.listen(3000);
 ```
-
-> ⚠️ This software tries to defend many common attacks while keeping the rate of false positives low. There will always be methods to bypass this WAF. Therefore, using this package is not a reason to neglect security when developing an application.
+> [!WARNING]
+> This software tries to defend many common attacks while keeping the rate of false positives low. There will always be methods to bypass this WAF. Therefore, using this package is not a reason to neglect security when developing an application.
 
 ## Features
 
@@ -40,7 +40,8 @@ app.listen(3000);
 
 ## Installation
 
-> ⚠️ I strongly recommend to activate the "dryMode" at the beginning to be able to identify possible false positives from the logs.
+> [!TIP]
+> I strongly recommend to activate the "dryMode" at the beginning to be able to identify possible false positives from the logs.
 > If EasyWAF should parse bodies, bind a body-parser middleware to your app before adding EasyWAF.
 
 ```bash
