@@ -102,7 +102,7 @@ export default function easyWaf(conf?: EasyWaf.Config) {
             req.url = decodeURIComponent(rawReq.url as string);
         } catch (e) {
             req.url = typeof rawReq.url === 'string' ? rawReq.url : '';
-            if (!await block(req, res, 'uriMalformed', config)) {
+            if (!(await block(req, res, 'uriMalformed', config))) {
                 next();
             }
             return;
@@ -143,7 +143,7 @@ export default function easyWaf(conf?: EasyWaf.Config) {
                 }
             }
             const ok = await module.check(req);
-            if (!ok && await block(req, res, moduleName, config)) {
+            if (!ok && (await block(req, res, moduleName, config))) {
                 return;
             }
         }

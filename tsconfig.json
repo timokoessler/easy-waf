@@ -12,6 +12,6 @@
         "strict": true,
         "allowJs": false,
         "resolveJsonModule": true,
-        "inlineSourceMap": false
-    }
+        "inlineSourceMap": false,
+    },
 }

@@ -9,7 +9,7 @@ export async function block(req: EasyWaf.Request, res: EasyWaf.Response, moduleN
     const date = new Date();
     const referenceID = sha256(req.ip + date.getTime());
 
-    if (typeof config.preBlockHook === 'function' && await config.preBlockHook(req, moduleName, req.ip) === false) {
+    if (typeof config.preBlockHook === 'function' && (await config.preBlockHook(req, moduleName, req.ip)) === false) {
         return false;
     }
 
