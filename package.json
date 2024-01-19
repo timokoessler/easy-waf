@@ -1,14 +1,14 @@
 {
     "name": "easy-waf",
-    "version": "0.5.1",
+    "version": "0.5.2",
     "description": "An easy-to-use Web Application Firewall (WAF) for Node.js",
-    "main": "dist/index.cjs",
+    "main": "dist/index.js",
     "module": "dist/index.js",
     "types": "./dist/index.d.ts",
     "exports": {
         ".": {
-            "import": "./dist/index.js",
-            "require": "./dist/index.cjs"
+            "import": "./dist/index.mjs",
+            "require": "./dist/index.js"
         }
     },
     "scripts": {
@@ -46,7 +46,7 @@
         "@types/jest": "^29.4.0",
         "@types/node": "^20.3.2",
         "@types/proxy-addr": "^2.0.0",
-        "@types/supertest": "^2.0.12",
+        "@types/supertest": "^6.0.2",
         "@typescript-eslint/eslint-plugin": "^6.5.0",
         "@typescript-eslint/parser": "^6.5.0",
         "eslint": "^8.32.0",
@@ -55,7 +55,7 @@
         "license-checker-rseidelsohn": "^4.2.10",
         "prettier": "^3.0.3",
         "supertest": "^6.2.4",
-        "tsup": "^7.1.0",
+        "tsup": "^8.0.1",
         "typescript": "^5.1.6"
     },
     "dependencies": {

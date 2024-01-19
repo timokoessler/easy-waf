@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.5.2] - 2024-01-19
+
+_Fix CommonJS import_
+
+### Changed
+
+-   Fix package.json - CommonJS import now works again
+-   Update dependencies
+
 ## [0.5.1] - 2023-10-07
 
 _Async Hooks, GitHub Actions and some improvements_
