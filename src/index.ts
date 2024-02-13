@@ -5,6 +5,7 @@ import * as modules from './modules';
 import { block } from './block';
 import { log } from './logger';
 import type { EasyWaf } from './types';
+import type { IncomingMessage } from 'http';
 
 let config: EasyWaf.Config = {
     dryMode: false,
@@ -75,7 +76,14 @@ export default function easyWaf(conf?: EasyWaf.Config) {
         }
     }
 
-    return async function EasyWaf(rawReq: EasyWaf.RawRequest, res: EasyWaf.Response, next: () => void) {
+    return async function EasyWaf(
+        rawReq: IncomingMessage & {
+            body?: unknown;
+            query?: unknown;
+        },
+        res: EasyWaf.Response,
+        next: () => void,
+    ) {
         const ip = proxyaddr(rawReq, trustProxy);
 
         if (typeof ip === 'undefined') {

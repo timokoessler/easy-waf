@@ -60,6 +60,7 @@ export namespace EasyWaf {
         openRedirect?: ConfigModule;
         prototypePollution?: ConfigModule;
         sqlInjection?: ConfigModule;
+        xmlInjection?: ConfigModule;
         xss?: ConfigModule;
     };
 
@@ -74,13 +75,13 @@ export namespace EasyWaf {
         excludePaths?: RegExp;
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars -- This type is used
     type Module = {
         init?: (config: EasyWaf.Config) => void;
         check: (req: EasyWaf.Request) => boolean;
     };
 
-    type LogType = 'Info' | 'Warn' | 'Error';
-
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars -- This type is used
     type Response = ServerResponse;
     type Request = {
         /**
@@ -107,10 +108,5 @@ export namespace EasyWaf {
          */
         ua: string;
         url: string;
-    };
-
-    type RawRequest = IncomingMessage & {
-        body?: unknown;
-        query?: unknown;
     };
 }

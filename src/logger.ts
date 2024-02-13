@@ -3,7 +3,7 @@ import type { EasyWaf } from './types';
 /**
  *
  */
-export function log(type: EasyWaf.LogType, msg: string) {
+export function log(type: 'Info' | 'Warn' | 'Error', msg: string) {
     if (type === 'Info') {
         /* istanbul ignore next */
         console.info(`EasyWAF - Info: ${msg} - ${new Date().getTime()}`);

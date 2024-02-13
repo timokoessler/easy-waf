@@ -9,3 +9,4 @@ export { default as openRedirect } from './openRedirect';
 export { default as prototypePollution } from './prototypePollution';
 export { default as sqlInjection } from './sqlInjection';
 export { default as xss } from './xss';
+export { default as xmlInjection } from './xmlInjection';
