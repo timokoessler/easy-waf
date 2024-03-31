@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.6.0] - 2024-03-31
+
+_XML Injection, Prototype Pollution and Markdown updates_
+
+### Added
+
+-   XML injection module to prevent very basic and common xml attacks
+-   Added notice that this project is more an educational tool and not a professional security solution
+
+### Changed
+
+-   Improve prototype pollution detection
+-   Update dev dependencies fixing CVE-2024-29041
+
 ## [0.5.2] - 2024-01-19
 
 _Fix CommonJS import_
