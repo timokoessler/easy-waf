@@ -46,7 +46,11 @@ testServer.foreachFile(__dirname + '/allow', (lines, fileName) => {
                         .set('Content-Type', 'application/json')
                         .send(line)
                         .then((response) => {
-                            expect(response.statusCode).toBe(200);
+                            if (fileName.includes('xml')) {
+                                expect(response.statusCode).toBe(400);
+                            } else {
+                                expect(response.statusCode).toBe(200);
+                            }
                         });
                 });
             }

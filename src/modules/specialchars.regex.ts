@@ -38,3 +38,5 @@ export const dollar = '(\\$|%24|\\+ACQ-|\\\\u0024|\\\\x0{0,}24)';
 export const minus = '(-|%2D|\\\\u002d|\\\\x0{0,}2d)';
 //%
 export const percent = '(%|%25|\\+ACU-|\\\\u0025|\\\\x0{0,}25)';
+// !
+export const exclamation = '(!|%21|\\+ACE-|\\\\u0021|\\\\x0{0,}21)';

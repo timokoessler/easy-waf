@@ -55,3 +55,7 @@ A JavaScript vulnerability that allows an attacker to add properties to global o
 
 An attempt to manipulate an SQL query, similar to NoSQL injections. Detection leads to blocking of the request.  
 [OSWAP: SQL Injection](https://owasp.org/www-community/attacks/SQL_Injection)
+
+## XML Injection
+
+A vulnerability that allows an attacker to inject malicious code into XML files. This module tries to prevent very basic and common xml attacks.

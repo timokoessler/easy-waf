@@ -1,0 +1,3 @@
+!Body
+<?xml version="1.0"?> <catalog> <book id="bk101"> <author>Gambardella, Matthew</author> <title>XML Developer's Guide</title> <genre>Computer</genre> <price>44.95</price> <publish_date>2000-10-01</publish_date> <description>An in-depth look at creating applications with XML.</description> </book>
+<?xml version="1.0"?> <customers> <customer id="55000"> <name>Charter Group</name> <address> <street>100 Main</street> <city>Framingham</city> <state>MA</state> <zip>01701</zip> </address> <address> <street>720 Prospect</street> <city>Framingham</city> <state>MA</state> <zip>01701</zip> </address> <address> <street>120 Ridge</street> <state>MA</state> <zip>01760</zip> </address> </customer> </customers>

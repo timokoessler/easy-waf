@@ -1,7 +1,9 @@
 import type { EasyWaf } from './types';
 
 /**
- *
+ * Log a message to the Node.js console
+ * @param type - The type of the log message (Info, Warn, Error)
+ * @param msg - The message to log
  */
 export function log(type: 'Info' | 'Warn' | 'Error', msg: string) {
     if (type === 'Info') {
@@ -16,7 +18,11 @@ export function log(type: 'Info' | 'Warn' | 'Error', msg: string) {
 }
 
 /**
- *
+ * Log a blocked request to the Node.js console
+ * @param moduleName - The name of the module that blocked the request
+ * @param req - The request object
+ * @param referenceID - The reference ID of the request
+ * @param config - The EasyWAF configuration object
  */
 export function logBlockedRequest(moduleName: string, req: EasyWaf.Request, referenceID: string, config: EasyWaf.Config) {
     if (config.disableLogging) return;
