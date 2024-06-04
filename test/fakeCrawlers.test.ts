@@ -74,7 +74,7 @@ describe('Bing', () => {
             url: '/test?q=123',
             body: undefined,
             headers: 'user-agent: Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)',
-            ip: '157.55.39.1',
+            ip: '207.46.13.14',
             method: 'GET',
             path: '/test',
             ua: 'Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)',
