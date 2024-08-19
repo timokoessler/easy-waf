@@ -9,6 +9,9 @@ An easy-to-use Web Application Firewall (WAF) for Node.js. Can be used with Expr
 [![codecov](https://codecov.io/gh/timokoessler/easy-waf/branch/main/graph/badge.svg?token=62LUMSMRL0)](https://codecov.io/gh/timokoessler/easy-waf)
 [![install size](https://packagephobia.com/badge?p=easy-waf)](https://packagephobia.com/result?p=easy-waf)
 
+> [!TIP]
+> Take a look at [Aikido Firewall](https://github.com/AikidoSec/firewall-node) if you are searching for a professional solution with less false positives, better performance and a web dashboard for monitoring your application.
+
 ```javascript
 import express from 'express';
 import easyWaf from 'easy-waf'; // CommonJS: require('easy-waf').default;
@@ -21,9 +24,6 @@ app.listen(3000);
 
 > [!WARNING]
 > This software tries to defend many common attacks while keeping the rate of false positives low. There will always be methods to bypass this WAF. Therefore, using this package is not a reason to neglect security when developing an application. Always validate user input! This software should be used with caution and is more an educational tool than a professional security solution.
-
-> [!TIP]
-> Take a look at [Aikido Firewall](https://github.com/AikidoSec/firewall-node) if you are searching for a professional solution with less false positives, better performance and a web dashboard for monitoring your application.
 
 ## Features
 
