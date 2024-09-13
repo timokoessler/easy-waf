@@ -10,7 +10,7 @@ An easy-to-use Web Application Firewall (WAF) for Node.js. Can be used with Expr
 [![install size](https://packagephobia.com/badge?p=easy-waf)](https://packagephobia.com/result?p=easy-waf)
 
 > [!TIP]
-> Take a look at [Aikido Firewall](https://github.com/AikidoSec/firewall-node) if you are searching for a professional solution with less false positives, better performance and a web dashboard for monitoring your application.
+> Have a look at [Zen by Aikido](https://www.aikido.dev/zen) if you are looking for a professional embedded firewall with fewer false positives, better performance and a web dashboard to monitor your Node.js or Python app.
 
 ```javascript
 import express from 'express';
