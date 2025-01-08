@@ -1,5 +1,9 @@
 # Easy WAF (Beta) 🧱
 
+> [!TIP]
+> Have a look at [Zen by Aikido](https://www.aikido.dev/zen) if you are looking for a professional embedded firewall with fewer false positives, better performance and a web dashboard to monitor your app.
+> Available for [Node.js](https://github.com/AikidoSec/firewall-node), [Python](https://github.com/AikidoSec/firewall-python) and [PHP](https://github.com/AikidoSec/firewall-php).
+
 An easy-to-use Web Application Firewall (WAF) for Node.js. Can be used with Express, Fastify, NextJS, NuxtJS ... or Node.js http.
 
 [![npm version](https://badgen.net/npm/v/easy-waf)](https://www.npmjs.com/package/easy-waf)
@@ -8,9 +12,6 @@ An easy-to-use Web Application Firewall (WAF) for Node.js. Can be used with Expr
 [![CodeFactor](https://www.codefactor.io/repository/github/timokoessler/easy-waf/badge)](https://www.codefactor.io/repository/github/timokoessler/easy-waf)
 [![codecov](https://codecov.io/gh/timokoessler/easy-waf/branch/main/graph/badge.svg?token=62LUMSMRL0)](https://codecov.io/gh/timokoessler/easy-waf)
 [![install size](https://packagephobia.com/badge?p=easy-waf)](https://packagephobia.com/result?p=easy-waf)
-
-> [!TIP]
-> Have a look at [Zen by Aikido](https://www.aikido.dev/zen) if you are looking for a professional embedded firewall with fewer false positives, better performance and a web dashboard to monitor your Node.js or Python app.
 
 ```javascript
 import express from 'express';

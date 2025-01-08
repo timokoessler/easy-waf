@@ -5,7 +5,7 @@ import { createHash } from 'node:crypto';
 /**
  * Extends the proxyaddr.compile function so that functions, numbers and Boolean values can also be used in the configuration.
  */
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 export function compileProxyTrust(val: string | string[] | Function | boolean | number): Function {
     if (typeof val === 'function') {
         return val;

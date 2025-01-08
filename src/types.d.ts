@@ -45,7 +45,7 @@ export namespace EasyWaf {
         /**
          * If a reverse proxy is used, this setting must be configured. See https://www.npmjs.com/package/proxy-addr for possible values.
          */
-        // eslint-disable-next-line @typescript-eslint/ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         trustProxy?: string | string[] | Function | boolean | number;
     };
 
