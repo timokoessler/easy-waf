@@ -1,8 +1,10 @@
-# Easy WAF (Beta) 🧱
+# Easy WAF 🧱
 
-> [!TIP]
-> Have a look at [Zen by Aikido](https://www.aikido.dev/zen) if you are looking for a professional embedded firewall with fewer false positives, better performance and a web dashboard to monitor your app.
-> Available for [Node.js](https://github.com/AikidoSec/firewall-node), [Python](https://github.com/AikidoSec/firewall-python) and [PHP](https://github.com/AikidoSec/firewall-php).
+> [!CAUTION]
+> This project is no longer actively maintained. Have a look at [Zen by Aikido](https://www.aikido.dev/zen) if you are looking for a professional embedded firewall with fewer false positives, better performance and a web dashboard to monitor your app.
+> Available for [Node.js](https://github.com/AikidoSec/firewall-node), [Python](https://github.com/AikidoSec/firewall-python), [PHP](https://github.com/AikidoSec/firewall-php) and [Java](https://github.com/AikidoSec/firewall-java)
+
+---
 
 An easy-to-use Web Application Firewall (WAF) for Node.js. Can be used with Express, Fastify, NextJS, NuxtJS ... or Node.js http.
 
@@ -28,19 +30,19 @@ app.listen(3000);
 
 ## Features
 
--   Restrict allowed HTTP methods and add your own ip black- and whitelist
--   Blocks requests from bad bots and fake crawlers
--   Blocks malicious requests:
-    -   CRLF Injection
-    -   Cross-Site-Scripting (XSS)
-    -   Directory / Path Traversal
-    -   HTTP Parameter Pollution
-    -   Open Redirect / Server Side Request Forgery (SSRF) (queryUrlWhitelist option must be set)
-    -   Prototype Pollution
-    -   SQL Injections and NoSQL Injections
--   Can block requests from the Tor network (disabled by default)
--   Compatible with many popular web frameworks and with the integrated Node.js HTTP server
--   Supports ES modules and CommonJS
+- Restrict allowed HTTP methods and add your own ip black- and whitelist
+- Blocks requests from bad bots and fake crawlers
+- Blocks malicious requests:
+    - CRLF Injection
+    - Cross-Site-Scripting (XSS)
+    - Directory / Path Traversal
+    - HTTP Parameter Pollution
+    - Open Redirect / Server Side Request Forgery (SSRF) (queryUrlWhitelist option must be set)
+    - Prototype Pollution
+    - SQL Injections and NoSQL Injections
+- Can block requests from the Tor network (disabled by default)
+- Compatible with many popular web frameworks and with the integrated Node.js HTTP server
+- Supports ES modules and CommonJS
 
 ## Installation
 
@@ -120,14 +122,14 @@ A short description of all modules can be found in [src/modules](src/modules).
 
 If a public GitHub issue or discussion is not the right choice for your concern, you can contact me directly:
 
--   E-Mail: [info@timokoessler.de](mailto:info@timokoessler.de)
--   Twitter: [@timokoessler](https://twitter.com/timokoessler)
+- E-Mail: [info@timokoessler.de](mailto:info@timokoessler.de)
+- Twitter: [@timokoessler](https://twitter.com/timokoessler)
 
 ## Sources
 
--   [Payloads All The Thing: A list of useful payloads and bypass for Web Application Security](https://github.com/swisskyrepo/PayloadsAllTheThings)
--   [HackTricks: A free hacking book](https://book.hacktricks.xyz/pentesting-web/)
--   [Nginx Ultimate Bad Bot Blocker: The source of the bad bots list for EasyWAF](https://github.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker)
+- [Payloads All The Thing: A list of useful payloads and bypass for Web Application Security](https://github.com/swisskyrepo/PayloadsAllTheThings)
+- [HackTricks: A free hacking book](https://book.hacktricks.xyz/pentesting-web/)
+- [Nginx Ultimate Bad Bot Blocker: The source of the bad bots list for EasyWAF](https://github.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker)
 
 ## License
 
